@@ -89,7 +89,7 @@ function nh_validate_frm($errors, $posted_field, $posted_value) {
 // Check guide titles	
 	if ($posted_field->id == 284 OR $posted_field->id == 289 OR $posted_field->id == 294 OR $posted_field->id == 298 OR $posted_field->id == 303 OR $posted_field->id == 308 OR $posted_field->id == 313 OR $posted_field->id == 318 OR $posted_field->id == 323 OR $posted_field->id == 328 OR $posted_field->id == 333 OR $posted_field->id == 338 OR $posted_field->id == 343 OR $posted_field->id == 348 OR $posted_field->id == 352 OR $posted_field->id == 358) { 
 		if (strlen($posted_value) > 75 AND !empty($posted_value)) {
-			$errors['field'. $posted_field->id] = '<strong>ERROR</strong>: Please enter a title that is fewer than 85 characters.';
+			$errors['field'. $posted_field->id] = '<strong>ERROR</strong>: Please enter a title that is fewer than 100 characters.';
 		}
 		if (!preg_match("/^[a-zA-Z0-9 !&\\\',-]+$/", $posted_value) AND !empty($posted_value)) {
 			$errors['field'. $posted_field->id] = '<strong>ERROR</strong>: Invalid characters. Please enter a title using only letters, space, comma, hyphen, and apostrophe.';	
