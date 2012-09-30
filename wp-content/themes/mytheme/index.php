@@ -152,7 +152,7 @@ $page_id = get_ID_by_slug('about');
 $post = get_post($page_id); 
 $content = $post->post_content;
 $content = strip_tags($content,'<p>,<a>');
-$content = trim_by_words($content,'98');
+$content = trim_by_words($content,'98','');
 if (is_user_logged_in()) {
 	$content = trim_by_words($content,'90',nh_continue_reading_link());
 } 
