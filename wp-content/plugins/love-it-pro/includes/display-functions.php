@@ -59,9 +59,9 @@ function lip_love_it_link($post_id = null, $link_text = null, $already_loved = n
 		if (!lip_user_has_loved_post($user_ID, $post_id)) {
 			echo '<a ';
 			if (!is_user_logged_in()) {
-				echo 'id="likethis" rel="tooltip" data-placement="bottom" href="#" data-title="If you&#39;re signed in, Likes will be saved in your Profile."';
+				echo 'rel="tooltip" data-placement="bottom" href="#" data-title="If you&#39;re signed in, Likes will be saved in your Profile."';
 			}
-			echo ' class="love-it nh-btn-blue" data-post-id="' . $post_id . '" data-user-id="' .  $user_ID . '">Like this</a>';
+			echo ' id="likethis" class="love-it nh-btn-blue" data-post-id="' . $post_id . '" data-user-id="' .  $user_ID . '">Like this</a>';
 		} 
 		else {
 // Seems to duplicate php if/else on page ??			
