@@ -634,7 +634,7 @@ div.tab-content p {
 ul.guide-steps{ }
 
 li.guide-step:first-child { 
-	margin:0 0 0 0;
+	margin:.25em 0 0 0;
 	border-top:none;
 	padding-top:.5em;
 	padding-bottom:.25em;
