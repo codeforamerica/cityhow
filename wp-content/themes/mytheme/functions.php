@@ -82,27 +82,12 @@ add_action( 'init' , 'register_cities_tax' );
 
 
 /*--------- CREATE / EDIT GUIDE FUNCTIONS -------*/
-// Show users city as placeholder on create guide
-// used in Formidable Create Guide form
-/*
-add_filter('frm_get_default_value', 'nh_city_default', 10, 2);
-function nh_city_default($new_value, $field){
-	global $current_user;
-	get_currentuserinfo();
-	if($field->id == 252){ 
-		$user_city = get_user_meta($current_user->ID,'user_city',true);
-		$new_value = $user_city;
-	}
-	return $new_value;
-}
-*/
-
 // Validate FRM forms
 add_filter('frm_validate_field_entry', 'nh_validate_frm', 20, 3);
 
 function nh_validate_frm($errors, $posted_field, $posted_value) {
 // Check guide titles	
-	if ($posted_field->id == 249 OR $posted_field->id == 254 OR $posted_field->id == 259 OR $posted_field->id == 263 OR $posted_field->id == 268 OR $posted_field->id == 273 OR $posted_field->id == 278 OR $posted_field->id == 283 OR $posted_field->id == 288 OR $posted_field->id == 293 OR $posted_field->id == 298 OR $posted_field->id == 303 OR $posted_field->id == 308 OR $posted_field->id == 313 OR $posted_field->id == 317 OR $posted_field->id == 323) { 
+	if ($posted_field->id == 284 OR $posted_field->id == 289 OR $posted_field->id == 294 OR $posted_field->id == 298 OR $posted_field->id == 303 OR $posted_field->id == 308 OR $posted_field->id == 313 OR $posted_field->id == 318 OR $posted_field->id == 323 OR $posted_field->id == 328 OR $posted_field->id == 333 OR $posted_field->id == 338 OR $posted_field->id == 343 OR $posted_field->id == 348 OR $posted_field->id == 352 OR $posted_field->id == 358) { 
 		if (strlen($posted_value) > 75 AND !empty($posted_value)) {
 			$errors['field'. $posted_field->id] = '<strong>ERROR</strong>: Please enter a title that is fewer than 75 characters.';
 		}
@@ -112,7 +97,7 @@ function nh_validate_frm($errors, $posted_field, $posted_value) {
 	}
 // Check guide descriptions - not checking special chars
 // to allow newline and html - let WP handle this for now
-		if ($posted_field->id == 250 OR $posted_field->id == 255 OR $posted_field->id == 260 OR $posted_field->id == 264 OR $posted_field->id == 269 OR $posted_field->id == 274 OR $posted_field->id == 279 OR $posted_field->id == 284 OR $posted_field->id == 289 OR $posted_field->id == 294 OR $posted_field->id == 299 OR $posted_field->id == 304 OR $posted_field->id == 309 OR $posted_field->id == 322 OR $posted_field->id == 321 OR $posted_field->id == 324) { 
+		if ($posted_field->id == 285 OR $posted_field->id == 290 OR $posted_field->id == 295 OR $posted_field->id == 299 OR $posted_field->id == 304 OR $posted_field->id == 309 OR $posted_field->id == 314 OR $posted_field->id == 319 OR $posted_field->id == 324 OR $posted_field->id == 329 OR $posted_field->id == 334 OR $posted_field->id == 339 OR $posted_field->id == 344 OR $posted_field->id == 357 OR $posted_field->id == 356 OR $posted_field->id == 359) { 
 			$words = explode(' ', $posted_value);
 			$count = count($words);
 			if ($count > 250 AND !empty($posted_value)) {
@@ -128,7 +113,6 @@ if ($posted_field->id == 544 AND !empty($posted_value)) {
 		$errors['field'. $posted_field->id] = '<strong>ERROR</strong>: Invalid characters. Please enter tags using only letters and spaces. Enter a comma between tags.';	
 	}
 }
-
 // Feedback Title
 		if ($posted_field->id == 99 AND !empty($posted_value)) { 
 			if (strlen($posted_value) > 75 AND !empty($posted_value)) {
@@ -209,10 +193,10 @@ function nh_redirect_frm($url, $form, $params){
 	$item_key = $_POST['item_key'];
 	$user_login = $user_info->user_login;
 
-	if($form->id == 8 and $params['action'] == 'create'){ 
+	if($form->id == 12 and $params['action'] == 'create'){ 
 		$url = $app_url.'/edit-guide?entry='.$item_key.'&action=edit&ref=create';
 	}
-	if($form->id == 8 and $params['action'] == 'update'){
+	if($form->id == 12 and $params['action'] == 'update'){
 		$url = $app_url.'/edit-guide?entry='.$item_key.'&action=edit&ref=update';
 	}
 return $url;
@@ -253,7 +237,7 @@ function nh_save_as_draft($form){
 	$tmp_item_id = nh_get_frm_key_id ($item_key);
 	$tmp_post_id = nh_get_frm_id_post_id ($tmp_item_id);
 
-	if($form->id == 8 AND $_GET['ref'] == 'update') {
+	if($form->id == 12 AND $_GET['ref'] == 'update') {
 		$current_post = get_post( $tmp_post_id, 'ARRAY_A' );
 		$current_post['post_status'] = $status;
 		wp_update_post($current_post);
@@ -298,11 +282,12 @@ function nh_frontend_delete_post() {
 /* ----- ADD CLASS TO FORM FOR JS AUTOCOMPLETE -----------*/
 add_filter('frm_field_classes', 'add_input_class', 10, 2);
 function add_input_class($classes, $field) {
-  if($field['id'] == 546) {
+  if($field['id'] == 442) {
      $classes .= ' guide_tag';
   }
   return $classes;
 }
+
 
 
 
