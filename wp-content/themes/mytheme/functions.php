@@ -91,7 +91,7 @@ function nh_validate_frm($errors, $posted_field, $posted_value) {
 		if (strlen($posted_value) > 75 AND !empty($posted_value)) {
 			$errors['field'. $posted_field->id] = '<strong>ERROR</strong>: Please enter a title that is fewer than 75 characters.';
 		}
-		if (!preg_match("/^[a-zA-Z0-9 !\\\',-]+$/", $posted_value) AND !empty($posted_value)) {
+		if (!preg_match("/^[a-zA-Z0-9 !&\\\',-]+$/", $posted_value) AND !empty($posted_value)) {
 			$errors['field'. $posted_field->id] = '<strong>ERROR</strong>: Invalid characters. Please enter a title using only letters, space, comma, hyphen, and apostrophe.';	
 		}
 	}
