@@ -700,6 +700,11 @@ div.single-guide-img img{
 	-moz-border-radius:4px;
 	border-radius:4px;
 }
+img.guide-attach {
+	margin-top:.75em !important;
+	width:46px !important;
+	height:60px !important;
+}
 /*
 li.guide-step:nth-child(odd) {
 	background:#f5f5f5;

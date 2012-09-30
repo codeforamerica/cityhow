@@ -94,8 +94,8 @@ if (!empty($nh_error_keys)) {
 		
 		<div class="form-item">
 			<label class="nh-form-label" for="email"><?php _e( 'Email Address', 'theme-my-login' ); ?></label>
-			<input type="email" name="email" id="email" value="<?php echo esc_attr( $profileuser->user_email ) ?>" disabled="disabled" class="regular-text" tabindex="20" />				
-			<div class="help-block <?php foreach ($nh_error_keys as $key) { if ($key == "empty_email" OR $key == "invalid_email" OR $key == "email_exists") { echo 'nh-error'; }} ?>"><span class="txt-help">If your phila.gov email address has changed and you want to update it on CityHow, please <strong><a href="<?php echo $app_url;?>/contact" title="Email us">contact us</a></strong>. Your email is not visible to other users.</span>
+			<input type="email" name="email" id="email" value="<?php echo esc_attr( $profileuser->user_email ) ?>" class="regular-text" tabindex="20" />				
+			<div class="help-block <?php foreach ($nh_error_keys as $key) { if ($key == "empty_email" OR $key == "invalid_email" OR $key == "email_exists") { echo 'nh-error'; }} ?>"><span class="txt-help">This site is limited to Phila.gov users, so you should keep using your Phila.gov email address. Your email is not visible to other users.</span>
 			</div>
 		</div>			
 

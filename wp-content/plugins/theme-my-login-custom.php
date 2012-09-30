@@ -51,18 +51,6 @@ function tml_registration_errors( $errors ) {
 	}
 	
 // User City -- default for all is Philadelphia PA
-/*
-	if ( empty( $_POST['user_city'] ) ) {
-		$errors->add( 'empty_user_city', '<strong>ERROR</strong>: Please enter the name of your city.' );	
-	}
-	if ( !empty( $_POST['user_city'] ) ) {
-		$value_user_city = trim($_POST['user_city']);			
-		$value_user_city = sanitize_text_field($value_user_city);
-		if (!preg_match("/^[a-zA-Z \\\'-]+$/", $value_user_city)) {
-			$errors->add( 'invalid_user_city', '<strong>ERROR</strong>: Invalid characters in city name. Please enter a city name using only letters, space, hyphen, and apostrophe.' );
-		}
-	}
-*/
 
 // User Organization - validate how?
 	if ( !empty( $_POST['user_org'] ) ) {
@@ -98,11 +86,6 @@ function tml_user_register( $user_id ) {
 	}
 
 // USER CITY - default for all is Philadelphia PA
-/*	if ( !empty( $_POST['user_city'] ) ) {
-		$un_user_city = trim($_POST['user_city']);
-		$nh_user_city = sanitize_text_field($un_user_city);			
-	}
-*/	
 	$nh_user_city = 'Philadelphia PA';
 	update_user_meta($user_id, 'user_city', $nh_user_city);
 
@@ -181,11 +164,12 @@ function nh_save_extra_profile_fields( &$errors, $update, &$user ) {
 		}
 
 // USER CITY
-		if ( !empty( $_POST['user_city'] ) ) {
+/*		if ( !empty( $_POST['user_city'] ) ) {
 				$un_user_city = trim($_POST['user_city']);
 				$nh_user_city = sanitize_text_field($un_user_city);		
 		}
 		update_user_meta($user->ID, 'user_city', $nh_user_city);
+*/
 		
 // USER ORGANIZATION
 		if ( !empty( $_POST['user_org'] ) ) {

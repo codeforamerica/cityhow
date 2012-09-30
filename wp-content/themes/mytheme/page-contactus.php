@@ -34,7 +34,7 @@ endif;
 
 			</div><!--/ content-->
 
-<?php get_sidebar('misc');?>
+<?php get_sidebar('about');?>
 					
 		</div><!--/ main-->
 	</div><!--/ content-->
