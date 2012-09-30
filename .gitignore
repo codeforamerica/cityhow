@@ -1,0 +1,4 @@
+.DS_Store
+/wp-content/writable
+/wp-content/uploads
+/wp-content/themes/mytheme/lib/cache
