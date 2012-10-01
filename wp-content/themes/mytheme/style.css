@@ -868,6 +868,7 @@ div.jetpack-cat-guides {
 	text-align: left;
 	margin-left: -.5em;
 }
+/*dont let sharedaddy automatically put icons on page/post */
 div.sharedaddy, 
 #content div.sharedaddy, 
 #main div.sharedaddy {
