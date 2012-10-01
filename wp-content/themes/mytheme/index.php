@@ -134,7 +134,7 @@ $fdbk_sub_query->the_post();
 $guide_answer = get_post_meta($post->ID,'gde-answer');
 $guide_answer_url = get_post_meta($post->ID,'gde-answer-url',true);
 if ($guide_answer) {
-	echo '<a href="'.$guide_answer_url.'" title="View this Guide"><span class="answered">Answered in this Guide!</span></a>';
+	echo '<span class="answered"><a href="'.$guide_answer_url.'" title="View this Guide">Answered in this Guide!</a></span>';
 }
 else {
 	echo '<span class="byline">added</span> '.get_the_date().'</span>';
