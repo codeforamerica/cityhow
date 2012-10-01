@@ -22,7 +22,7 @@
 <?php 
 $tmp = get_the_content();
 $new_content = strip_tags($tmp,'<p>');
-$content_trimmed = trim_by_words($new_content,'24',nh_continue_reading_link());
+$content_trimmed = trim_by_chars($new_content,'70',nh_continue_reading_link());
 echo '<p>'.$content_trimmed.'</p>';?>
 	
 <?php
