@@ -65,7 +65,13 @@ foreach ($category as $cat) {
 	echo '</a>';
 }
 ?>
-			</p>													
+			</p>
+<?php
+$guide_answer = get_post_meta($post->ID,'gde-answer',true);
+if ($guide_answer) {
+	echo '<p class="comment-meta"><span class="answered"><a href="'.$guide_answer.'" title="View this Guide">Answered in this Guide!</a></span></p>';
+}
+?>																
 		</div>
 		<div class="nh-vote-count"><span class="nh-vote-count  vote-<?php echo $post->ID;?>">
 <?php echo nh_get_vote_count($post->ID);?></span>

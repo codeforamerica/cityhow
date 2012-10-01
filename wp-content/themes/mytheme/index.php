@@ -132,7 +132,6 @@ $fdbk_sub_query->the_post();
 
 <?php
 $guide_answer = get_post_meta($post->ID,'gde-answer',true);
-//$guide_answer_url = get_post_meta($post->ID,'gde-answer-url',true);
 if ($guide_answer) {
 	echo '<span class="answered"><a href="'.$guide_answer.'" title="View this Guide">Answered in this Guide!</a></span>';
 }
