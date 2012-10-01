@@ -41,7 +41,7 @@ $user_guide_cities = get_post_meta($post->ID,'gde-user-city',true);
 if (!empty($post_cities)) {
 	foreach ($post_cities as $post_city) {
 		$city = substr($post_city->name,0,-3); //remove state		
-		$city_string .= '<a class="nhline" href="'.$app_url.'/cities/'.$post_city->slug.'" title="See other CityHow content for '.$city.'">City of '.$city.'</a>, ';
+		$city_string .= '<a class="nhline" href="'.$app_url.'/cities/'.$post_city->slug.'" title="See all content for '.$city.'">City of '.$city.'</a>, ';
 	}
 	echo rtrim($city_string, ', ');
 }
@@ -123,7 +123,7 @@ foreach($post_tags as $tag){
 if (!empty($post_cities)) {
 	foreach ($post_cities as $post_city) {
 		$city = substr($post_city->name,0,-3); //remove state		
-		echo '<li><a class="nhline" href="'.$app_url.'/cities/'.$post_city->slug.'" title="See other CityHow content for this city">'.$city.'</a></li>';
+		echo '<li><a class="nhline" href="'.$app_url.'/cities/'.$post_city->slug.'" title="See all content for '.$city.'">City of '.$city.'</a></li>';
 	}
 }
 ?>						
