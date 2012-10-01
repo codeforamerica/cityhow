@@ -40,15 +40,18 @@ if ($categories) {
 	}	
 }
 // Get the post city info
+echo $post->ID.'<br/';
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
 if ($post_cities) {
 	$post_cities_count = count($post_cities);
-//	var_dump($post_cities_count).'<br/>';
+	var_dump($post_cities_count).'<br/>';
 	foreach ($post_cities as $city) {
 		if ($post_cities_count == '1') {
+			echo 'only one';
 			echo ' + <a href="'.$app_url.'/cities/'.$city->slug.'" title="See all Neighborhow content for '.$city->name.'">'.$city->name.'</a>';
 		}
 		elseif ($post_cities_count > 1) {
+			echo 'more than one';			
 			$city_names .= ' + <a href="'.$app_url.'/cities/'.$city->slug.'" title="See all Neighborhow content for '.$city->name.'">'.$city->name.'</a>';
 		}
 	}
