@@ -40,24 +40,26 @@ if ($categories) {
 	}	
 }
 // Get the post city info
-echo $post->ID.'<br/';
+// Diff than nhow - idea have cities in cityhow 
+// so dont need the idea city loop
+// Get the post city info
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
 if ($post_cities) {
 	$post_cities_count = count($post_cities);
-	var_dump($post_cities_count).'<br/>';
+//	var_dump($post_cities_count);
 	foreach ($post_cities as $city) {
 		if ($post_cities_count == '1') {
-			echo 'only one';
 			echo ' + <a href="'.$app_url.'/cities/'.$city->slug.'" title="See all Neighborhow content for '.$city->name.'">'.$city->name.'</a>';
 		}
 		elseif ($post_cities_count > 1) {
-			echo 'more than one';			
-			$city_names .= ' + <a href="'.$app_url.'/cities/'.$city->slug.'" title="See all Neighborhow content for '.$city->name.'">'.$city->name.'</a>';
+			$city_names .= '<a href="'.$app_url.'/cities/'.$city->slug.'" title="See all Neighborhow content for '.$city->name.'">'.$city->name.'</a>, ';
 		}
 	}
-	echo rtrim($city_names, ', ');
+		echo ' + ';
+		echo rtrim($city_names, ', ');
 }
 // Get the idea city info
+/*
 $idea_city = get_post_meta($post->ID,'nh_idea_city',true);
 $term = term_exists($idea_city, 'nh_cities');
 if ($term !== 0 && $term !== null) {
@@ -65,6 +67,7 @@ if ($term !== 0 && $term !== null) {
 	$term_data = get_term_by('id',$term_id,'nh_cities');
 	echo ' + <a href="'.$app_url.'/cities/'.$term_data->slug.'" title="View '.$idea_city.'">'.$idea_city.'</a>';
 }
+*/
 // dont show city if its not official
 ?>		
 		</p>
