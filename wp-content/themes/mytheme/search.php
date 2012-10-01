@@ -43,16 +43,16 @@ if ($categories) {
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
 if ($post_cities) {
 	$post_cities_count = count($post_cities);
-	//var_dump($post_cities);
+//	var_dump($post_cities_count).'<br/>';
 	foreach ($post_cities as $city) {
 		if ($post_cities_count == '1') {
-			$city_names .= '<a href="'.$app_url.'/cities/'.$city->slug.'" title="See all Neighborhow content for '.$city->name.'">'.$city->name.'</a>';
+			echo ' + <a href="'.$app_url.'/cities/'.$city->slug.'" title="See all Neighborhow content for '.$city->name.'">'.$city->name.'</a>';
 		}
 		elseif ($post_cities_count > 1) {
-			$city_names .= '<a href="'.$app_url.'/cities/'.$city->slug.'" title="See all Neighborhow content for '.$city->name.'">'.$city->name.'</a>, ';
+			$city_names .= ' + <a href="'.$app_url.'/cities/'.$city->slug.'" title="See all Neighborhow content for '.$city->name.'">'.$city->name.'</a>';
 		}
 	}
-	echo ' + '.rtrim($city_names, ', ');
+	echo rtrim($city_names, ', ');
 }
 // Get the idea city info
 $idea_city = get_post_meta($post->ID,'nh_idea_city',true);
