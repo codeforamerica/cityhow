@@ -16,13 +16,13 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'cityhowpagoda');
+define('DB_NAME', 'database_name_here');
 
 /** MySQL database username */
-define('DB_USER', 'root');
+define('DB_USER', 'username_here');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'root');
+define('DB_PASSWORD', 'password_here');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
@@ -42,14 +42,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'ga48AM+Votf#v+nO.CgG+Br|r+P>J+tq5/#)6{v,j^/%JlGr[nz%BE5-O-d[FVJ)');
-define('SECURE_AUTH_KEY',  '5pfnYI_Jl{@Btm99|>Nr%,Vjr?ga[P;6,A3XeWfMlM1p}+`%!E2IE6_J[-nFA5=x');
-define('LOGGED_IN_KEY',    '>}-!Y*!u-y6hh>>u/wAm:yCR(v_5)aAGIr-!G~M{%9(ztJ`vgl}|7DD2/RS00,+J');
-define('NONCE_KEY',        'Cp3Blaz1~0`/!cWLSl&Js|=;vR<(-/(MV?j2))>W~ceQx>+2)bi#e`3{zu7,)VgR');
-define('AUTH_SALT',        '7hOS:~74.ccq3jm8F-7G3@hl &I[-JV-]@l(|6A=Br;-9hRuXICk+raer;7ZfM+C');
-define('SECURE_AUTH_SALT', '[=b}8E;0AOEiK9 6jf,x%|k%E~:~&Plq1FqG%[wWIcTrNqP?Vks6Z$GjLC|{+m-u');
-define('LOGGED_IN_SALT',   'vh8:/-E.%XyJ=%VZ%z8W+:J#H3~]MoQI!owjg=|!D9I9^8?d{:B[}B=E+3`1>S&{');
-define('NONCE_SALT',       '!3{Q;)2h?!pXt,AZ|$Q+*t=8-p?!WxRZsMY3r~-)#z`O;OC)V1#>K7b2BRA]7@vC');
+define('AUTH_KEY',         'put your unique phrase here');
+define('SECURE_AUTH_KEY',  'put your unique phrase here');
+define('LOGGED_IN_KEY',    'put your unique phrase here');
+define('NONCE_KEY',        'put your unique phrase here');
+define('AUTH_SALT',        'put your unique phrase here');
+define('SECURE_AUTH_SALT', 'put your unique phrase here');
+define('LOGGED_IN_SALT',   'put your unique phrase here');
+define('NONCE_SALT',       'put your unique phrase here');
 
 /**#@-*/
 
@@ -59,7 +59,7 @@ define('NONCE_SALT',       '!3{Q;)2h?!pXt,AZ|$Q+*t=8-p?!WxRZsMY3r~-)#z`O;OC)V1#>
  * You can have multiple installations in one database if you give each a unique
  * prefix. Only numbers, letters, and underscores please!
  */
-$table_prefix  = 'nh_';
+$table_prefix  = 'wp_';
 
 /**
  * WordPress Localized Language, defaults to English.
