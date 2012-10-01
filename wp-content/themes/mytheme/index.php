@@ -126,7 +126,23 @@ $fdbk_sub_query->the_post();
 <li class="ideas-list"><?php echo the_title();?>&nbsp;&nbsp;<span class="meta meta-small"><span class="byline">added</span> <?php echo get_the_date();?></span></span></li>
 
 <?php else : ?>
-<li class="ideas-list"><a class="nhline" href="<?php echo get_permalink();?>" title="See <?php echo the_title();?>"><?php echo the_title();?></a>&nbsp;&nbsp;<span class="meta meta-small"><span class="byline">added</span> <?php echo get_the_date();?></span></span></li>	
+<li class="ideas-list"><a class="nhline" href="<?php echo get_permalink();?>" title="See <?php echo the_title();?>"><?php echo the_title();?></a>&nbsp;&nbsp;
+	
+<span class="meta meta-small">
+
+<?php
+$guide_answer = get_post_meta($post->ID,'gde-answer');
+$guide_answer_url = get_post_meta($post->ID,'gde-answer-url',true);
+if ($guide_answer) {
+	echo '<a href="'.$guide_answer_url.'" title="View this Guide"><span class="answered">Answered in this Guide!</span></a>';
+}
+else {
+	echo '<span class="byline">added</span> '.get_the_date().'</span>';
+}
+?>		
+
+	</span>
+</li>	
 
 <?php endif; ?>	
 <?php 
@@ -152,7 +168,6 @@ $page_id = get_ID_by_slug('about');
 $post = get_post($page_id); 
 $content = $post->post_content;
 $content = strip_tags($content,'<p>,<a>');
-//$content = trim_by_words($content,'98','');
 if (is_user_logged_in()) {
 	$content = trim_by_words($content,'99',nh_continue_reading_link());
 } 

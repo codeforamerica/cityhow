@@ -1932,6 +1932,11 @@ span.meta-small {
 	font-size:90%;
 	line-height:50%;	
 }
+span.answered {
+	color:#cc6633;
+	font-size:100%;
+	font-style:italic;
+}
 #frm_loading{
 	display:none;
 	position:fixed;
