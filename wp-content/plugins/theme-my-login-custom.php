@@ -45,7 +45,7 @@ function tml_registration_errors( $errors ) {
 		elseif (strlen($value_user_login) > '16') {
 			$errors->add( 'maxlength_user_login', '<strong>ERROR</strong>: Please enter a username with 16 or fewer characters.' );	
 		}
-		elseif (!preg_match("/^[a-zA-Z0-9-]+$/", $value_user_login)) {
+		elseif (!preg_match("/^[_a-zA-Z0-9-]+$/", $value_user_login)) {
 			$errors->add( 'invalid_user_login', '<strong>ERROR</strong>: Invalid characters in username. Please enter a username using only letters and numbers.' );
 		}			
 	}

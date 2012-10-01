@@ -104,7 +104,7 @@ echo '<div class="see_all"><a class="nhline" href="'.$app_url.'/guides" title=""
 <?php if (is_user_logged_in()) : ?>
 <p><a id="addfdbk" title="Add Your Idea" rel="tooltip" data-placement="bottom" data-title="" class="nh-btn-blue" href="<?php echo $app_url;?>/add-idea" >Add Your Idea</a></p>
 <?php else : ?>
-<p style="float:left;text-align:left;"><strong><a href="<?php echo $app_url;?>/signin" title="Sign In now">Sign In</a></strong> to CityHow so you see more of the latest ideas, and add your own!</p>	
+<p style="float:left;text-align:left;padding:.25em .75em .25em .75em;background:#4996a4;color:#fff;"><strong><a class="whitelink" href="<?php echo $app_url;?>/signin" title="Sign In now">Sign In</a></strong> to CityHow so you can see more of the latest ideas, and add your own!</p>	
 <?php endif; ?>
 						<ul class="list-ideas list-ideas-home">							
 <?php
@@ -139,7 +139,7 @@ wp_reset_query();
 <?php if (is_user_logged_in()) : ?>
 <a class="nhline" href="<?php echo $app_url;?>/ideas" title="See all the ideas">See all the ideas &#187;</a>
 <?php else : ?>
-<a class="nhline" href="<?php echo $app_url;?>/signin" title="Sign In now">Sign in to see all the ideas</a>
+<a class="nhline" href="<?php echo $app_url;?>/signin" title="Sign In now">Sign in to see all the ideas &#187;</a>
 <?php endif; ?>
 </li>
 						</ul>						
@@ -157,7 +157,7 @@ if (is_user_logged_in()) {
 	$content = trim_by_words($content,'99',nh_continue_reading_link());
 } 
 else {
-	$content = trim_by_words($content,'98');	
+	$content = trim_by_words($content,'99','');	
 }
 echo $content;
 ?>					
