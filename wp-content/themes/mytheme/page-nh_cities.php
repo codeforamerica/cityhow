@@ -95,10 +95,7 @@ $count_city_guides = count($city_guides);
 								
 			</div><!--/ content-->
 
-<?php 
-if ( dynamic_sidebar('sidebar 1') ) : 
-else : 
-endif; ?>
+<?php get_sidebar('misc'); ?>
 			
 		</div><!--/ main-->
 	</div><!--/ content-->
