@@ -868,7 +868,15 @@ div.jetpack-cat-guides {
 	text-align: left;
 	margin-left: -.5em;
 }
-
+div.sharedaddy, 
+#content div.sharedaddy, 
+#main div.sharedaddy {
+	display:none;
+}
+div.sharedaddy, 
+div.sharedaddy div {
+	display:block;
+}
 
 /*--------- LISTS ------------*/
 /* Feedback, Cities, People, Votes */
