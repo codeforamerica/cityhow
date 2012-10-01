@@ -33,12 +33,18 @@ echo $city_name;?></h3>
 					<h5 class="widget-title">CityHow Guides for the City of <?php echo $city_name;?></h5>
 					<ul class="list-city">												
 <?php 
+$post_cities = wp_get_post_terms($post->ID,'nh_cities');
+$term = array_pop($post_cities);
+
+$guide_cat = get_category_id('guides');
+
 $city_args = array(
-	'post_type' => array('post'), //include projects
+	'post_type' => array('post'),
 //	'posts_per_page' => '-1',
 	'post_status' => 'publish',
 	'orderby' => 'date',
 	'order' => 'DESC',
+	'cat' => $guide_cat,
 	'nh_cities' => $term->slug, //the city taxonomy
 	'posts_per_page' => '12',
 	'paged' => get_query_var('paged')
