@@ -8,7 +8,7 @@
 			<div class="row-fluid home-promo" style="margin-bottom:2.5em;">
 				<div id="site-promo" class="span7">
 					<h1 class="promo-copy">CityHow makes it easy to find and share information about working for the City of Philadelphia.</h1> 
-					<h2 class="promo-copy">Browse CityHow Guides on topics submitted by employees, and create your own Guides to help them.</h2>
+					<h2 class="promo-copy">Browse Guides on topics submitted by employees, and create your own Guides to help them.</h2>
 				</div>
 
 				<div id="site-promo-list" class="span5">
@@ -23,7 +23,7 @@
 			<div class="row-fluid home-promo">	
 				<div id="site-promo" class="span7">
 					<h1 class="promo-copy">CityHow makes it easy to find and share information about working for the City of Philadelphia.</h1> 
-					<h2 class="promo-copy">Browse CityHow Guides on topics submitted by employees, and create your own Guides to help them.</h2>
+					<h2 class="promo-copy">Browse Guides on topics submitted by employees, and create your own Guides to help them.</h2>
 				</div>
 
 				<div id="site-promo-list" class="span5">
