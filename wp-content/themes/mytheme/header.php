@@ -168,20 +168,20 @@ foreach ($cities as $city) {
 		echo $links;
 	}
 	echo '">';
-	echo '<a title="View all Guides and Resources for '.$city.'" href="'.get_term_link($city,'nh_cities').'">'.$city.'</a>';
+	echo '<a title="View all content for '.$city.'" href="'.get_term_link($city,'nh_cities').'">'.$city.'</a>';
 	echo '</li>';
 }
 ?>
 						</ul>
 					</li>							
-					<li class="nhnav-item <?php if ($bodyid == "guides") echo $links; ?>"><a title="View all CityHow Guides" href="<?php echo $app_url;?>/guides">Guides</a></li>
+					<li class="nhnav-item <?php if ($bodyid == "guides") echo $links; ?>"><a title="View CityHow Guides" href="<?php echo $app_url;?>/guides">Guides</a></li>
 					<li class="nhnav-item <?php 
 $term = term_exists($bodyid,'post_tag');
 if ($term !== 0 && $term !== null OR $bodyid == 'topics') {
 	echo $links;
 }
 ?>"><a title="View all CityHow Topics" href="<?php echo $app_url;?>/topics">Topics</a></li>
-		<li class="nhnav-item <?php if ($bodyid == "ideas") echo $links; ?>"><a title="View all CityHow Ideas" href="<?php echo $app_url;?>/ideas">Ideas</a></li>
+		<li class="nhnav-item <?php if ($bodyid == "ideas") echo $links; ?>"><a title="View CityHow Ideas" href="<?php echo $app_url;?>/ideas">Ideas</a></li>
 <?php
 if (is_user_logged_in()) {
 ?>

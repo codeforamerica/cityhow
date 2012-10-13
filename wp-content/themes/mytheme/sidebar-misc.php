@@ -10,12 +10,12 @@ $app_url = get_bloginfo('url');
 			
 			<div class="sidebar-buttons">			
 				<a href="<?php echo $app_url;?>/add-idea" title="Add your idea"><button class="nh-btn-blue-med btn-fixed">Add Your Idea</button></a>
-				<p>Help decide what content and features are part of CityHow.</p>
+				<p>Help decide what content should be part of CityHow for your city.</p>
 			</div>
 
 			<div class="sidebar-buttons">
 				<a href="<?php echo $app_url;?>/create-guide" title="Create a CityHow Guide"><button class="nh-btn-blue-med btn-fixed">Create a Guide</button></a>
-				<p>Share what you know with others.</p>
+				<p>Share what you know about working in city government with others.</p>
 			</div>
 
 		</div><!--/ widget copy-->
