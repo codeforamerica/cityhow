@@ -57,7 +57,6 @@ $city_terms = get_terms('nh_cities');
 foreach ($city_terms as $city_term) {
 	$city_term = $city_term->name;
 	if ($city_term != 'Any City') {
-		echo 'no match';
 		$cities[] = $city_term;
 	}
 }

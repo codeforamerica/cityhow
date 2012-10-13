@@ -138,8 +138,8 @@ function nhow_breadcrumb( $args = array() ) {
 		) );
 		if ( $pages && $pages[0]->ID !== get_option( 'page_on_front' ) )
 			$breadcrumb .= '<a class="noline" href="' . get_page_link( $pages[0]->ID ) . '" title="' . $pages[0]->post_title . '">' . $pages[0]->post_title . '</a>' . $separator . $tax . $separator;
-//		$breadcrumb .= '<a href="'.$app_url.'/'.$tax.'">'.$taxuc.'</a>' . $separator . single_tag_title( false, false );
-		$breadcrumb .= 'City of '.$city_name;
+		$breadcrumb .= '<a href="'.$app_url.'/'.$tax.'">'.$taxuc.'</a>' . $separator . single_tag_title( false, false );
+//		$breadcrumb .= 'City of '.$city_name;
 
 
 	

@@ -30,7 +30,7 @@ function get_bodyid() {
 	elseif (is_archive() AND is_tax('nh_cities')) {
 		$term = get_term_by('slug', get_query_var('term'), get_query_var('taxonomy')); 
 		$term_name = $term->name;
-		$bodyid = $term_name;
+		$bodyid = 'cities-'.$term_name;
 	}
 	
 	elseif (is_archive() AND is_tag()) {

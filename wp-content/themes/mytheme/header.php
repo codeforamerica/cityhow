@@ -154,15 +154,22 @@ echo $links;
 ?>" id="menu1"><a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">Cities <b class="caret"></b></a>
 						<ul class="dropdown-menu">				
 <?php
-$cities = get_terms('nh_cities');
-foreach ($cities as $city) {
-echo '<li class="nhnav-item sub-menu ';
-if ($bodyid == 'cities-'.$city->name) {
-	echo $links;
+// limit list to User City + Any City
+$city_terms = get_terms('nh_cities');
+foreach ($city_terms as $city_term) {
+	$city_term = $city_term->name;
+	if ($city_term == $user_city OR $city_term == 'Any City') {
+		$cities[] = $city_term;
+	}
 }
-echo '">';
-echo '<a title="View all CityHow content for '.$city->name.'" href="'.get_term_link($city->slug,'nh_cities').'">'.$city->name.'</a>';
-echo '</li>';
+foreach ($cities as $city) {
+	echo '<li class="nhnav-item sub-menu ';
+	if ($bodyid == 'cities-'.$city) {
+		echo $links;
+	}
+	echo '">';
+	echo '<a title="View all Guides and Resources for '.$city.'" href="'.get_term_link($city,'nh_cities').'">'.$city.'</a>';
+	echo '</li>';
 }
 ?>
 						</ul>
