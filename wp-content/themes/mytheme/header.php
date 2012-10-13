@@ -9,7 +9,6 @@ require(STYLESHEETPATH.'/lib/paths.php');
 require(STYLESHEETPATH.'/lib/gen_functions.php');
 require(STYLESHEETPATH.'/lib/breadcrumbs.php');
 
-
 global $style_url;
 global $app_url;
 $style_url = get_bloginfo('stylesheet_directory');
@@ -19,7 +18,7 @@ $app_url = get_bloginfo('url');
 global $current_user;
 get_currentuserinfo();
 $user_info = get_userdata($current_user->ID);
-
+echo $user_info->user_id;
 $user_name = $current_user->first_name.' '.$current_user->last_name;
 $user_display_name = $current_user->display_name;
 if ($user_name === ' ') {
@@ -28,6 +27,9 @@ if ($user_name === ' ') {
 else {
 	$user_name = $user_name;
 }
+global $user_city;
+$user_city = get_user_meta($user_info->ID,'user_city',true);
+
 // CLASSES
 $bodyid = get_bodyid();
 $links = 'current-item';
@@ -46,7 +48,9 @@ $links = 'current-item';
 <html <?php language_attributes(); ?>>
 <!--<![endif]-->
 <head>
-
+<?php
+// Kissmetrics - remove before handover to Philly
+?>
 <script type="text/javascript">
   var _kmq = _kmq || [];
   var _kmk = _kmk || '007f169f0f432e69426fc8c264cfc753adc023c6';
@@ -61,17 +65,18 @@ $links = 'current-item';
   _kms('//i.kissmetrics.com/i.js');
   _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
 </script>
-
 <script type="text/javascript">
   _kmq.push(['identify', '<?php echo json_encode($current_user->user_login); ?>']);
 </script>
-
+<?php
+// End Kissmetrics
+?>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width; initial-scale=1.0">
 
 <title><?php wp_title('CityHow &#187; ', true, 'left'); ?></title>
 
-<meta name="description" content="CityHow makes it easy to find and share information about working for the City of Philadelphia.">
+<meta name="description" content="CityHow makes it easy to find and share information about working for city government.">
 <meta name="author" content="CityHow">
 <meta copyright="author" content="CityHow 2012-<?php echo date('Y');?>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -107,8 +112,6 @@ $links = 'current-item';
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/pngfix/supersleight-min.js"></script>
 <![endif]-->
 
-<!--google here-->
-
 </head>
 
 <body <?php body_class('no-js'); ?> id="<?php echo $bodyid;?>">
@@ -120,13 +123,19 @@ $links = 'current-item';
 					
 				<div id="site-title"><a class="home-brand" href="<?php echo $app_url;?>" title="Go to the home page" rel="Home"><img class="logo" src="<?php echo $style_url;?>/images/logo.png" height="70" alt="CityHow logo" /><h3 class="site-title">CityHow</h3></a>
 				</div>	
-<?php if (is_user_logged_in()) : ?>
+<?php 
+// Dont let logged-out user search for guides --
+// would only be able to search Any City content
+if (is_user_logged_in()) : ?>
 				<div id="search-header">
 					<ul class="header-elements">
 						<li class="header-element header-search <?php if ($bodyid == "search") echo $links; ?>"><a title="Search CityHow" href="#" ><?php get_search_form();?></a></li>
 					</ul>
 				</div>			
-<?php endif; ?>									
+<?php 
+endif;
+// End if user logged in
+?>									
 			</div><!--/ brand-->
 		</div><!--/ banner-->	
 	</div><!--/ wrapper-->
@@ -134,19 +143,38 @@ $links = 'current-item';
 
 <div class="row-fluid row-nav">
 	<div class="wrapper">
-		<div id="nhnavigation" class="nav-container">
-<?php if (is_user_logged_in()) : ?>			
+		<div id="nhnavigation" class="nav-container">			
 			<div class="nhnav">
-				<ul id="nhnav-items">
-					<li class="nhnav-item <?php if ($bodyid == "guides") echo $links; ?>"><a title="View all CityHow Guides" href="<?php echo $app_url;?>/guides">Guides</a></li>		
-					<li class="nhnav-item <?php if ($bodyid == "ideas") echo $links; ?>"><a title="View all CityHow Ideas" href="<?php echo $app_url;?>/ideas">Ideas</a></li>
-					
+				<ul id="nhnav-items">					
+					<li class="nhnav-item dropdown <?php 
+$findit = 'cities';
+$pos = strpos($bodyid,$findit);
+if ($pos == "cities")
+echo $links; 
+?>" id="menu1"><a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">Cities <b class="caret"></b></a>
+						<ul class="dropdown-menu">				
+<?php
+$cities = get_terms('nh_cities');
+foreach ($cities as $city) {
+echo '<li class="nhnav-item sub-menu ';
+if ($bodyid == 'cities-'.$city->name) {
+	echo $links;
+}
+echo '">';
+echo '<a title="View all CityHow content for '.$city->name.'" href="'.get_term_link($city->slug,'nh_cities').'">'.$city->name.'</a>';
+echo '</li>';
+}
+?>
+						</ul>
+					</li>							
+					<li class="nhnav-item <?php if ($bodyid == "guides") echo $links; ?>"><a title="View all CityHow Guides" href="<?php echo $app_url;?>/guides">Guides</a></li>
 					<li class="nhnav-item <?php 
 $term = term_exists($bodyid,'post_tag');
 if ($term !== 0 && $term !== null OR $bodyid == 'topics') {
 	echo $links;
 }
 ?>"><a title="View all CityHow Topics" href="<?php echo $app_url;?>/topics">Topics</a></li>
+		<li class="nhnav-item <?php if ($bodyid == "ideas") echo $links; ?>"><a title="View all CityHow Ideas" href="<?php echo $app_url;?>/ideas">Ideas</a></li>
 <?php
 if (is_user_logged_in()) {
 ?>
@@ -173,8 +201,7 @@ else {
 }
 ?>	
 				</ul>
-			</div>
-<?php endif; ?>				
+			</div>				
 		</div><!--/ nhnavigation-->
 	</div><!--/ wrapper-->
 </div><!--/ row-fluid-->

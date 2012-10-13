@@ -370,7 +370,7 @@ h2.promo-copy {
 }
 #site-promo-list h4 {
 	font-size:1em;
-	margin:0 0 1.5em 1.75em !important;
+	margin:0 0 1em 1.75em !important;
 	font-size:1.2em;
 	font-weight:600;
 	text-transform:uppercase;
@@ -378,10 +378,13 @@ h2.promo-copy {
 	padding:0 0 .25em 0 !important;
 	word-spacing: 2px;	
 }
+#site-promo-list h4.loggedout {
+/*	font-size:1em;*/
+}
 #site-promo-list p {
 	color:#4996a4;
 	text-align:center; 
-	padding-bottom:1.5em !important;
+	padding-bottom:1.25em !important;
 }
 #site-promo-list p span {
 	font-size:1.5em;

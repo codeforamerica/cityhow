@@ -39,10 +39,23 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $guide_cat = get_category_id('guides');
 $list_args = array(
 	'post_status' => 'publish',
-	'cat' => $guide_cat,
+//	'cat' => $guide_cat,
 	'posts_per_page' => 12,
-	'paged' => $paged	
-	);
+	'paged' => $paged,
+	'tax_query' => array(
+		'relation' => 'AND',
+		array(
+			'taxonomy' => 'category',
+			'field' => 'slug',
+			'terms' => array( 'guides' )
+		),
+		array(
+			'taxonomy' => 'nh_cities',
+			'field' => 'slug',
+			'terms' => array( $user_city_slug,'any-city' )
+		)	
+	)		
+);
 $list_query = new WP_Query($list_args);
 if ($list_query->have_posts()) : 
 while($list_query->have_posts()) : $list_query->the_post();
