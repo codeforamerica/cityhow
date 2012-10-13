@@ -50,7 +50,24 @@ function tml_registration_errors( $errors ) {
 		}			
 	}
 	
-// User City -- default for all is Philadelphia PA
+// User City
+	if ( empty( $_POST['user_city'] ) ) {
+		$errors->add( 'empty_user_city', '<strong>ERROR</strong>: Please enter the name of your city.' );	
+	}
+	elseif ( !empty( $_POST['user_city'] ) ) {
+		$value_user_city = trim($_POST['user_city']);			
+		$value_user_city = sanitize_text_field($value_user_city);
+		$nh_cities = get_terms('nh_cities');
+		$term = term_exists($value_user_city, 'nh_cities');
+		
+		if (!preg_match("/^[a-zA-Z \\\'-]+$/", $value_user_city)) {
+			$errors->add( 'invalid_user_city', '<strong>ERROR</strong>: Invalid characters in city name. Please enter a city name using only letters, space, hyphen, and apostrophe.' );
+		}
+
+		elseif ($term == 0 OR $term == null) {
+			$errors->add( 'wrong_user_city', '<strong>ERROR</strong>: Looks like the city name you entered is not yet part of the CityHow network. You can only sign up for CityHow if your city is already part of the CityHow network. Ask your city to sign up for CityHow!' );
+		}
+	}
 
 // User Organization - validate how?
 	if ( !empty( $_POST['user_org'] ) ) {
@@ -86,8 +103,15 @@ function tml_user_register( $user_id ) {
 	}
 
 // USER CITY - default for all is Philadelphia PA
-	$nh_user_city = 'Philadelphia PA';
-	update_user_meta($user_id, 'user_city', $nh_user_city);
+//	$nh_user_city = 'Philadelphia PA';
+//	update_user_meta($user_id, 'user_city', $nh_user_city);
+	
+// USER CITY
+	if ( !empty( $_POST['user_city'] ) ) {
+		$un_user_city = trim($_POST['user_city']);
+		$nh_user_city = sanitize_text_field($un_user_city);			
+	}
+	update_user_meta($user_id, 'user_city', $nh_user_city);	
 
 // USER ORGANIZATION
 	if ( !empty( $_POST['user_org'] ) ) {
@@ -164,12 +188,26 @@ function nh_save_extra_profile_fields( &$errors, $update, &$user ) {
 		}
 
 // USER CITY
-/*		if ( !empty( $_POST['user_city'] ) ) {
-				$un_user_city = trim($_POST['user_city']);
-				$nh_user_city = sanitize_text_field($un_user_city);		
+	if ( empty( $_POST['user_city'] ) ) {
+		$errors->add( 'empty_user_city', '<strong>ERROR</strong>: City name is required. Please enter the name of your city.' );	
+	}
+	elseif ( !empty( $_POST['user_city'] ) ) {
+		$value_user_city = trim($_POST['user_city']);			
+		$value_user_city = sanitize_text_field($value_user_city);
+		$nh_cities = get_terms('nh_cities');
+		$term = term_exists($value_user_city, 'nh_cities');
+		
+		if (!preg_match("/^[a-zA-Z \\\'-]+$/", $value_user_city)) {
+			$errors->add( 'invalid_user_city', '<strong>ERROR</strong>: Invalid characters in city name. Please enter a city name using only letters, space, hyphen, and apostrophe.' );
 		}
-		update_user_meta($user->ID, 'user_city', $nh_user_city);
-*/
+
+		elseif ($term == 0 OR $term == null) {
+			$errors->add( 'wrong_user_city', '<strong>ERROR</strong>: Looks like the city name you entered is not yet part of the CityHow network. You can only sign up for CityHow if your city is already part of the CityHow network. Ask your city to sign up for CityHow!' );
+		}
+		else {
+			update_user_meta($user->ID, 'user_city', $value_user_city);
+		}
+	}
 		
 // USER ORGANIZATION
 		if ( !empty( $_POST['user_org'] ) ) {
@@ -188,6 +226,33 @@ add_action( 'show_user_profile', 'nh_show_extra_profile_fields' );
 add_action( 'edit_user_profile', 'nh_show_extra_profile_fields' );
 
 function nh_show_extra_profile_fields( $user ) { 
+// below USER CITY + USER ORGANIZATION ARE 
+// hacks around Theme My Login (TML)
+// if the reg/profile form is just in front end 
+// as TML wants, then it doesn't show in admin - 
+// we want both so have to put this here
+// also this form doesnt recognize TML $profileuser
+// so using tmp WP vars
+
+// USER CITY
+?>
+<div class="form-item form-item-admin">
+<?php
+$taxonomy = 'nh_cities';
+$terms = get_terms($taxonomy);
+$posted_city = esc_attr($_POST['user_city']);
+$tmp_id = $user->ID;
+$cities = get_user_meta($tmp_id,'user_city');
+$user_current_city =  $cities[0];
+?>
+	<label for="user_city"><?php _e( 'City', 'theme-my-login' ) ?></label>
+
+	<input type="text" name="user_city" id="user_city" class="input" value="<?php echo esc_attr( $user_current_city ) ?>" size="20" tabindex="45" required />
+	<div class="help-block help-block-city"><span class="txt-help admin-description"><p>Enter your city's name. Be sure to enter the city name in the format of "Philadelphia PA" or "San Francisco CA.</p></span>
+	</div>	
+</div>
+
+<?php
 // USER ORGANIZATION
 ?>
 <div class="form-item form-item-admin">

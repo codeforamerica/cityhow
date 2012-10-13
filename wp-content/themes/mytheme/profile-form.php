@@ -141,6 +141,7 @@ if ( $show_password_fields ) :
 
 <?php
 // AVATAR fields are in Simple Local Avatars plugin file
+// CITY fields are in Theme My Login - 
 // the custom theme file in main plugins folder
 // USER ORG field is in same TML file
 ?>

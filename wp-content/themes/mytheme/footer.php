@@ -56,13 +56,18 @@ $app_url = get_bloginfo('url');
 $city_terms = get_terms('nh_cities');
 foreach ($city_terms as $city_term) {
 	$city_term = $city_term->name;
-	$cities[] = $city_term;
+	if ($city_term != 'Any City') {
+		echo 'no match';
+		$cities[] = $city_term;
+	}
 }
+
 $alltags = get_tags();
 foreach ($alltags as $tag) {
 	$tag_name = $tag->name;
 	$tags[] = $tag_name;
 }
+
 $current_user_login = $current_user->user_login;
 ?>
 <?php wp_footer();?>

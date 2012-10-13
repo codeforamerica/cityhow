@@ -12,7 +12,7 @@
 				</div>
 
 				<div id="site-promo-list" class="span5">
-					<h4 class="loggedout">Please sign in to see your city's content</h4>
+					<h4 class="loggedout">Please sign in to see content for your city</h4>
 					<p><a class="promo_suggest" href="<?php echo $app_url;?>/signin" title="Sign In now"><button class="nh-btn-blue btn-fixed">Sign In to CityHow</button></a></p>
 
 					<p><a class="promo_suggest" href="<?php echo $app_url;?>/register" title="Create a CityHow account"><button class="nh-btn-blue btn-fixed">Create an Account</button></a></p>
@@ -146,7 +146,7 @@ echo '<div class="see_all"><a class="nhline" href="'.$app_url.'/guides" title=""
 <?php if (is_user_logged_in()) : ?>
 <p><a id="addfdbk" title="Add Your Idea" rel="tooltip" data-placement="bottom" data-title="" class="nh-btn-blue" href="<?php echo $app_url;?>/add-idea" >Add Your Idea</a></p>
 <?php else : ?>
-<p style="float:left;text-align:left;padding:.25em .75em .25em .75em;background:#4996a4;color:#fff;"><strong><a class="whitelink" href="<?php echo $app_url;?>/signin" title="Sign In now">Sign In</a></strong> to CityHow so you can see the content related to your city!</p>	
+<p style="float:left;text-align:left;padding:.25em .75em .25em .75em;background:#4996a4;color:#fff;"><strong><a class="whitelink" href="<?php echo $app_url;?>/signin" title="Sign In now">Sign In</a></strong> to CityHow so you can see content for your city!</p>	
 <?php endif; ?>
 						<ul class="list-ideas list-ideas-home">							
 <?php

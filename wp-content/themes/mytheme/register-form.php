@@ -57,6 +57,20 @@ do_action( 'register_form' ); // Wordpress hook
 do_action_ref_array( 'tml_register_form', array( &$template ) ); //TML hook
 ?>
 
+			<div class="form-item">
+<?php
+$taxonomy = 'nh_cities';
+$terms = get_terms($taxonomy);
+$posted_city = esc_attr($_POST['user_city']);
+?>
+
+			<label for="user_city<?php $template->the_instance(); ?>"><?php _e( 'Your City', 'theme-my-login' ) ?></label>
+
+			<input type="text" name="user_city" id="user_city<?php $template->the_instance(); ?>" class="input" value="<?php $template->the_posted_value( 'user_city' ); ?>" size="20" tabindex="45" required />		
+			<div class="help-block"><span class="txt-help">Start typing your city's name and then select it from the list. If your city is not on the list, ask your city to sign up for CityHow!</span>			
+				</div>
+			</div>
+
 			<p id="reg_passmail<?php $template->the_instance(); ?>"><?php echo apply_filters( 'tml_register_passmail_template_message', __( 'A password will be e-mailed to you.', 'theme-my-login' ) ); ?></p>
 
 			<p id="nh-submit" class="submit reg-with-pwd">
