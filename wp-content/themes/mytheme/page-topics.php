@@ -124,7 +124,6 @@ $i_tags_unique = array_unique($i_post_tags);
 if ($b_tags_unique) {	
 	foreach ($b_tags_unique as $b_tag) {
 		echo '<li class="nhline" style="margin:.75em 0 .75em 0;border-top:1px solid #ccc;padding-top:1em;">';	
-			
 		$tag_slug = strtolower($b_tag);
 		$tag_slug = str_replace(' ','-',$tag_slug);
 		echo '<a class="nhline" href="'.$app_url.'/topics/'.$tag_slug.'" title="See content tagged as '.$b_tag.'">'.$b_tag.'</a>';

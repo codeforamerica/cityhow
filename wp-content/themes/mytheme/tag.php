@@ -14,19 +14,53 @@
 				<div id="list-fdbk">
 					<ul class="list-fdbk">
 <?php
+// limit list to user city + any city
+$city_terms = get_terms('nh_cities');
+foreach ($city_terms as $city_term) {
+	$city_term = $city_term->name;
+	if ($city_term == $user_city OR $city_term == 'Any City') {
+		$cities[] = $city_term;
+	}
+}
+foreach ($cities as $city) {
+	if ($city != 'Any City') {
+		$city_name = substr($city,0,-3); //remove state
+	}
+	else {
+		$city_name = $city;
+	}	
+}
+$city_slug = strtolower($city);
+$city_slug = str_replace(' ','-',$city_slug);
+
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
+// get posts matching tag in user city and any city
 $tag_args = array(
 	'post_status' => 'publish',
-	'tag_id' => $tag_id,
 	'orderby' => 'date',	
 	'order' => DESC,
 	'posts_per_page' => '20',
-	'paged' => $paged	
+	'paged' => $paged,
+	'tax_query' => array(
+		'relation' => 'AND',
+		array(
+			'taxonomy' => 'post_tag',
+			'field' => 'id',
+			'terms' => $tag_id
+		),
+		array(
+			'taxonomy' => 'nh_cities',
+			'field' => 'slug',
+			'terms' => array($city_slug,'Any City')
+		)
+	)	
 );
 $tag_query = new WP_Query($tag_args);
 if (!$tag_query->have_posts()) :
 ?>	
-	<li class="fdbk-list">Sorry, there is no public content matching this Topic right now.</li>
+	<li class="fdbk-list">Sorry ... content for this Topic is available only to employees of the City of 
+<?php echo $city_name;?>.</li>
 
 <?php else: ?>	
 
@@ -65,15 +99,25 @@ if ($post_cities) {
 		$city = $post_cities[$i]->name;
 		$city_slug = strtolower($city);
 		$city_slug = str_replace(' ','-',$city_slug);
-		$city = substr($city,0,-3); //remove state				
+		
+		if ($city != 'Any City') {
+			$city_name = substr($city,0,-3); //remove state
+			$city_string = 'City of '.$city_name;
+		}
+		else {
+			$city_name = $city;
+			$city_string = $city_name;			
+		}		
+		
+//		$city = substr($city,0,-3); //remove state				
 		if ($count == 1) {
-			echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See all content for '.$city.'">City of '.$city.'</a>';
+			echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>';
 		}
 		elseif ($count > 1 AND $i < $j) {
-			echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See all content for '.$city.'">City of '.$city.'</a>, ';
+			echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>, ';
 		}			
 		elseif ($count > 1 AND $i == $j) {
-				echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See all content for '.$city.'">City of '.$city.'</a>';
+				echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>';
 		}
 	}
 }
@@ -101,8 +145,14 @@ endif;
 
 			</div><!--/ content-->
 
-<?php get_sidebar('misc'); ?>
-
+<?php
+if (is_user_logged_in()) {
+	get_sidebar('misc_short');
+}
+else {
+	get_sidebar('misc_loggedout');
+}
+?>
 		</div><!--/ main-->
 	</div><!--/ content-->
 </div><!--/ row-content-->
