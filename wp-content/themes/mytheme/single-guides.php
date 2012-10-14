@@ -10,10 +10,20 @@
 		<div id="main">			
 			<div id="content">
 <h3 class="page-title"><?php the_title();?></h3>
-
 <?php
 $are_there_steps = get_post_meta($post->ID,'step-title-01',true);
-?>				
+ 
+if ( have_posts() ) :
+while ( have_posts() ) : the_post(); 
+$nh_author = get_userdata($curauth->ID);
+$nhow_post_id = $post->ID;
+
+// limit visible content to user city or any city
+$post_cities = wp_get_post_terms($post->ID,'nh_cities');
+foreach ($post_cities as $city) :
+	if ($city->name == $user_city OR $city->name == 'Any City') :
+?>
+			
 <div class="tabbable">
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#tab1" data-toggle="tab">Summary</a></li>
@@ -24,13 +34,6 @@ $are_there_steps = get_post_meta($post->ID,'step-title-01',true);
 
 	<div class="tab-content">
 		<div class="tab-pane tab-pane-guide active" id="tab1">	
-<?php 
-if ( have_posts() ) :
-while ( have_posts() ) : the_post(); 
-$nh_author = get_userdata($curauth->ID);
-$nhow_post_id = $post->ID;
-?>			
-
 			<div class-"guide-overview"><p>
 <?php 
 $tmpcontent = get_the_content();
@@ -98,39 +101,40 @@ for ($i=1;$i <= $step_total;$i++) {
 		</li>
 <?php
 		}
-//		else {
-//			echo '<p>Sorry, there are no steps yet for this CityHow Guide.</p>';			
-//		}
 		$j++;
 	}
 }	
 ?>
 			</ul>
 		</div><!--/ tab 2-->
-		
 	</div><!-- / tab content-->
 </div><!-- / tabbable-->
 
-<?php
-if (!is_preview()) {
-?>
+<?php if (!is_preview()) : ?>
 <div id="leavecomment" class="nhow-comments">
 <?php comments_template( '', true ); ?>
-</div><!-- / comments-->				
+</div>				
 <?php
-}
+endif; // end if preview
+else : // if this isnt the user city or any city
 ?>
+<p>Sorry ... content for this city is available only to employees of the City of 
+<?php 
+$city_name = substr($city->name,0,-3); //remove state		
+echo $city_name;?>
 <?php
-endwhile;
-endif;
-?>			
+endif; // end if user city or any city
+endforeach; // end post cities
 
+endwhile; // end while posts
+endif; // end if posts
+?>			
 			</div><!--/ content -->
 <?php 
 if (!is_preview()) {
 	get_sidebar('guide-single');	
 }
-?>			
+?>		
 		</div><!--/ main-->
 	</div><!--/ wrapper-->
 </div><!--/ row-fluid-->

@@ -10,8 +10,7 @@
 	<div class="wrapper">
 		<div id="main">
 			<div id="content">
-
-				<h3 class="page-title">CityHow Cities</h3>
+				<h3 class="page-title">Cities</h3>
 	
 				<div id="list-ideas">
 					<ul class="list-ideas">			

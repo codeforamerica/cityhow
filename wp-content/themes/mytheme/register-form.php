@@ -45,7 +45,7 @@ $value = getL2Keys($nh_errors);
 
 				<input type="email" name="user_email" id="user_email<?php $template->the_instance(); ?>" class="input" value="<?php $template->the_posted_value( 'user_email' ); ?>" size="20" tabindex="20" required />
 
-				<div class="help-block <?php foreach ($value as $key) { if ($key == "empty_email" OR $key == "invalid_email" OR $key == "email_exists") { echo 'nh-error'; }} ?>"><span class="txt-help">Enter your Phila.gov email address.</span>
+				<div class="help-block <?php foreach ($value as $key) { if ($key == "empty_email" OR $key == "invalid_email" OR $key == "email_exists") { echo 'nh-error'; }} ?>"><span class="txt-help">To register with CityHow, please enter your official city employee email address.</span>
 				</div>
 			</div>	
 <?php

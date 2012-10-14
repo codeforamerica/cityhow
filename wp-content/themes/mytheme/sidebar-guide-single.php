@@ -3,10 +3,19 @@ $style_url = get_bloginfo('stylesheet_directory');
 $app_url = get_bloginfo('url');
 global $current_user;
 get_currentuserinfo();
+$user_info = get_userdata($current_user->ID);
+global $user_city;
+$user_city = get_user_meta($user_info->ID,'user_city',true);
 ?>
+
 <div id="sidebar-int" class="sidebar-nh">	
+<?php
+// limit visible content to user city or any city
+$post_cities = wp_get_post_terms($post->ID,'nh_cities');
+foreach ($post_cities as $city) :
+	if ($city->name == $user_city OR $city->name == 'Any City') :
+?>
 	<div class="widget-side">
-		<!--h5 class="widget-title">Details</h5-->
 		<div class="widget-copy">
 			<div class="guide-details">
 				<p class="gde-avatar">
@@ -36,25 +45,17 @@ if ($authors) {
 					<span class="byline">for</span> 
 <?php
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
-$user_guide_cities = get_post_meta($post->ID,'gde-user-city',true);
-// Post cities are official cities
 if (!empty($post_cities)) {
 	foreach ($post_cities as $post_city) {
-		$city = substr($post_city->name,0,-3); //remove state		
-		$city_string .= '<a class="nhline" href="'.$app_url.'/cities/'.$post_city->slug.'" title="See all content for '.$city.'">City of '.$city.'</a>, ';
-	}
-	echo rtrim($city_string, ', ');
-}
-
-// User guide cities are cities input by users
-// Not official yet so dont link to a city page
-elseif (empty($post_cities)) {
-	$user_guide_city = explode(',', $user_guide_cities);
-	foreach ($user_guide_city as $city) {
-		$slug = str_replace(' ','-', $city);
-		$slug = strtolower($slug);
-		$city = substr($city,0,-3); //remove state
-		$city_string .= 'City of '.$city.', ';
+		if ($post_city->name == 'Any City') {
+			$city = $post_city->name;
+			$city_name = $city;			
+		}
+		else {
+			$city = substr($post_city->name,0,-3); //remove state	
+			$city_name = 'City of '.$city;		
+		}
+		$city_string .= '<a class="nhline" href="'.$app_url.'/cities/'.$post_city->slug.'" title="See all content for '.$city.'">'.$city_name.'</a>, ';
 	}
 	echo rtrim($city_string, ', ');
 }
@@ -81,8 +82,7 @@ if (have_comments()) {
 		</div><!--/widget copy-->
 	</div><!-- widget-side-->
 	
-	<div class="widget-side" style="padding-top:1.25em !important;">			
-		<!--h5 class="widget-title">Tools</h5-->			
+	<div class="widget-side" style="padding-top:1.25em !important;">						
 		<div class="widget-copy">
 			<div class="guide-details">
 <?php 
@@ -96,7 +96,7 @@ else {
 <?php 
 // Turn off when working locally - only works hosted
 echo '<div class="jetpack-guide-single">';
-echo sharing_display(); 
+//echo sharing_display(); 
 echo '</div>';
 ?>
 				<br/><a class="nhline" href="#leavecomment" title="Add Your Comment">Add a Comment</a>
@@ -113,7 +113,7 @@ echo '</div>';
 $post_tags = wp_get_post_tags($post->ID);
 foreach($post_tags as $tag){
 	$tag_name = $tag->name;
-	$tag_string .= '<a href="'.$app_url.'/topics/'.$tag->slug.'" title="See all CityHow content for '.$tag->name.'">'.$tag->name.'</a>, ';
+	$tag_string .= '<a href="'.$app_url.'/topics/'.$tag->slug.'" title="See content for '.$tag->name.'">'.$tag->name.'</a>, ';
 }	
 	echo '<li>';
 	echo rtrim($tag_string, ', ');	
@@ -122,8 +122,15 @@ foreach($post_tags as $tag){
 <?php
 if (!empty($post_cities)) {
 	foreach ($post_cities as $post_city) {
-		$city = substr($post_city->name,0,-3); //remove state		
-		echo '<li><a class="nhline" href="'.$app_url.'/cities/'.$post_city->slug.'" title="See all content for '.$city.'">City of '.$city.'</a></li>';
+		if ($post_city->name == 'Any City') {
+			$city = $post_city->name;
+			$city_name = $city;			
+		}
+		else {
+			$city = substr($post_city->name,0,-3); //remove state	
+			$city_name = 'City of '.$city;		
+		}
+		echo '<li><a class="nhline" href="'.$app_url.'/cities/'.$post_city->slug.'" title="See all content for '.$city.'">'.$city_name.'</a></li>';
 	}
 }
 ?>						
@@ -131,4 +138,23 @@ if (!empty($post_cities)) {
 			</div><!--/guide details-->
 		</div><!--widget copy-->
 	</div><!-- widget-side-->	
+
+<?php
+endif; // end if user city or any city
+endforeach; // end post cities
+ 
+if (!is_user_logged_in()) : ?>	
+	<div class="widget-side">
+		<h5 class="widget-title">Sign In to see your city's content</h5>
+		<div class="widget-copy">
+			<div class="sidebar-buttons">			
+				<a href="<?php echo $app_url;?>/signin" title="Sign In now"><button class="nh-btn-blue btn-fixed">Sign In to CityHow</button></a>
+			</div>
+			<div class="sidebar-buttons">
+				<a href="<?php echo $app_url;?>/register" title="Create an account"><button class="nh-btn-blue btn-fixed">Create an Account</button></a>
+			</div>
+		</div><!--/ widget copy-->
+	</div><!--/ widget-->	
+<?php endif; ?>	
+	
 </div><!--/ sidebar-->

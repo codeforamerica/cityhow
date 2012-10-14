@@ -7,11 +7,41 @@
 <div class="row-fluid row-content">	
 	<div class="wrapper">
 		<div id="main">
-			
+<?php
+// limit list to user city + any city
+$city_terms = get_terms('nh_cities');
+foreach ($city_terms as $city_term) {
+	$city_term = $city_term->name;
+	if ($city_term == $user_city OR $city_term == 'Any City') {
+		$cities[] = $city_term;
+	}
+}
+foreach ($cities as $city) {
+	if ($city != 'Any City') {
+		$city_name = substr($city,0,-3); //remove state
+	}
+	else {
+		$city_name = $city;
+	}	
+}
+
+$user_city_slug = strtolower($user_city);
+$user_city_slug = str_replace(' ','-',$user_city_slug);
+?>			
 			<div class="row-fluid">
 				<div class="span8">	
-					<h3 class="page-title">CityHow Guides</h3>
-					<div class="intro-block noborder"><p>A CityHow Guide can be about anything that&#39;s useful to employees working for the City of Philadelphia. Maybe that&#39;s how to book a conference room in City Hall. Or how to arrange a Zipcar through the City.</p><p>If it&#39;s something you know how to do, it&#39;s probably something other people want to know how to do. So suggest a topic for a new CityHow Guide, create your own Guide, or ask another employee to write one.</p>
+					<h3 class="page-title">Guides for <?php echo $city_name;?></h3>
+					<div class="intro-block noborder"><p>A CityHow Guide can be about anything that&#39;s useful to employees working for 
+<?php
+if ($city_name != 'Any City') {
+	echo 'the City of '.$city_name;
+	echo '. Or it could be about something that&#39;s helpful to city employees working in any city.</p><p>If it&#39;s something you know how to do, it&#39;s probably something other people want to know how to do. So suggest a topic for a new CityHow Guide, create your own Guide, or ask another employee to write one.</p>';
+}
+elseif ($city_name == 'Any City') {
+	echo 'your city';
+	echo '. Or it could be about something that&#39;s helpful to city employees working in any city.</p><p>If it&#39;s something you know how to do, it&#39;s probably something other people want to know how to do. So suggest a topic for a new CityHow Guide, create your own Guide, or ask another employee to write one.</p>';
+}
+?>
 					</div>
 				</div>
 				<div class="span4 sidebar-faux">
@@ -39,7 +69,6 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $guide_cat = get_category_id('guides');
 $list_args = array(
 	'post_status' => 'publish',
-//	'cat' => $guide_cat,
 	'posts_per_page' => 12,
 	'paged' => $paged,
 	'tax_query' => array(
@@ -58,7 +87,7 @@ $list_args = array(
 );
 $list_query = new WP_Query($list_args);
 if ($list_query->have_posts()) : 
-while($list_query->have_posts()) : $list_query->the_post();
+	while($list_query->have_posts()) : $list_query->the_post();
 $imgSrc = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
 ?>
 
@@ -73,11 +102,11 @@ $pic_title = trim_by_chars(get_the_title(),'60',$pad);
 	</div>	
 </li>
 
-<?php endwhile; ?>	
-<?php else : ?>	
-
+<?php 
+	endwhile; 
+else :
+?>	
 <li class="guides-list" id="post-no-guides">Sorry, there are no public CityHow Guides to see at this time.</li>
-
 <?php 
 endif; 
 
@@ -88,7 +117,6 @@ echo paginate_links( array(
 	'current' => max(1, get_query_var('paged')),
 	'total' => $wp_query->max_num_pages
 ));
-
 wp_reset_query();
 ?>	
 					</ul><!-- / list-guides-->							
