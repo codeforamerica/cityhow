@@ -17,22 +17,14 @@ $app_url = get_bloginfo('url');
 					<li class="partners cfa"><a target="_blank" href="http://www.codeforamerica.org" title="Go to Code for America"><img width="70" src="<?php echo $style_url;?>/images/logo_cfa.png" alt="Code for America logo"></a></li>														
 				</ul>
 			</div><!-- /span4 -->			
-<?php if (is_user_logged_in()) : ?>				
+			
 			<div class="span4 middle clearfix">
 				<h6>About CityHow</h6>
 				<ul class="footer">
-					<li><a class="noline footer-link" title="Learn about CityHow" href="<?php echo $app_url;?>/about">About CityHow</a></li>	
+					<li><a class="noline footer-link" title="Learn about CityHow" href="<?php echo $app_url;?>/about">Learn about CityHow</a></li>
 					<!--li><a class="noline footer-link" title="Find out what we&#39;ve been up to" href="<?php echo $app_url;?>/blog">Read the Blog</a></li-->										
 				</ul>
 			</div><!-- /span4 -->
-<?php else : ?>
-			<div class="span4 middle clearfix">
-				<h6>About CityHow</h6>
-				<ul class="footer">
-					<li><p class="footerp">All CityHow code is open source and free for civic use, so <a class="whitelink" href="https://github.com/codeforamerica/cityhow" title="Visit CityHow on Github">visit us on Github</a>.</p></li>									
-				</ul>
-			</div><!-- /span4 -->
-<?php endif; ?>
 
 			<div class="span4 odd2 clearfix">
 				<h6>Contact</h6>
@@ -43,11 +35,11 @@ $app_url = get_bloginfo('url');
 <?php else :?>
 	<li><p class="footerp"><a class="footer-link" title="Get in touch with us" href="<?php echo $app_url;?>/contact">Email Us</a></p></li>	
 <?php endif;?>											
-					<?php if (is_user_logged_in()) : ?><li><p class="footerp">Find us on:&nbsp;&nbsp;<a target="_blank" title="Visit CityHow on Github" href="https://github.com/codeforamerica/cityhow"><img src="<?php echo $style_url;?>/images/icons/social/github.png" alt="Github logo" width="26" /></a></p></li><?php endif; ?>
+					<li><p class="footerp">Find us on:&nbsp;&nbsp;<a target="_blank" title="Visit CityHow on Github" href="https://github.com/codeforamerica/cityhow"><img src="<?php echo $style_url;?>/images/icons/social/github.png" alt="Github logo" width="26" /></a></p></li>
 				</ul>			
 			</div><!-- /span4 -->
 			
-			<div class="span12 trade"><p class="trade"><?php if (is_user_logged_in()) : ?>All CityHow code is open source and free for civic use, so <a class="whitelink" href="https://github.com/codeforamerica/cityhow" title="Visit CityHow on Github">visit us on Github</a>.<br/>&#169; <?php endif; ?>2012 CityHow. The CityHow name and logo are trademarks of CityHow. All rights reserved.</p>
+			<div class="span12 trade"><p class="trade">All CityHow code is open source and free for civic use, so <a class="whitelink" href="https://github.com/codeforamerica/cityhow" title="Visit CityHow on Github">visit us on Github</a>.<br/>&#169; 2012 CityHow. The CityHow name and logo are trademarks of CityHow. All rights reserved.</p>
 			</div>			
 		</div><!-- / footer-->
 	</div><!--/ wrapper -->
@@ -94,11 +86,9 @@ $(document).ready(function() {
 	$('.dropdown-toggle').dropdown();
 	$('#likethis').tooltip();
 	$('.votethis').tooltip();	
-//	$('#addfdbk').tooltip();
-	$('.cityuser').tooltip();	
-//	$('.promo_suggest').tooltip();
-	$('.btns').tooltip();				
-
+	$('#addfdbk').tooltip();
+	$('.cityuser').tooltip();
+//	$('.btns').tooltip();				
 });
 
 // Replace LikeThis btn immediately onclick

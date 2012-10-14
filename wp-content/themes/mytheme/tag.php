@@ -59,8 +59,12 @@ $tag_args = array(
 $tag_query = new WP_Query($tag_args);
 if (!$tag_query->have_posts()) :
 ?>	
-	<li class="fdbk-list">Sorry ... content for this Topic is available only to employees of the City of 
-<?php echo $city_name;?>.</li>
+	<li class="fdbk-list">Sorry ... content for this Topic is available only to employees of 
+<?php
+if ($city_name != 'Any City') {
+	echo 'the City of ';
+}
+echo $city_name;?>.</li>
 
 <?php else: ?>	
 
@@ -88,7 +92,6 @@ if ($categories) {
 }
 ?>	
 <?php
-// If official post cities
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
 if ($post_cities) {
 	$count = count($post_cities);
@@ -109,7 +112,6 @@ if ($post_cities) {
 			$city_string = $city_name;			
 		}		
 		
-//		$city = substr($city,0,-3); //remove state				
 		if ($count == 1) {
 			echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>';
 		}

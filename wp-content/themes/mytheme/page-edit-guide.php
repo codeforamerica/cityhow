@@ -204,8 +204,8 @@ elseif ($current_user->ID != $mypost->post_author AND is_user_logged_in()) {
 }
 // NOT LOGGED IN
 elseif (!is_user_logged_in()) {
-	echo '<div class="block-instruct"><p class="instructions">Please <a class="nhline" href="'.$app_url.'/signin" title="Sign In now">sign in</a> to edit content.</p>';
-	echo '<p style="margin-top:1.5em;"><a title="Sign In now" href="'.$app_url.'/signin" class="nh-btn-blue">Sign In</a>&nbsp;&nbsp;or&nbsp;&nbsp;<a title="Sign Up now" href="'.$app_url.'/register" class="nh-btn-blue">Sign Up</a></p></div>';
+	echo '<div class="block-instruct"><p class="instructions">Please <a class="nhline" href="'.$app_url.'/signin" title="Sign In to CityHow">sign in</a> to edit content.</p>';
+	echo '<p style="margin-top:1.5em;"><a title="Sign In to CityHow" href="'.$app_url.'/signin" class="nh-btn-blue">Sign In</a>&nbsp;&nbsp;or&nbsp;&nbsp;<a title="Create an account" href="'.$app_url.'/register" class="nh-btn-blue">Create an Account</a></p></div>';
 }
 wp_reset_query();
 ?>

@@ -7,7 +7,7 @@ $value = getL2Keys($nh_errors);
 ?>
 <div id="content">
 	<div id="page-register">
-		<h3 class="page-title">Sign Up for CityHow</h3>
+		<h3 class="page-title">Create a CityHow Account</h3>
 
 		<div class="login" id="theme-my-login<?php $template->the_instance(); ?>">
 <?php $template->the_action_template_message( '' ); ?>

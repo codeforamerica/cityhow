@@ -17,7 +17,7 @@ $app_url = get_bloginfo('url');
 		<h5 class="widget-title">Create an Account</h5>
 		<div class="widget-copy">
 			<ul class="bullets">
-				<li class="bullets"><a class="nhline" href="<?php echo $app_url;?>/register" title="Sign Up now">Sign Up for CityHow</a></li>
+				<li class="bullets"><a class="nhline" href="<?php echo $app_url;?>/register" title="Create an account">Sign Up for CityHow</a></li>
 			</ul>
 		</div>			
 	</div><!--/ widget-->	

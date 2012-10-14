@@ -13,7 +13,7 @@
 
 				<div id="site-promo-list" class="span5">
 					<h4 class="loggedout">Please sign in to see content for your city</h4>
-					<p><a class="promo_suggest" href="<?php echo $app_url;?>/signin" title="Sign In now"><button class="nh-btn-blue btn-fixed">Sign In to CityHow</button></a></p>
+					<p><a class="promo_suggest" href="<?php echo $app_url;?>/signin" title="Sign In to CityHow"><button class="nh-btn-blue btn-fixed">Sign In to CityHow</button></a></p>
 
 					<p><a class="promo_suggest" href="<?php echo $app_url;?>/register" title="Create a CityHow account"><button class="nh-btn-blue btn-fixed">Create an Account</button></a></p>
 				</div>
@@ -31,9 +31,9 @@ echo $user_city_name;
 
 				<div id="site-promo-list" class="span5">
 					<h4>Share Your Knowledge with other City Employees</h4>
-					<p><span>1.</span>&nbsp;&nbsp;<a class="promo_suggest" href="<?php echo $app_url;?>/add-idea" data-title="Tell us about the content you want, and we'll make getting it a priority." rel="tooltip" data-placement="top"><button class="nh-btn-blue btn-fixed">Add an Idea for a Guide</button></a></p>
+					<p><span>1.</span>&nbsp;&nbsp;<a class="promo_suggest" href="<?php echo $app_url;?>/add-idea" title="Tell us about the content you want, and we'll make getting it a priority."><button class="nh-btn-blue btn-fixed">Add an Idea for a Guide</button></a></p>
 
-					<p><span>2.</span>&nbsp;&nbsp;<a class="promo_suggest" href="<?php echo $app_url;?>/create-guide" data-title="Share Your Knowledge -- Create a CityHow Guide and share what you know with others." rel="tooltip" data-placement="top"><button class="nh-btn-blue btn-fixed">Create a CityHow Guide</button></a></p>
+					<p><span>2.</span>&nbsp;&nbsp;<a class="promo_suggest" href="<?php echo $app_url;?>/create-guide" title="Share Your Knowledge -- Create a CityHow Guide and share what you know with others."><button class="nh-btn-blue btn-fixed">Create a CityHow Guide</button></a></p>
 				</div>
 			</div><!--/ row-fluid inner-->		
 <?php endif; ?>	
@@ -146,7 +146,7 @@ echo '<div class="see_all"><a class="nhline" href="'.$app_url.'/guides" title=""
 <?php if (is_user_logged_in()) : ?>
 <p><a id="addfdbk" title="Add Your Idea" rel="tooltip" data-placement="bottom" data-title="" class="nh-btn-blue" href="<?php echo $app_url;?>/add-idea" >Add Your Idea</a></p>
 <?php else : ?>
-<p style="float:left;text-align:left;padding:.25em .75em .25em .75em;background:#4996a4;color:#fff;"><strong><a class="whitelink" href="<?php echo $app_url;?>/signin" title="Sign In now">Sign In</a></strong> to CityHow so you can see content for your city!</p>	
+<p style="float:left;text-align:left;padding:.25em .75em .25em .75em;background:#4996a4;color:#fff;"><strong><a class="whitelink" href="<?php echo $app_url;?>/signin" title="Sign In to CityHow">Sign In</a></strong> to CityHow so you can see content for your city!</p>	
 <?php endif; ?>
 						<ul class="list-ideas list-ideas-home">							
 <?php

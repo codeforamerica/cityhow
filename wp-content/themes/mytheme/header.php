@@ -201,8 +201,8 @@ echo $avatar;
 }
 else {
 ?>
-					<li class="nhnav-item <?php if ($bodyid == "signin") echo $links; ?>"><a title="Sign In now" href="<?php echo $app_url;?>/login" >Sign In</a></li>
-					<li class="nhnav-item <?php if ($bodyid == "signup") echo $links; ?>"><a title="Sign Up now" href="<?php echo $app_url;?>/register" >Sign Up</a>
+					<li class="nhnav-item <?php if ($bodyid == "signin") echo $links; ?>"><a title="Sign In to CityHow" href="<?php echo $app_url;?>/login" >Sign In</a></li>
+					<li class="nhnav-item <?php if ($bodyid == "signup") echo $links; ?>"><a title="Create an Account" href="<?php echo $app_url;?>/register" >Sign Up</a>
 					</li>
 <?php
 }

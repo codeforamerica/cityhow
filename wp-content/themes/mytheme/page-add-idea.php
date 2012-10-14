@@ -42,7 +42,7 @@ if (is_user_logged_in()) {
 }
 elseif (!is_user_logged_in()) {
 	echo 'Please <a class="nhline" href="'.$app_url.'/signin" title="Sign In">sign in</a> to give us your ideas about Neighborhow.';
-	echo '<p style="margin-top:1.5em;"><a title="Sign In now" href="'.$app_url.'/signin" class="nh-btn-blue">Sign In</a>&nbsp;&nbsp;or&nbsp;&nbsp;<a title="Sign Up now" href="'.$app_url.'/register" class="nh-btn-blue">Sign Up</a></p>';
+	echo '<p style="margin-top:1.5em;"><a title="Sign In to CityHow" href="'.$app_url.'/signin" class="nh-btn-blue">Sign In</a>&nbsp;&nbsp;or&nbsp;&nbsp;<a title="Create an account" href="'.$app_url.'/register" class="nh-btn-blue">Create an Account</a></p>';
 }
 ?>
 			</div><!--/ content-->

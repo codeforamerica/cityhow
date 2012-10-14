@@ -3,10 +3,12 @@ $style_url = get_bloginfo('stylesheet_directory');
 $app_url = get_bloginfo('url');
 global $current_user;
 get_currentuserinfo();
-$auth_id = $post->post_author;
+$user_info = get_userdata($current_user->ID);
+global $user_city;
+$user_city = get_user_meta($user_info->ID,'user_city',true);
 
+$auth_id = $post->post_author;
 $user_info = get_userdata($auth_id);
-//$nh_author_slug = $nh_author->user_login;
 $displayname = $user_info->first_name.' '.$user_info->last_name;
 ?>
 <div id="sidebar-int" class="sidebar-nh">	
@@ -17,7 +19,6 @@ $displayname = $user_info->first_name.' '.$user_info->last_name;
 <?php
 $avatar_alt = 'Photo of '.$displayname;
 $avatar = get_avatar($auth_id, '48','',$avatar_alt);
-//$nh_user_photo_url = nh_get_avatar_url($nh_avatar);
 echo $avatar;
 ?>
 				</p>
@@ -30,18 +31,38 @@ echo '</a>';
 					<span class="byline">on</span> <?php the_date();?><br/>
 							<span class="byline">for</span>
 <?php
-$idea_city = get_post_meta($post->ID,'nh_idea_city',true);
-$nh_cities = get_terms('nh_cities');
-$term = term_exists($idea_city, 'nh_cities');
-$city = substr($idea_city,0,-3); //remove state	
-// If idea city is an official city
-if ($term !== 0 && $term !== null) {
-	$term_id = $term['term_id'];
-	$term_data = get_term_by('id',$term_id,'nh_cities');
-	echo '<a href="'.$app_url.'/cities/'.$term_data->slug.'" title="See other CityHow content in '.$city.'">City of '.$city.'</a>';
-}
-elseif ($term == 0 && $term == null) {
-	echo $city;
+// limit city name display to user city + any city
+$post_cities = wp_get_post_terms($post->ID,'nh_cities');
+$term = term_exists($user_city, 'nh_cities');
+if ($post_cities) {
+	$count = count($post_cities);
+	$j = $count - 1;	
+	for ($i=0; $i<=$j; $i++) {
+		$city = $post_cities[$i]->name;
+
+		if ($city == $user_city OR $city == 'Any City') {
+			$city_slug = strtolower($city);
+			$city_slug = str_replace(' ','-',$city_slug);
+			if ($city != 'Any City') {
+				$city_name = substr($city,0,-3); //remove state
+				$city_string = 'City of '.$city_name;
+			}
+			else {
+				$city_name = $city;
+				$city_string = $city_name;			
+			}	
+			// if only one city or if only city is any city	
+			if ($count == 1 OR $term == 0) {
+				echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>';
+			}
+			elseif ($count > 1 AND $i < $j) {
+				echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>, ';
+			}			
+			elseif ($count > 1 AND $i == $j) {
+					echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>';
+			}
+		}
+	}
 }
 ?>					
 				</p>	
@@ -82,7 +103,7 @@ else {
 <?php 
 // Turn off function when working locally - only works hosted
 echo '<div class="jetpack-idea-single">';
-echo sharing_display(); 
+//echo sharing_display(); 
 echo '</div>';
 ?>
 				<p class="sharing-jp"><a class="nhline" href="#leavecomment" title="Add Your Comment">Add a Comment</a></p>

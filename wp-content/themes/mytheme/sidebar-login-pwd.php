@@ -8,7 +8,7 @@ $app_url = get_bloginfo('url');
 		<h5 class="widget-title">Got your password?</h5>
 		<div class="widget-copy">
 			<ul class="bullets">
-				<li class="bullets"><a class="nhline" href="<?php echo $app_url;?>/signin" title="Sign In now">Sign In to CityHow</a></li>
+				<li class="bullets"><a class="nhline" href="<?php echo $app_url;?>/signin" title="Sign In to CityHow">Sign In to CityHow</a></li>
 			</ul>
 		</div>			
 	</div><!--/ widget-->
@@ -17,7 +17,7 @@ $app_url = get_bloginfo('url');
 		<h5 class="widget-title">Create an Account</h5>
 		<div class="widget-copy">
 			<ul class="bullets">
-				<li class="bullets"><a class="nhline" href="<?php echo $app_url;?>/register" title="Sign Up now">Sign Up for CityHow</a></li>
+				<li class="bullets"><a class="nhline" href="<?php echo $app_url;?>/register" title="Create an account">Create an Account</a></li>
 			</ul>
 		</div>			
 	</div><!--/ widget-->	
