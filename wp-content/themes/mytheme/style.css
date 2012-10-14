@@ -131,14 +131,12 @@ img.avatar {
 	overflow: visible;	
 }
 .sidebar-faux {
-	margin:0 !important;
-	padding:0 !important;
-	width:34% !important;
+	float:right !important;
+	width:34.15% !important;
+	border-left:1px solid #ccc;
 }
 .content-faux {
-	width:62% !important;
-	margin-right:0 !important;
-	padding-right:0 !important	
+	width:62% !important;	
 }
 .sidebar-button-panel {
 	border-left:1px solid #ccc;

@@ -29,35 +29,42 @@ $user_city_slug = strtolower($user_city);
 $user_city_slug = str_replace(' ','-',$user_city_slug);
 ?>			
 			<div class="row-fluid">
-				<div class="span8">	
+				<div class="span8 content-faux">	
 					<h3 class="page-title">Guides for <?php echo $city_name;?></h3>
 					<div class="intro-block noborder"><p>A CityHow Guide can be about anything that&#39;s useful to employees working for 
 <?php
 if ($city_name != 'Any City') {
 	echo 'the City of '.$city_name;
-	echo '. Or it could be about something that&#39;s helpful to city employees working in any city.</p><p>If it&#39;s something you know how to do, it&#39;s probably something other people want to know how to do. So suggest a topic for a new CityHow Guide, create your own Guide, or ask another employee to write one.</p>';
 }
 elseif ($city_name == 'Any City') {
 	echo 'your city';
-	echo '. Or it could be about something that&#39;s helpful to city employees working in any city.</p><p>If it&#39;s something you know how to do, it&#39;s probably something other people want to know how to do. So suggest a topic for a new CityHow Guide, create your own Guide, or ask another employee to write one.</p>';
 }
+echo '. Or it could be about something that&#39;s helpful to city employees working in any city.</p><p>If it&#39;s something you know how to do, it&#39;s probably something other people want to know how to do. So suggest a topic for a new CityHow Guide, create your own Guide, or ask another employee to write one.</p>';
 ?>
 					</div>
 				</div>
 				<div class="span4 sidebar-faux">
-					<div class="sidebar-button-panel">
-						<a class="btns" href="<?php echo $app_url;?>/add-idea" rel="tooltip" data-title="Tell us about the content you want, and we'll make getting it a priority."><button class="nh-btn-blue btn-fixed-small" data-placement="top">Add an Idea for a Guide</button></a>
-						
-						<a class="btns" href="<?php echo $app_url;?>/create-guide" rel="tooltip" data-title="Create a CityHow Guide and share what you know with others." data-placement="top"><button class="nh-btn-blue btn-fixed-small">Create a Guide</button></a>
-<?php
-// Turn off function when working locally - only works hosted
-echo '<div class="jetpack-cat-guides">';
-//echo sharing_display(); // Add sharing later
-echo '</div>';
-?>
-						<!--br/><button class="nh-btn-blue btn-fixed-small">Tell a Friend</button-->			
-					</div><!--/ widget-->	
-				</div>
+<?php if (is_user_logged_in()) : ?>				
+					<div class="widget-side">
+						<h5 class="widget-title">Help Make CityHow Better</h5>						
+						<div class="widget-copy">					
+							<div class="sidebar-buttons"><a href="<?php echo $app_url;?>/add-idea" title="Add your idea"><button class="nh-btn-blue-med btn-fixed">Add an Idea for a Guide</button></a>
+								<p>Help decide what content should be part of CityHow for your city.</p></div>
+							<div class="sidebar-buttons"><a href="<?php echo $app_url;?>/create-guide" title="Create a CityHow Guide"><button class="nh-btn-blue-med btn-fixed">Create a CityHow Guide</button></a>
+								<p>Share what you know about working in city government with others.</p></div>
+						</div><!--/ widget copy-->
+					</div><!--/ widget-->							
+<?php else : ?>		
+			<div class="widget-side">
+				<h5 class="widget-title">Sign In to see your city's content</h5>				
+				<div class="widget-copy">		
+					<div class="sidebar-buttons"><a href="<?php echo $app_url;?>/signin" title="Sign In now"><button class="nh-btn-blue-med btn-fixed">Sign In to CityHow</button></a></div>
+					<div class="sidebar-buttons"><a href="<?php echo $app_url;?>/register" title="Create an account"><button class="nh-btn-blue-med btn-fixed">Create an Account</button></a></div>	
+					</div><!--/ widget copy-->
+				</div><!--/ widget-->					
+<?php endif; ?>
+									
+				</div><!--/ sidebar-->
 			</div><!--/ row-fluid-->
 			
 			<div id="content-full" class="row-fluid">

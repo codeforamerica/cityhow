@@ -33,16 +33,23 @@ echo $city_name;?></h3>
 				</div>
 				
 				<div class="span4 sidebar-faux">
-					<div class="sidebar-button-panel">
-<?php if (is_user_logged_in()) : ?>						
-						<a class="" href="<?php echo $app_url;?>/add-idea" title="Tell us about the content you want, and we'll make getting it a priority."><button class="nh-btn-blue btn-fixed-small">Add an Idea for a Guide</button></a>
-						<a class="" href="<?php echo $app_url;?>/create-guide" title="Create a CityHow Guide and share what you know with others."><button class="nh-btn-blue btn-fixed-small">Create a Guide</button></a>
-<?php else : ?>				
-						<a class="" href="<?php echo $app_url;?>/signin" title="Sign In now"><button class="nh-btn-blue btn-fixed-small">Sign In to CityHow</button></a>
-						<a class="" href="<?php echo $app_url;?>/register" title="Create an account"><button class="nh-btn-blue btn-fixed-small">Create an Account</button></a>
-<?php endif; ?>						
-					</div><!--/ widget-->	
-				</div>
+<?php if (is_user_logged_in()) : ?>				
+					<div class="widget-side">
+						<div class="widget-copy">					
+							<div class="sidebar-buttons"><a href="<?php echo $app_url;?>/add-idea" title="Add your idea"><button class="nh-btn-blue-med btn-fixed">Add an Idea for a Guide</button></a></div>
+							<div class="sidebar-buttons"><a href="<?php echo $app_url;?>/create-guide" title="Create a CityHow Guide"><button class="nh-btn-blue-med btn-fixed">Create a CityHow Guide</button></a></div>
+						</div><!--/ widget copy-->
+					</div><!--/ widget-->							
+<?php else : ?>		
+			<div class="widget-side">
+				<h5 class="widget-title">Sign In to see your city's content</h5>				
+				<div class="widget-copy">		
+					<div class="sidebar-buttons"><a href="<?php echo $app_url;?>/signin" title="Sign In now"><button class="nh-btn-blue-med btn-fixed">Sign In to CityHow</button></a></div>
+					<div class="sidebar-buttons"><a href="<?php echo $app_url;?>/register" title="Create an account"><button class="nh-btn-blue-med btn-fixed">Create an Account</button></a></div>	
+					</div><!--/ widget copy-->
+				</div><!--/ widget-->					
+<?php endif; ?>		
+				</div><!--/ sidebar-->
 			</div><!-- /row-fluid-->
 
 			<div class="content-full">

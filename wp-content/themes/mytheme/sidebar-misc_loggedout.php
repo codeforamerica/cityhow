@@ -9,11 +9,11 @@ $app_url = get_bloginfo('url');
 		<div class="widget-copy">
 			
 			<div class="sidebar-buttons">			
-				<a href="<?php echo $app_url;?>/signin" title="Sign In now"><button class="nh-btn-blue btn-fixed">Sign In to CityHow</button></a>
+				<a href="<?php echo $app_url;?>/signin" title="Sign In now"><button class="nh-btn-blue-med btn-fixed">Sign In to CityHow</button></a>
 			</div>
 
 			<div class="sidebar-buttons">
-				<a href="<?php echo $app_url;?>/register" title="Create an account"><button class="nh-btn-blue btn-fixed">Create an Account</button></a>
+				<a href="<?php echo $app_url;?>/register" title="Create an account"><button class="nh-btn-blue-med btn-fixed">Create an Account</button></a>
 			</div>
 
 		</div><!--/ widget copy-->
