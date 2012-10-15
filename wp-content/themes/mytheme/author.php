@@ -2,14 +2,14 @@
 <?php
 $style_url = get_bloginfo('stylesheet_directory');
 $app_url = get_bloginfo('url');
-// Get viewer
+// Viewer
 global $current_user;
-//global $post;
 get_currentuserinfo();
 $nh_viewer_id = $current_user->ID;
+global $user_city;
+$user_city = get_user_meta($user_info->ID,'user_city',true);
 
-// author
-// Set up author
+// Author
 $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
 
 $nh_author_id = $curauth->ID;
@@ -50,6 +50,23 @@ echo $nh_avatar;
 		<?php if ($descriptiontxt) { ?><p><span class="byline">bio:</span> <?php echo $descriptiontxt;?></p><?php } ?>
 		<p><span class="byline">city:</span> 
 <?php 
+// only make links for user city + any city
+$city_terms = get_terms('nh_cities');
+foreach ($city_terms as $city_term) {
+	$city_term = $city_term->name;
+	if ($city_term == $user_city OR $city_term == 'Any City') {
+		$cities[] = $city_term;
+	}
+}
+foreach ($cities as $city) {
+	if ($city != 'Any City') {
+		$city_name = substr($city,0,-3); //remove state
+	}
+	else {
+		$city_name = $city;
+	}	
+}
+
 $nh_cities = get_terms('nh_cities');
 $user_city = $nh_author->user_city;
  

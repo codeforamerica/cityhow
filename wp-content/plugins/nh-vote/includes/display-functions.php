@@ -61,7 +61,7 @@ function nh_vote_it_link($post_id = null, $link_text = null, $already_voted = nu
 			if (!is_user_logged_in()) {
 				echo 'rel="tooltip" data-placement="bottom" href="#" data-title="If you&#39;re signed in, Votes will be saved in your Profile."';
 			}
-			echo ' class="vote votethis nh-btn-blue-med" data-post-id="' . $post_id . '" data-user-id="' .  $user_ID . '">Vote</a>';
+			echo ' class="vote votethis nh-btn-blue" data-post-id="' . $post_id . '" data-user-id="' .  $user_ID . '">Vote</a>';
 		} 
 		else {
 // Seems to duplicate php if/else on page ??			

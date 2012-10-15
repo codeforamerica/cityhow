@@ -11,9 +11,9 @@ $user_city = get_user_meta($user_info->ID,'user_city',true);
 <div id="sidebar-int" class="sidebar-nh">	
 <?php
 // limit visible content to user city or any city
-$post_cities = wp_get_post_terms($post->ID,'nh_cities');
-foreach ($post_cities as $city) :
-	if ($city->name == $user_city OR $city->name == 'Any City') :
+//$post_cities = wp_get_post_terms($post->ID,'nh_cities');
+//foreach ($post_cities as $city) :
+//	if ($city->name == $user_city OR $city->name == 'Any City') :
 ?>
 	<div class="widget-side">
 		<div class="widget-copy">
@@ -96,7 +96,7 @@ else {
 <?php 
 // Turn off when working locally - only works hosted
 echo '<div class="jetpack-guide-single">';
-echo sharing_display(); 
+//echo sharing_display(); 
 echo '</div>';
 ?>
 				<br/><a class="nhline" href="#leavecomment" title="Add Your Comment">Add a Comment</a>
@@ -140,18 +140,18 @@ if (!empty($post_cities)) {
 	</div><!-- widget-side-->	
 
 <?php
-endif; // end if user city or any city
-endforeach; // end post cities
+//endif; // end if user city or any city
+//endforeach; // end post cities
  
 if (!is_user_logged_in()) : ?>	
 	<div class="widget-side">
 		<h5 class="widget-title">Sign In to see your city's content</h5>
 		<div class="widget-copy">
 			<div class="sidebar-buttons">			
-				<a href="<?php echo $app_url;?>/signin" title="Sign In to CityHow"><button class="nh-btn-blue btn-fixed">Sign In to CityHow</button></a>
+				<a href="<?php echo $app_url;?>/signin" title="Sign In to CityHow"><button class="nh-btn-blue-med btn-fixed">Sign In to CityHow</button></a>
 			</div>
 			<div class="sidebar-buttons">
-				<a href="<?php echo $app_url;?>/register" title="Create an account"><button class="nh-btn-blue btn-fixed">Create an Account</button></a>
+				<a href="<?php echo $app_url;?>/register" title="Create an account"><button class="nh-btn-blue-med btn-fixed">Create an Account</button></a>
 			</div>
 		</div><!--/ widget copy-->
 	</div><!--/ widget-->	

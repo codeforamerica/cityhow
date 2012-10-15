@@ -12,6 +12,8 @@ if ($term->name != 'Any City') {
 else {
 	$city_name = $term->name;
 }
+$user_city_slug = strtolower($user_city);
+$user_city_slug = str_replace(' ','-',$user_city_slug);
 ?>
 <div class="row-fluid row-content">	
 	<div class="wrapper">
@@ -64,19 +66,34 @@ echo $city_name;
 <?php 
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
 $term = array_pop($post_cities);
-
+if ($term->name != $user_city) {
+	$arg_terms = array($term->name);
+}
+else {
+	$arg_terms = array($term->name,'Any City');
+}
 $guide_cat = get_category_id('guides');
-
 $city_args = array(
-	'post_type' => array('post'),
 //	'posts_per_page' => '-1',
 	'post_status' => 'publish',
 	'orderby' => 'date',
 	'order' => 'DESC',
-	'cat' => $guide_cat,
-	'nh_cities' => $term->slug, //the city taxonomy
+//	'nh_cities' => $term->slug, //the city taxonomy
 	'posts_per_page' => '12',
-	'paged' => get_query_var('paged')
+	'paged' => get_query_var('paged'),
+	'tax_query' => array(
+		'relation' => 'AND',
+		array(
+			'taxonomy' => 'category',
+			'field' => 'slug',
+			'terms' => array( 'guides' )
+		),
+		array(
+			'taxonomy' => 'nh_cities',
+			'field' => 'slug',
+			'terms' => $arg_terms
+		)	
+	)
 );
 $city_query = new WP_Query($city_args);
 	if ($city_query->have_posts()) : 
@@ -122,16 +139,34 @@ echo $city_name;
 
 <?php 
 $idea_cat = get_category_id('ideas');
+if ($term->name != $user_city) {
+	$arg_ideas = array($term->name);
+}
+else {
+	$arg_ideas = array($term->name,'Any City');
+}
 $idea_args = array(
 	'post_type' => array('post'), //include projects
 	'post_status' => 'publish',
 	'orderby' => 'date',
 	'order' => 'DESC',
-	'cat' => $idea_cat,
 	'meta_key' => 'nh_idea_city',
-	'meta_value' => $term->name,	
+//	'meta_value' => $term->name,	
 	'posts_per_page' => '-1',
-	'paged' => get_query_var('paged')
+	'paged' => get_query_var('paged'),
+	'tax_query' => array(
+		'relation' => 'AND',
+		array(
+			'taxonomy' => 'category',
+			'field' => 'slug',
+			'terms' => array( 'ideas' )
+		),
+		array(
+			'taxonomy' => 'nh_cities',
+			'field' => 'slug',
+			'terms' => $arg_ideas
+		)	
+	)
 );
 $idea_query = new WP_Query($idea_args);
 	if ($idea_query->have_posts()) : 
@@ -158,7 +193,12 @@ endif;
 wp_reset_query();					 
 ?>								
 				</div><!--/ list ideas-->
-				
+
+<?php
+$users = $wpdb->get_results("SELECT * from nh_usermeta where meta_value = '".$user_city."' AND meta_key = 'user_city'");		
+$users_count = count($users);
+if ($users AND $user_city) :
+?>				
 				<div id="list-people">					
 					<h5 class="widget-title">People in 
 <?php 
@@ -167,79 +207,90 @@ if ($city_name != 'Any City') {
 }
 echo $city_name;
 ?></h5>
-					<ul class="list-people">								
-<?php 
-// Get users whose user_city = term name
-$users = $wpdb->get_results("SELECT * from nh_usermeta where meta_value = '".$term->name."' AND meta_key = 'user_city'");		
-$users_count = count($users);
+					<ul class="list-people">
+<?php
+foreach ($users as $user) {
+	$user_data = get_userdata($user->user_id);
 
-if ($users) {
-	foreach ($users as $user) {
-		$user_data = get_userdata($user->user_id);
+	$user_name = $user_data->first_name.' '.$user_data->last_name;
+	$user_avatar = get_avatar($user_data->ID,'72','identicon','');
 
-		$user_name = $user_data->first_name.' '.$user_data->last_name;
-		$user_avatar = get_avatar($user_data->ID,'72','identicon','');
+	echo '<li class="people-list">';
+	echo '<a href="'.$app_url.'/author/'.$user_data->user_login.'" class="cityuser" rel="tooltip" data-placement="top" data-title="<strong>'.$user_name.'</strong><br/>';
 
-		echo '<li class="people-list">';
-		echo '<a href="'.$app_url.'/author/'.$user_data->user_login.'" class="cityuser" rel="tooltip" data-placement="top" data-title="<strong>'.$user_name.'</strong><br/>';
+//	$user_content_count = count_user_posts_by_type($user_data->ID);
 
-//		$user_content_count = count_user_posts_by_type($user_data->ID);
-
-		$user_content_count = nh_get_user_posts_count($user_data->ID,array(
-			'post_type' =>'post',
-			'post_status'=> 'publish',
-			'posts_per_page' => -1
-			));
-		if ($user_content_count) {
-			if ($user_content_count == '1') {
-				echo $user_content_count.'&nbsp;article';
-			}
-			elseif ($user_content_count > 1) {
-				echo $user_content_count.'&nbsp;articles';
-			}
+	$user_content_count = nh_get_user_posts_count($user_data->ID,array(
+		'post_type' =>'post',
+		'post_status'=> 'publish',
+		'posts_per_page' => -1
+		));
+	if ($user_content_count) {
+		if ($user_content_count == '1') {
+			echo $user_content_count.'&nbsp;article';
 		}
-		$user_likes = get_user_meta($user_data->ID,'nh_li_user_loves');
-		foreach ($user_likes as $like) {
-			$user_likes_count = count($like);
-			if ($user_likes_count) {
-				if ($user_likes_count == '1') {
-					echo ' &nbsp;&#8226;&nbsp; '.$user_likes_count.'&nbsp;like';
-				}
-				elseif ($user_likes_count > 1) {
-					echo ' &nbsp;&#8226;&nbsp; '.$user_likes_count.'&nbsp;likes';
-				}
-			}
+		elseif ($user_content_count > 1) {
+			echo $user_content_count.'&nbsp;articles';
 		}
-		$comment_args = array('user_id' => $user_data->ID);   
-		$comments = get_comments($comment_args);
-		$user_comments_count = count($comments);
-		if ($user_comments_count) {
-			if ($user_comments_count == '1') {
-				echo ' &nbsp;&#8226;&nbsp; '.$user_comments_count.'&nbsp;comment';
-			}
-			elseif ($user_comments_count > 1) {
-				echo ' &nbsp;&#8226;&nbsp; '.$user_comments_count.'&nbsp;comments';
-			}
-		}
-
-		$user_votes = get_user_meta($user_data->ID,'nh_user_votes');
-		foreach ($user_votes as $vote) {
-			$user_votes_count = count($vote);
-			if ($user_votes_count) {
-				if ($user_votes_count == '1') {
-					echo ' &nbsp;&#8226;&nbsp; '.$user_votes_count.'&nbsp;vote';
-				}
-				elseif ($user_votes_count > 1) {
-					echo ' &nbsp;&#8226;&nbsp; '.$user_votes_count.'&nbsp;votes';
-				}
-			}
-		}
-		echo '">'.$user_avatar.'</a>';
-		echo '</li>';
 	}
+	$user_likes = get_user_meta($user_data->ID,'nh_li_user_loves');
+	foreach ($user_likes as $like) {
+		$user_likes_count = count($like);
+		if ($user_likes_count) {
+			if ($user_likes_count == '1') {
+				echo ' &nbsp;&#8226;&nbsp; '.$user_likes_count.'&nbsp;like';
+			}
+			elseif ($user_likes_count > 1) {
+				echo ' &nbsp;&#8226;&nbsp; '.$user_likes_count.'&nbsp;likes';
+			}
+		}
+	}
+	$comment_args = array('user_id' => $user_data->ID);   
+	$comments = get_comments($comment_args);
+	$user_comments_count = count($comments);
+	if ($user_comments_count) {
+		if ($user_comments_count == '1') {
+			echo ' &nbsp;&#8226;&nbsp; '.$user_comments_count.'&nbsp;comment';
+		}
+		elseif ($user_comments_count > 1) {
+			echo ' &nbsp;&#8226;&nbsp; '.$user_comments_count.'&nbsp;comments';
+		}
+	}
+
+	$user_votes = get_user_meta($user_data->ID,'nh_user_votes');
+	foreach ($user_votes as $vote) {
+		$user_votes_count = count($vote);
+		if ($user_votes_count) {
+			if ($user_votes_count == '1') {
+				echo ' &nbsp;&#8226;&nbsp; '.$user_votes_count.'&nbsp;vote';
+			}
+			elseif ($user_votes_count > 1) {
+				echo ' &nbsp;&#8226;&nbsp; '.$user_votes_count.'&nbsp;votes';
+			}
+		}
+	}
+	echo '">'.$user_avatar.'</a>';
+	echo '</li>';
 }
-elseif (!$users) {
+?>
+
+
+
+
+
+					</ul>
+				</div><!--/ list people-->
+														
+<?php elseif (!$users AND $user_city) :
 ?>	
+					<div id="list-people">					
+						<h5 class="widget-title">People in 
+<?php 
+if ($city_name != 'Any City') {
+	echo 'the City of ';
+}
+echo $city_name;
+?></h5>
 	<li style="margin-left:1.5em !important;border:none;width:100%;" class="people-list" id="nopost">There are no registered users from 
 <?php
 if ($city_name != 'Any City') {
@@ -249,16 +300,13 @@ echo $city_name.' ';
 ?>
 yet. <a href="<?php echo $app_url;?>/register" title="Create an account">Create an Account!</a></li>
 <?php
-}
+endif;
 wp_reset_query();					 
 ?>				
-</ul>		
+					</ul>		
 				</div><!--/ list people-->
-			</div><!--/ content-full -->	
-				
-<?php
-else :
-?>
+			</div><!--/ content-full -->		
+<?php else : // if not user city or any city ?>
 				<div class="span7">						
 					<h3 class="page-title">
 <?php
@@ -270,10 +318,7 @@ echo $city_name;?></h3>
 					</div>
 				</div>
 			</div><!-- /row-fluid-->
-<?php
-endif; // if user city or any city					 
-?>		
-		
+<?php endif; // end if user city or any city ?>		
 		</div><!--/ main-->
 	</div><!--/ content-->
 </div><!--/ row-content-->

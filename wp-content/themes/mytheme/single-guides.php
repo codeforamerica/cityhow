@@ -17,11 +17,11 @@ if ( have_posts() ) :
 while ( have_posts() ) : the_post(); 
 $nh_author = get_userdata($curauth->ID);
 $nhow_post_id = $post->ID;
-
 // limit visible content to user city or any city
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
 foreach ($post_cities as $city) :
 	if ($city->name == $user_city OR $city->name == 'Any City') :
+
 ?>
 			
 <div class="tabbable">
@@ -110,18 +110,18 @@ for ($i=1;$i <= $step_total;$i++) {
 	</div><!-- / tab content-->
 </div><!-- / tabbable-->
 
-<?php if (!is_preview()) : ?>
+<?php //if (!is_preview()) : ?>
 <div id="leavecomment" class="nhow-comments">
-<?php comments_template( '', true ); ?>
+<?php //comments_template( '', true ); ?>
 </div>				
 <?php
-endif; // end if preview
+//endif; // end if preview
 else : // if this isnt the user city or any city
 ?>
 <p>Sorry ... content for this city is available only to employees of the City of 
 <?php 
 $city_name = substr($city->name,0,-3); //remove state		
-echo $city_name;?>
+echo $city_name.'</p>';?>
 <?php
 endif; // end if user city or any city
 endforeach; // end post cities

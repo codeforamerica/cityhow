@@ -93,33 +93,36 @@ if ($categories) {
 ?>	
 <?php
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
+$term = term_exists($user_city, 'nh_cities');
+
 if ($post_cities) {
 	$count = count($post_cities);
 	$j = $count - 1;	
-
 	echo ' + ';
 	for ($i=0; $i<=$j; $i++) {
 		$city = $post_cities[$i]->name;
-		$city_slug = strtolower($city);
-		$city_slug = str_replace(' ','-',$city_slug);
-		
-		if ($city != 'Any City') {
-			$city_name = substr($city,0,-3); //remove state
-			$city_string = 'City of '.$city_name;
-		}
-		else {
-			$city_name = $city;
-			$city_string = $city_name;			
-		}		
-		
-		if ($count == 1) {
-			echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>';
-		}
-		elseif ($count > 1 AND $i < $j) {
-			echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>, ';
-		}			
-		elseif ($count > 1 AND $i == $j) {
+
+		if ($city == $user_city OR $city == 'Any City') {
+			$city_slug = strtolower($city);
+			$city_slug = str_replace(' ','-',$city_slug);
+			if ($city != 'Any City') {
+				$city_name = substr($city,0,-3); //remove state
+				$city_string = 'City of '.$city_name;
+			}
+			else {
+				$city_name = $city;
+				$city_string = $city_name;			
+			}	
+			// if only one city or if only city is any city	
+			if ($count == 1 OR $term == 0) {
 				echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>';
+			}
+			elseif ($count > 1 AND $i < $j) {
+				echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>, ';
+			}			
+			elseif ($count > 1 AND $i == $j) {
+					echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>';
+			}
 		}
 	}
 }
