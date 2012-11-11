@@ -6,13 +6,14 @@ get_currentuserinfo();
 $user_info = get_userdata($current_user->ID);
 global $user_city;
 $user_city = get_user_meta($user_info->ID,'user_city',true);
+var_dump($user_city);
 ?>
 
 <div id="sidebar-int" class="sidebar-nh">	
 <?php
 // limit visible content to user city or any city
-//$post_cities = wp_get_post_terms($post->ID,'nh_cities');
-//foreach ($post_cities as $city) :
+// $post_cities = wp_get_post_terms($post->ID,'nh_cities');
+// foreach ($post_cities as $city) :
 //	if ($city->name == $user_city OR $city->name == 'Any City') :
 ?>
 	<div class="widget-side">
@@ -49,13 +50,14 @@ if (!empty($post_cities)) {
 	foreach ($post_cities as $post_city) {
 		if ($post_city->name == 'Any City') {
 			$city = $post_city->name;
-			$city_name = $city;			
+			$city_name = $city;	
+			$city_string .= '<a class="nhline" href="'.$app_url.'/cities/'.$post_city->slug.'" title="See all content for '.$city.'">'.$city_name.'</a>, ';		
 		}
-		else {
-			$city = substr($post_city->name,0,-3); //remove state	
-			$city_name = 'City of '.$city;		
+		elseif ($user_city == $post_city->name) {
+			$city = substr($post_city->name,0,-3); //remove state
+			$city_name = 'City of '.$city;
+			$city_string .= '<a class="nhline" href="'.$app_url.'/cities/'.$post_city->slug.'" title="See all content for '.$city.'">'.$city_name.'</a>, ';
 		}
-		$city_string .= '<a class="nhline" href="'.$app_url.'/cities/'.$post_city->slug.'" title="See all content for '.$city.'">'.$city_name.'</a>, ';
 	}
 	echo rtrim($city_string, ', ');
 }
@@ -120,19 +122,7 @@ foreach($post_tags as $tag){
 	echo '</li>';	
 ?>
 <?php
-if (!empty($post_cities)) {
-	foreach ($post_cities as $post_city) {
-		if ($post_city->name == 'Any City') {
-			$city = $post_city->name;
-			$city_name = $city;			
-		}
-		else {
-			$city = substr($post_city->name,0,-3); //remove state	
-			$city_name = 'City of '.$city;		
-		}
-		echo '<li><a class="nhline" href="'.$app_url.'/cities/'.$post_city->slug.'" title="See all content for '.$city.'">'.$city_name.'</a></li>';
-	}
-}
+echo rtrim($city_string, ', ');
 ?>						
 				</ul>
 			</div><!--/guide details-->

@@ -8,7 +8,7 @@
 	<div class="wrapper">
 		<div id="main">
 <?php
-// limit list to user city + any city
+// limit list to user city
 $city_terms = get_terms('nh_cities');
 foreach ($city_terms as $city_term) {
 	$city_term = $city_term->name;

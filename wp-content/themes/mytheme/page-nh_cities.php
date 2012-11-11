@@ -15,15 +15,15 @@
 				<div id="list-ideas">
 					<ul class="list-ideas">			
 <?php 
-// limit list to User City + Any City
+// dont allow access to cities that are not
+// users city or Any City
 $guide_cat = get_category_id('guides');
-
+$idea_cat = get_category_id('ideas');
 $city_terms = get_terms('nh_cities');
+
 foreach ($city_terms as $city_term) {
 	$city_term = $city_term->name;
-	if ($city_term == $user_city OR $city_term == 'Any City') {
-		$cities[] = $city_term;
-	}
+	$cities[] = $city_term;
 }
 foreach ($cities as $city) {
 	if ($city != 'Any City') {
@@ -37,7 +37,7 @@ foreach ($cities as $city) {
 	$city_url = get_term_link($city,'nh_cities');
 
 // get guide count per city per guide cat
-$myquery = array(
+$guide_query = array(
 	'posts_per_page' => -1,
 	'post_status' => 'publish',
 	'tax_query' => array(
@@ -55,29 +55,51 @@ $myquery = array(
 	)
 );
 
-$city_guides = query_posts($myquery);
+// get idea count per city per idea cat
+$idea_query = array(
+	'posts_per_page' => -1,
+	'post_status' => 'publish',
+	'tax_query' => array(
+		'relation' => 'AND',
+		array(
+			'taxonomy' => 'category',
+			'field' => 'id',
+			'terms' => array($idea_cat)
+		),
+		array(
+			'taxonomy' => 'nh_cities',
+			'field' => 'slug',
+			'terms' => array($city_slug)
+		)
+	)
+);
+
+$city_guides = query_posts($guide_query);
 $count_city_guides = count($city_guides);
+
+$city_ideas = query_posts($idea_query);
+$count_city_ideas = count($city_ideas);
 
 // get user count per city
 	$users = $wpdb->get_results("SELECT * from nh_usermeta where meta_value = '".$city."' AND meta_key = 'user_city'");		
 	$users_count = count($users);
-	
-// get idea count per city
-	$ideas = $wpdb->get_results("SELECT * from nh_postmeta where meta_value = '".$city."' AND meta_key = 'nh_idea_city'");		
-	$ideas_count = count($ideas);	
 
-// show results	
 	echo '<li class="nhline city-all">';
-	echo '<a class="nhline" href="'.$city_url.'" title="View content for ';
-	if ($city_slug != 'any-city') {
-		echo 'City of ';
+
+// show results for any city
+	if ($city != $user_city AND $city == 'Any City') {
+		echo '<a class="nhline" href="'.$city_url.'" title="View content for '.$city_name.'">'.$city.'</a>';
 	}
-	echo $city.'">';
-	if ($city_slug != 'any-city') {
-		echo 'City of ';
+// show results for user city
+	elseif ($city == $user_city AND $city != 'Any City') {
+		echo '<a class="nhline" href="'.$city_url.'" title="View content for '.$city_name.'">City of '.$city.'</a>';
 	}
-	echo $city_name.'</a>';
-	if ($posts) {
+// show results for not user city
+	else {
+		echo 'City of '.$city_name.' <span class="meta"><span class="byline">&nbsp;(visible to employees in '.$city_name.')</span></span>';
+	}
+
+	if ($city_guides AND $city == $user_city OR $city == 'Any City') {
 		if ($count_city_guides == '1') {
 			echo '<span class="meta"><span class="byline">&nbsp;&nbsp;&#8226;&nbsp;&nbsp;'.$count_city_guides.'&nbsp;Guide</span></span>';
 		}
@@ -86,16 +108,16 @@ $count_city_guides = count($city_guides);
 		}
 	}
 	
-	if ($ideas) {
-		if ($ideas_count == '1') {
-			echo '<span class="meta"><span class="byline">&nbsp;&nbsp;&#8226;&nbsp;&nbsp;'.$ideas_count.'&nbsp;Idea</span></span>';
+	if ($city_ideas AND $city == $user_city OR $city == 'Any City') {
+		if ($count_city_ideas == '1') {
+			echo '<span class="meta"><span class="byline">&nbsp;&nbsp;&#8226;&nbsp;&nbsp;'.$count_city_ideas.'&nbsp;Idea</span></span>';
 		}
-		elseif ($ideas_count > 1) {
-			echo '<span class="meta"><span class="byline">&nbsp;&nbsp;&#8226;&nbsp;&nbsp;'.$ideas_count.'&nbsp;Ideas</span></span>';
+		elseif ($count_city_ideas > 1) {
+			echo '<span class="meta"><span class="byline">&nbsp;&nbsp;&#8226;&nbsp;&nbsp;'.$count_city_ideas.'&nbsp;Ideas</span></span>';
 		}
 	}
 		
-	if ($users) {
+	if ($users AND $city == $user_city OR $city == 'Any City') {
 		if ($users_count == '1') {
 			echo '<span class="meta"><span class="byline">&nbsp;&nbsp;&#8226;&nbsp;&nbsp;'.$users_count.'&nbsp;User</span></span>';
 		}

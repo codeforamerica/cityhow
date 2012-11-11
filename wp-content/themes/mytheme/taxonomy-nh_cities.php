@@ -66,19 +66,13 @@ echo $city_name;
 <?php 
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
 $term = array_pop($post_cities);
-if ($term->name != $user_city) {
-	$arg_terms = array($term->name);
-}
-else {
-	$arg_terms = array($term->name,'Any City');
-}
+// only show match to term name
+$arg_terms = array($term->name);
 $guide_cat = get_category_id('guides');
 $city_args = array(
-//	'posts_per_page' => '-1',
 	'post_status' => 'publish',
 	'orderby' => 'date',
 	'order' => 'DESC',
-//	'nh_cities' => $term->slug, //the city taxonomy
 	'posts_per_page' => '12',
 	'paged' => get_query_var('paged'),
 	'tax_query' => array(
@@ -139,19 +133,14 @@ echo $city_name;
 
 <?php 
 $idea_cat = get_category_id('ideas');
-if ($term->name != $user_city) {
-	$arg_ideas = array($term->name);
-}
-else {
-	$arg_ideas = array($term->name,'Any City');
-}
+// only show match to term name
+$arg_ideas = array($term->name);
 $idea_args = array(
 	'post_type' => array('post'), //include projects
 	'post_status' => 'publish',
 	'orderby' => 'date',
 	'order' => 'DESC',
 	'meta_key' => 'nh_idea_city',
-//	'meta_value' => $term->name,	
 	'posts_per_page' => '-1',
 	'paged' => get_query_var('paged'),
 	'tax_query' => array(
@@ -197,7 +186,8 @@ wp_reset_query();
 <?php
 $users = $wpdb->get_results("SELECT * from nh_usermeta where meta_value = '".$user_city."' AND meta_key = 'user_city'");		
 $users_count = count($users);
-if ($users AND $user_city) :
+// dont show users for Any City
+if ($users AND $user_city == $term->name) :
 ?>				
 				<div id="list-people">					
 					<h5 class="widget-title">People in 
@@ -217,8 +207,6 @@ foreach ($users as $user) {
 
 	echo '<li class="people-list">';
 	echo '<a href="'.$app_url.'/author/'.$user_data->user_login.'" class="cityuser" rel="tooltip" data-placement="top" data-title="<strong>'.$user_name.'</strong><br/>';
-
-//	$user_content_count = count_user_posts_by_type($user_data->ID);
 
 	$user_content_count = nh_get_user_posts_count($user_data->ID,array(
 		'post_type' =>'post',
@@ -273,10 +261,6 @@ foreach ($users as $user) {
 	echo '</li>';
 }
 ?>
-
-
-
-
 
 					</ul>
 				</div><!--/ list people-->

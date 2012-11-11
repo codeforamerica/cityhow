@@ -10,3 +10,6 @@ CityHow is a light-weight platform for city employees to find and share informat
 CityHow is running on Wordpress and makes extensive use of the Formidable Pro plugin (among others).</p>
 <p>To get it running, you'll need a license for the Formidable Pro plugin.</p>
 <p>You'll also need some detailed information from the CityHow database. Detailed documentation is on the way.</p>
+
+<p><strong>Copyright</strong><br/>
+Copyright (c) 2012 Code for America. See <a href="https://github.com/codeforamerica/cfa_template/blob/master/LICENSE.mkd">LICENSE</a> for details.</p>
