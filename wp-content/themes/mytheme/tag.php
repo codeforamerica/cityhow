@@ -77,13 +77,27 @@ if ($categories) {
 ?>	
 <?php
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
+
+// only keep user city and Any City
+foreach($post_cities as $elementKey => $element) {
+    foreach($element as $valueKey => $value) {
+		if ($valueKey == 'name' AND $value != $user_city AND $value != 'Any City') {
+			unset($post_cities[$elementKey]);
+		}
+    }
+}
+
 if ($post_cities) {
 	$count = count($post_cities);
 	$j = $count - 1;	
 
 	echo ' + ';
 	for ($i=0; $i<=$j; $i++) {
-		$city = $post_cities[$i]->name;
+		$city = $post_cities[$i]->name;	
+		if ($city == $user_city) {
+			$city = substr($city,0,-3);
+			$city = 'City of '.$city;
+		}
 		$city_slug = strtolower($city);
 		$city_slug = str_replace(' ','-',$city_slug);
 		
