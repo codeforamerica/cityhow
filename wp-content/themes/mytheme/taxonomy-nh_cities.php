@@ -320,7 +320,7 @@ if ($city_name != 'Any City') {
 	echo 'City of ';
 }
 echo $city_name;?></h3>
-					<div class="intro-block noborder" style="min-height:400px;"><p>Sorry ... content for this city is only available to employees of the City of <?php echo $city_name;?>.</p>
+					<div class="intro-block noborder" style="min-height:400px;"><p>Sorry ... content for this city is only visible to employees of the City of <?php echo $city_name;?>.</p>
 					</div>
 				</div>
 			</div><!-- /row-fluid-->

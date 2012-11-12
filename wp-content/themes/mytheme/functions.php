@@ -302,7 +302,7 @@ function nh_comment( $comment, $args, $depth ) {
 		case 'pingback' :
 		case 'trackback' :
 ?>
-<li class="post pingback">
+<li class="comment post pingback">
 	<p><?php _e( 'Pingback:', 'nhow' ); ?> <?php comment_author_link(); ?><?php edit_comment_link( __( 'Edit', 'nhow' ), '<span class="edit-link">', '</span>' ); ?></p>
 <?php
 	break;

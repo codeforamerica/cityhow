@@ -6,7 +6,7 @@ get_currentuserinfo();
 $user_info = get_userdata($current_user->ID);
 global $user_city;
 $user_city = get_user_meta($user_info->ID,'user_city',true);
-var_dump($user_city);
+//var_dump($user_city);
 ?>
 
 <div id="sidebar-int" class="sidebar-nh">	
