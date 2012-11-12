@@ -24,14 +24,28 @@ if ($term->name == $user_city OR $term->name == 'Any City') :
 ?>			
 			<div id="row-fluid">
 				<div class="span8 content-faux">						
-					<h3 class="page-title">
+					
 <?php
 if ($city_name != 'Any City') {
-	echo 'City of ';
+	echo '<h3 class="page-title">';
+	echo 'City of '.$city_name.'</h3>';
+	echo '<div class="intro-block noborder"><p>See what&#39;s happening in the City of '.$city_name.'. Then <a href="'.$app_url.'/create-guide" title="Create a CityHow Guide">create your own Guide</a> or <a href="'.$app_url.'/add-idea" title="Suggest an idea">suggest an idea</a> for a new Guide.</p></div>';
 }
-echo $city_name;?></h3>
-					<div class="intro-block noborder"><p>Suggest an idea for a new CityHow Guide, create your own Guide, or ask another employee to write one.</p>
-					</div>
+else {
+	echo '<h3 class="page-title">';
+	echo $city_name.'</h3>';
+	echo '<div class="intro-block noborder">';
+	if (is_user_logged_in()) {
+	echo '<p>CityHow users have said these Guides and Ideas are applicable to employees in any city. Try them out in your city!</p>';
+	}
+	else {
+		echo '<p>Explore these Guides and Ideas that CityHow users say are helpful for any city. Then <a href="'.$app_url.'/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
+	}
+		
+	
+	echo '</div>';	
+}
+?>		
 				</div>
 				
 				<div class="span4 sidebar-faux">
@@ -94,13 +108,22 @@ $city_query = new WP_Query($city_args);
 		while($city_query->have_posts()) : $city_query->the_post();
 		$imgSrc = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');	
 ?>
-<li class="city-list" id="post-<?php echo $post->ID;?>"><a class="nhline link-other" rel="bookmark" title="See <?php echo the_title();?>" href="<?php the_permalink();?>"><img src="<?php echo $style_url;?>/lib/timthumb.php?src=<?php echo $imgSrc[0];?>&w=184&h=115&zc=1&a=t" alt="Photo from <?php echo the_title();?>" />
+<li class="city-list" id="post-<?php echo $post->ID;?>"><a rel="bookmark" title="See <?php echo the_title();?>" href="<?php the_permalink();?>"><img src="<?php echo $style_url;?>/lib/timthumb.php?src=<?php echo $imgSrc[0];?>&w=184&h=115&zc=1&a=tl&q=95" alt="Photo from <?php echo the_title();?>" /></a>
 	<div class="home-caption">
 <?php
 $pad = ' ...';
-$pic_title = trim_by_chars(get_the_title(),'60',$pad);
-?>
-		<p><?php echo $pic_title;?></a></p>		
+$pic_title = trim_by_chars(get_the_title(),'50',$pad);
+$link = get_permalink();
+$title = get_the_title();
+echo '<p><a title="See '.$title.'" href="'.$link.'" class="nhline link-other">'.$pic_title.'</a></p>';
+if ($term->name) {
+echo '<p class="city-caption">'.$term->name.'</p>';	
+}
+else {
+	echo '<p class="city-caption">Any City</p>';
+}
+
+?>	
 	</div>	
 </li>
 <?php 

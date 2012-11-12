@@ -137,7 +137,7 @@ if ($post_cities) {
 <?php
 $guide_answer = get_post_meta($post->ID,'gde-answer',true);
 if ($guide_answer) {
-	echo '<p class="comment-meta"><span class="answered"><a href="'.$guide_answer.'" title="Read the answer">Read the answer!</a></span></p>';
+	echo '<p class="comment-meta"><span class="answered"><a class="nhline" href="'.$guide_answer.'" title="Read the answer">Read the answer!</a></span></p>';
 }
 ?>																
 		</div>

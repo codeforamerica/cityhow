@@ -35,6 +35,16 @@ $city_slug = str_replace(' ','-',$city_slug);
 $city_url = get_term_link($city,'nh_cities');
 ?>
 				<h3 class="page-title">Topics for <?php echo $city_name;?></h3>
+				<div class="intro-block noborder">
+<?php
+if (is_user_logged_in()) {
+	echo '<p>CityHow Guides and Ideas cover a range of Topics. Some are specific to your city government, while others are generally applicable to any city.</p>';
+}
+else {
+	echo '<p>Explore these Topics that CityHow users say are helpful for any city. Then <a href="<?php echo $app_url;?>/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
+}
+?>				
+				</div>
 	
 				<div id="list-ideas">
 					<ul class="list-ideas">			

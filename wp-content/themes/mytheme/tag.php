@@ -11,27 +11,42 @@
 			<div id="content">
 				
 				<h3 class="page-title"><?php echo single_tag_title();?></h3>
+				<div class="intro-block noborder">
+<?php
+if (is_user_logged_in()) {
+	echo '<p>This Topic includes Guides and Ideas specific to your city government or generally applicable to any city.</p>';
+}
+else {
+	echo '<p>Browse this Topic that CityHow users say is helpful for any city. Then <a href="<?php echo $app_url;?>/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
+}
+?>				
+				</div>				
 				<div id="list-fdbk">
 					<ul class="list-fdbk">
 <?php
-// limit list to user city + any city
+// get all city names
+/*
 $city_terms = get_terms('nh_cities');
+// find city names = user city or Any City
 foreach ($city_terms as $city_term) {
 	$city_term = $city_term->name;
 	if ($city_term == $user_city OR $city_term == 'Any City') {
 		$cities[] = $city_term;
 	}
 }
+// remove state from city names
 foreach ($cities as $city) {
 	if ($city != 'Any City') {
-		$city_name = substr($city,0,-3); //remove state
+		$city_name = substr($city,0,-3);
 	}
 	else {
 		$city_name = $city;
 	}	
 }
+
 $city_slug = strtolower($city);
 $city_slug = str_replace(' ','-',$city_slug);
+*/
 
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
@@ -52,19 +67,17 @@ $tag_args = array(
 		array(
 			'taxonomy' => 'nh_cities',
 			'field' => 'slug',
-			'terms' => array($city_slug,'Any City')
+			'terms' => array($user_city,'Any City')
 		)
 	)	
 );
 $tag_query = new WP_Query($tag_args);
+
+//var_dump($tag_query);
+
 if (!$tag_query->have_posts()) :
 ?>	
-	<li class="fdbk-list">Sorry ... content for this Topic is available only to employees of 
-<?php
-if ($city_name != 'Any City') {
-	echo 'the City of ';
-}
-echo $city_name;?>.</li>
+	<li class="fdbk-list">Sorry ... content for this Topic is available only to employees of city name here</li>
 
 <?php else: ?>	
 
@@ -93,38 +106,29 @@ if ($categories) {
 ?>	
 <?php
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
+
+// if user = logged out = no user city
 $term = term_exists($user_city, 'nh_cities');
 
-if ($post_cities) {
+if (!empty($post_cities)) {
 	$count = count($post_cities);
-	$j = $count - 1;	
 	echo ' + ';
-	for ($i=0; $i<=$j; $i++) {
-		$city = $post_cities[$i]->name;
-
-		if ($city == $user_city OR $city == 'Any City') {
-			$city_slug = strtolower($city);
-			$city_slug = str_replace(' ','-',$city_slug);
-			if ($city != 'Any City') {
-				$city_name = substr($city,0,-3); //remove state
-				$city_string = 'City of '.$city_name;
-			}
-			else {
-				$city_name = $city;
-				$city_string = $city_name;			
-			}	
-			// if only one city or if only city is any city	
-			if ($count == 1 OR $term == 0) {
-				echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>';
-			}
-			elseif ($count > 1 AND $i < $j) {
-				echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>, ';
-			}			
-			elseif ($count > 1 AND $i == $j) {
-					echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>';
-			}
+	foreach ($post_cities as $city) {		
+		if ($city->name == $user_city) {
+			$new_city = substr($city->name,0,-3);
+		}
+		elseif ($city->name == 'Any City') {
+			$new_city = $city->name;
+		}
+		
+		if ($count == 1 OR $term == 0) {
+			$city_string = '<a href="'.$app_url.'/cities/'.$city->slug.'" title="See content for '.$new_city.'">'.$new_city.'</a>';
+		}
+		elseif ($count > 1) {
+			$city_string .= '<a href="'.$app_url.'/cities/'.$city->slug.'" title="See content for '.$new_city.'">'.$new_city.'</a>, ';
 		}
 	}
+		echo rtrim($city_string, ', ');
 }
 ?>	
 			</p>

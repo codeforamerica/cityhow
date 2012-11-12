@@ -41,7 +41,16 @@ echo $user_city_name;
 			<div class="row-fluid">
 				<div class="span12">
 					<div class="home-featured">
-						<h5 class="widget-title">Explore These CityHow Guides</h5>
+						<h5 class="widget-title">
+<?php
+if (is_user_logged_in()) {
+	echo 'Explore Guides for the City of '.$user_city_name;
+}
+else {
+	echo 'Explore Guides for Any City&nbsp;&nbsp;&nbsp;<span class="byline" style="float:right;padding-right:1.75em;font-size:93%;text-transform:none !important;font-weight:normal !important;word-spacing:0 !important;"><a class="nhline" href="'.$app_url.'/signin">sign in</a> to see Guides for your city</span>';
+}
+?>
+						</h5>
 						<ul class="list-guides list-guides-home">
 <?php
 $user_city_slug = strtolower($user_city);
@@ -80,15 +89,25 @@ elseif (!is_user_logged_in()) {
 		while ($sticky_query->have_posts()) : $sticky_query->the_post();
 		
 			$imgSrc = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
+			$post_cities = wp_get_post_terms($post->ID,'nh_cities');
+			$term = array_pop($post_cities);			
+			
 			echo '<li class="guides-list" id="post-'.$post->ID.'"><a rel="bookmark" title="See '.get_the_title().'" href="'.get_permalink().'">';
 
-			echo '<img  src="'.$style_url.'/lib/timthumb.php?src='.$imgSrc[0].'&w=184&h=135&zc=1&a=t" alt="Photo from '.get_the_title().'" />';
+			echo '<img  src="'.$style_url.'/lib/timthumb.php?src='.$imgSrc[0].'&w=184&h=115&zc=1&a=tl&q=95" alt="Photo from '.get_the_title().'" />';
 
 			echo '<div class="home-caption">';
 			$pad = ' ...';
-			$pic_title = trim_by_chars(get_the_title(),'60',$pad);
+			$pic_title = trim_by_chars(get_the_title(),'50',$pad);
 			echo '<p><a class="nhline link-other" rel="bookmark" title="See '.get_the_title().'" href="'.get_permalink().'">'.$pic_title.'</a></p>';
-			echo '</div></li>';
+			if ($term->name) {
+			echo '<p class="city-caption">'.$term->name.'</p>';	
+			}
+			else {
+				echo '<p class="city-caption">Any City</p>';
+			}
+			echo '</div>';
+			echo '</li>';
 		endwhile;
 	wp_reset_query();	
 	}
@@ -116,24 +135,38 @@ elseif (!is_user_logged_in()) {
 		$normal_query = new WP_Query($normal_args);
 		while ($normal_query->have_posts()) : $normal_query->the_post();
 			$imgSrc = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
-		
+			$post_cities = wp_get_post_terms($post->ID,'nh_cities');
+			$term = array_pop($post_cities);
+					
 			echo '<li class="guides-list" id="post-'.$post->ID.'"><a rel="bookmark" title="See '.get_the_title().'" href="'.get_permalink().'">';
 
-			echo '<img class="guide_image_bg" src="'.$style_url.'/lib/timthumb.php?src='.$imgSrc[0].'&w=184&h=115&zc=1&a=t" alt="Photo from '.get_the_title().'" /></a>';
+			echo '<img class="guide_image_bg" src="'.$style_url.'/lib/timthumb.php?src='.$imgSrc[0].'&w=184&h=115&zc=1&a=tl&q=95" alt="Photo from '.get_the_title().'" /></a>';
 		
 			echo '<div class="home-caption">';
 			$pad = ' ...';
-			$pic_title = trim_by_chars(get_the_title(),'60',$pad);
+			$pic_title = trim_by_chars(get_the_title(),'50',$pad);
 			echo '<p><a class="nhline link-other" rel="bookmark" title="See '.get_the_title().'" href="'.get_permalink().'">'.$pic_title.'</a></p>';
-		
+			if ($term->name) {
+			echo '<p class="city-caption">'.$term->name.'</p>';	
+			}
+			else {
+				echo '<p class="city-caption">Any City</p>';
+			}
+
 			echo '</div>';
 			echo '</li>';
 		endwhile;
 	wp_reset_query();
 	}
 ?>
+
 <?php
-echo '<div class="see_all"><a class="nhline" href="'.$app_url.'/guides" title="">See all CityHow Guides &#187;</a></div>';
+if (is_user_logged_in()) {
+	echo '<div class="see_all"><a class="nhline" href="'.$app_url.'/guides" title="">See more Guides &#187;</a></div>';
+}
+else {
+	echo '<div class="see_all"><a class="nhline" href="'.$app_url.'/guides" title="">See more Guides &#187;</a></div>';
+}
 ?>
 						</ul>
 					</div>
@@ -142,11 +175,17 @@ echo '<div class="see_all"><a class="nhline" href="'.$app_url.'/guides" title=""
 		
 			<div class="row-fluid home-combo">
 				<div class="span6 home-ideas">
-					<h5 class="widget-title">Latest CityHow Ideas</h5>	
+						
 <?php if (is_user_logged_in()) : ?>
+
+<h5 class="widget-title">Latest Ideas for CityHow Guides</h5>	
 <p><a id="addfdbk" title="Add Your Idea" rel="tooltip" data-placement="bottom" data-title="" class="nh-btn-blue" href="<?php echo $app_url;?>/add-idea" >Add Your Idea</a></p>
+
 <?php else : ?>
-<p style="float:left;text-align:left;padding:.25em .75em .25em .75em;background:#4996a4;color:#fff;"><strong><a class="whitelink" href="<?php echo $app_url;?>/signin" title="Sign In to CityHow">Sign In</a></strong> to CityHow so you can see content for your city!</p>	
+
+<h5 class="widget-title">Latest Ideas for CityHow Guides</h5>
+<p style="float:right;padding-top:0 !important;"><span class="byline" style="font-size:93%;text-transform:none !important;font-weight:normal !important;word-spacing:0 !important;"><a class="nhline" href="'.$app_url.'/signin">sign in</a> to see Ideas for your city</span></p>
+
 <?php endif; ?>
 						<ul class="list-ideas list-ideas-home">							
 <?php
@@ -183,7 +222,7 @@ $fdbk_sub_query->the_post();
 <?php
 $guide_answer = get_post_meta($post->ID,'gde-answer',true);
 if ($guide_answer) {
-	echo '<span class="answered"><a href="'.$guide_answer.'" title="View this Guide">Read the answer!</a></span>';
+	echo '<span class="answered"><a class="nhline" href="'.$guide_answer.'" title="View this Guide">Read the answer!</a></span>';
 }
 else {
 	echo '<span class="byline">added</span> '.get_the_date().'</span>';
@@ -199,7 +238,7 @@ endif;
 wp_reset_query();
 ?>								
 
-<li class="ideas-list"><a class="nhline" href="<?php echo $app_url;?>/ideas" title="See all the ideas">See all the ideas &#187;</a></li>
+<li class="ideas-list"><a class="nhline" href="<?php echo $app_url;?>/ideas" title="See all the ideas">See more Ideas &#187;</a></li>
 						</ul>						
 				</div><!--/ span4-->
 
@@ -210,12 +249,7 @@ $page_id = get_ID_by_slug('about');
 $post = get_post($page_id); 
 $content = $post->post_content;
 $content = strip_tags($content,'<p>,<a>');
-if (is_user_logged_in()) {
-	$content = trim_by_words($content,'99',nh_continue_reading_link());
-} 
-else {
-	$content = trim_by_words($content,'99','');	
-}
+$content = trim_by_words($content,'98',nh_continue_reading_link());
 echo $content;
 ?>					
 				</div>

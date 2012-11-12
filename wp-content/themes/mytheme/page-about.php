@@ -10,11 +10,7 @@
 	<div class="wrapper">
 		<div id="main">
 			<div id="content" class="about">
-				<h3 class="page-title">CityHow — making it easy to find and share information about working for the City of Philadelphia.</h3>
-
-<!--p>Brought to you by <a class="nhline" title="Go to Code for America" href="http://www.codeforamerica.org" target="_blank">Code for America</a> and the <a class="nhline" title="Go to City of Philadelphia" href="http://www.phila.gov" target="_blank">City of Philadelphia</a>, CityHow is a place to collect and share knowledge about work topics like booking a conference room in City Hall or signing up for a City Zipcar account.</p>
-
-<p>A CityHow Guide can be about anything you think would be useful to other people working for the City of Philadelphia. Short or long, <strong>if it's something you know how to do, it's probably something other people want to know how to do. So share your CityHow.</strong></p-->
+				<h3 class="page-title">CityHow makes it easy to find and share information about working for the City of <?php $user_city_name = substr($user_city, 0, -3);echo $user_city_name;?>.</h3>
 	
 <?php 
 if (have_posts()) :

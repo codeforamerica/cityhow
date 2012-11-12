@@ -20,12 +20,12 @@ element {
 	width:100% !important;
 }
 a {
-	color: #395a8c;
+	color: #225ebb; /*46628c; /*3498A7; /*395a8c;*/
 	text-decoration: none;
 	cursor:pointer !important;
 }
 a.link-other {
-	color: #395a8c;
+	color: #225ebb; /*46628c; /*395a8c;*/
 	font-weight:600;
 }
 a.whitelink {
@@ -446,7 +446,7 @@ div.home-about p {
 	margin:1em 0 1em 0;
 }
 p.city-caption {
-	background:#555;
+	background:#4996a4 !important;
 	color:#fff;
 	font-size:.85em !important;
 	border-radius:4px;
@@ -1948,7 +1948,6 @@ span.meta-small {
 	font-size:90%;
 	line-height:50%;	
 }
-span.answered,
 span.answered a {
 	color:#cc6633;
 	font-family:"Droid Serif",Georgia,"Times New Roman",Times,serif;	

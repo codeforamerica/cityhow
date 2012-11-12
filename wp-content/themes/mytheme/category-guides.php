@@ -31,15 +31,22 @@ $user_city_slug = str_replace(' ','-',$user_city_slug);
 			<div class="row-fluid">
 				<div class="span8 content-faux">	
 					<h3 class="page-title">Guides for <?php echo $city_name;?></h3>
-					<div class="intro-block noborder"><p>A CityHow Guide can be about anything that&#39;s useful to employees working for 
+					<div class="intro-block noborder">
+					
 <?php
-if ($city_name != 'Any City') {
-	echo 'the City of '.$city_name;
+if (is_user_logged_in()) {
+	echo '<p>A CityHow Guide can be about anything that&#39;s useful to employees working for '; 
+	if ($city_name != 'Any City') {
+		echo 'the City of '.$city_name;
+	}
+	elseif ($city_name == 'Any City') {
+		echo 'your city';
+	}
+	echo '. Or it could be about something that&#39;s helpful to city employees working in any city.</p><p>If it&#39;s something you know how to do, it&#39;s probably something other people want to know how to do. So suggest a topic for a new CityHow Guide, create your own Guide, or ask another employee to write one.</p>';
 }
-elseif ($city_name == 'Any City') {
-	echo 'your city';
+else {
+	echo '<p>Explore these Guides that CityHow users say are helpful for any city. Then <a href="'.$app_url.'/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
 }
-echo '. Or it could be about something that&#39;s helpful to city employees working in any city.</p><p>If it&#39;s something you know how to do, it&#39;s probably something other people want to know how to do. So suggest a topic for a new CityHow Guide, create your own Guide, or ask another employee to write one.</p>';
 ?>
 					</div>
 				</div>
@@ -96,16 +103,26 @@ $list_query = new WP_Query($list_args);
 if ($list_query->have_posts()) : 
 	while($list_query->have_posts()) : $list_query->the_post();
 $imgSrc = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
+$post_cities = wp_get_post_terms($post->ID,'nh_cities');
+$term = array_pop($post_cities);
 ?>
 
-<li class="guides-list" id="post-<?php echo $post->ID;?>"><a class="nhline link-other" rel="bookmark" title="See <?php echo the_title();?>" href="<?php the_permalink();?>"><img src="<?php echo $style_url;?>/lib/timthumb.php?src=<?php echo $imgSrc[0];?>&w=184&h=115&zc=1&a=t" alt="Photo from <?php echo the_title();?>" />
+<li class="guides-list" id="post-<?php echo $post->ID;?>"><a rel="bookmark" title="See <?php echo the_title();?>" href="<?php the_permalink();?>"><img src="<?php echo $style_url;?>/lib/timthumb.php?src=<?php echo $imgSrc[0];?>&w=184&h=115&zc=1&a=tl&q=95" alt="Photo from <?php echo the_title();?>" /></a>
 	
 	<div class="home-caption">
 <?php
 $pad = ' ...';
 $pic_title = trim_by_chars(get_the_title(),'60',$pad);
-?>
-		<p><?php echo $pic_title;?></a></p>		
+$link = get_permalink();
+$title = get_the_title();
+echo '<p><a title="See '.$title.'" href="'.$link.'" class="nhline link-other">'.$pic_title.'</a></p>';
+if ($term->name) {
+echo '<p class="city-caption">'.$term->name.'</p>';	
+}
+else {
+	echo '<p class="city-caption">Any City</p>';
+}
+?>	
 	</div>	
 </li>
 

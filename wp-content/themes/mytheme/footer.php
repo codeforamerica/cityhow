@@ -39,7 +39,7 @@ $app_url = get_bloginfo('url');
 				</ul>			
 			</div><!-- /span4 -->
 			
-			<div class="span12 trade"><p class="trade">All CityHow code is open source and free for civic use, so <a class="whitelink" href="https://github.com/codeforamerica/cityhow" title="Visit CityHow on Github">visit us on Github</a>.<br/>&#169; 2012 CityHow. The CityHow name and logo are trademarks of CityHow. All rights reserved.</p>
+			<div class="span12 trade"><p class="trade">All CityHow code is open source and free for civic use, so <a class="whitelink" target="_blank" href="https://github.com/codeforamerica/cityhow" title="Visit CityHow on Github">visit us on Github</a>.<br/>&#169; 2012 CityHow. <!--The CityHow name and logo are trademarks of CityHow. All rights reserved.--></p>
 			</div>			
 		</div><!-- / footer-->
 	</div><!--/ wrapper -->

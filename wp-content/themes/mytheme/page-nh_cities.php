@@ -11,6 +11,13 @@
 		<div id="main">
 			<div id="content">
 				<h3 class="page-title">Cities</h3>
+				<div class="intro-block noborder"><p>CityHow is currently available for these cities. 
+<?php
+if (!is_user_logged_in()) {
+	echo 'If you&#39;d like CityHow for your city, <a href="<?php echo $app_url;?>/contact" title="Get CityHow for your city">contact us</a> and let us know.';
+}
+?>
+</p></div>
 	
 				<div id="list-ideas">
 					<ul class="list-ideas">			
