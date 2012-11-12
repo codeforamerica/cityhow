@@ -59,7 +59,7 @@ function nh_vote_it_link($post_id = null, $link_text = null, $already_voted = nu
 		if (!nh_user_has_voted_post($user_ID, $post_id)) {
 			echo '<a id="votethis"';
 			if (!is_user_logged_in()) {
-				echo 'rel="tooltip" data-placement="bottom" href="#" data-title="If you&#39;re signed in, Votes will be saved in your Profile."';
+				echo 'href="#" data-title="Vote on this Idea"';
 			}
 			echo ' class="vote votethis nh-btn-blue" data-post-id="' . $post_id . '" data-user-id="' .  $user_ID . '">Vote</a>';
 		} 

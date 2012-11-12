@@ -19,8 +19,7 @@ $user_city_slug = str_replace(' ','-',$user_city_slug);
 	<div class="wrapper">
 		<div id="main">
 <?php
-// if user city or any city
-if ($term->name == $user_city OR $term->name == 'Any City') :
+if ($term->name == $user_city OR $term->name == 'Any City') :	
 ?>			
 			<div id="row-fluid">
 				<div class="span8 content-faux">						
@@ -41,8 +40,6 @@ else {
 	else {
 		echo '<p>Explore these Guides and Ideas that CityHow users say are helpful for any city. Then <a href="'.$app_url.'/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
 	}
-		
-	
 	echo '</div>';	
 }
 ?>		
@@ -78,10 +75,14 @@ echo $city_name;
 ?></h5>
 					<ul class="list-city">												
 <?php 
+// get guides for selected city term
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
-$term = array_pop($post_cities);
+
+// flatten array
+$post_terms = array_pop($post_cities);
+
 // only show match to term name
-$arg_terms = array($term->name);
+$arg_terms = array($post_terms->name);
 $guide_cat = get_category_id('guides');
 $city_args = array(
 	'post_status' => 'publish',
@@ -116,13 +117,12 @@ $pic_title = trim_by_chars(get_the_title(),'50',$pad);
 $link = get_permalink();
 $title = get_the_title();
 echo '<p><a title="See '.$title.'" href="'.$link.'" class="nhline link-other">'.$pic_title.'</a></p>';
-if ($term->name) {
+if ($term->name == $user_city) {
 echo '<p class="city-caption">'.$term->name.'</p>';	
 }
 else {
 	echo '<p class="city-caption">Any City</p>';
 }
-
 ?>	
 	</div>	
 </li>
@@ -159,7 +159,7 @@ $idea_cat = get_category_id('ideas');
 // only show match to term name
 $arg_ideas = array($term->name);
 $idea_args = array(
-	'post_type' => array('post'), //include projects
+	'post_type' => array('post'),
 	'post_status' => 'publish',
 	'orderby' => 'date',
 	'order' => 'DESC',
@@ -284,7 +284,6 @@ foreach ($users as $user) {
 	echo '</li>';
 }
 ?>
-
 					</ul>
 				</div><!--/ list people-->
 														
@@ -321,7 +320,7 @@ if ($city_name != 'Any City') {
 	echo 'City of ';
 }
 echo $city_name;?></h3>
-					<div class="intro-block noborder" style="min-height:400px;"><p>Sorry ... content for this city is only available to employees of the City of <?php echo $city_name;?></p>
+					<div class="intro-block noborder" style="min-height:400px;"><p>Sorry ... content for this city is only available to employees of the City of <?php echo $city_name;?>.</p>
 					</div>
 				</div>
 			</div><!-- /row-fluid-->

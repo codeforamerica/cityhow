@@ -104,7 +104,8 @@ if ($list_query->have_posts()) :
 	while($list_query->have_posts()) : $list_query->the_post();
 $imgSrc = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
-$term = array_pop($post_cities);
+// flatten array
+$post_terms = array_pop($post_cities);
 ?>
 
 <li class="guides-list" id="post-<?php echo $post->ID;?>"><a rel="bookmark" title="See <?php echo the_title();?>" href="<?php the_permalink();?>"><img src="<?php echo $style_url;?>/lib/timthumb.php?src=<?php echo $imgSrc[0];?>&w=184&h=115&zc=1&a=tl&q=95" alt="Photo from <?php echo the_title();?>" /></a>
@@ -112,12 +113,12 @@ $term = array_pop($post_cities);
 	<div class="home-caption">
 <?php
 $pad = ' ...';
-$pic_title = trim_by_chars(get_the_title(),'60',$pad);
+$pic_title = trim_by_chars(get_the_title(),'50',$pad);
 $link = get_permalink();
 $title = get_the_title();
 echo '<p><a title="See '.$title.'" href="'.$link.'" class="nhline link-other">'.$pic_title.'</a></p>';
-if ($term->name) {
-echo '<p class="city-caption">'.$term->name.'</p>';	
+if ($post_terms->name == $user_city) {
+echo '<p class="city-caption">'.$post_terms->name.'</p>';	
 }
 else {
 	echo '<p class="city-caption">Any City</p>';

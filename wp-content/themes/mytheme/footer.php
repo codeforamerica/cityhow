@@ -84,10 +84,10 @@ $current_user_login = $current_user->user_login;
 <script>
 $(document).ready(function() {
 	$('.dropdown-toggle').dropdown();
-	$('#likethis').tooltip();
-	$('.votethis').tooltip();	
-	$('#addfdbk').tooltip();
-	$('.cityuser').tooltip();
+//	$('#likethis').tooltip();
+//	$('.votethis').tooltip();	
+//	$('#addfdbk').tooltip();
+	$('.cityuser').tooltip(); // on city index page
 //	$('.btns').tooltip();				
 });
 

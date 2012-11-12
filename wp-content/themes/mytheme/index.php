@@ -3,7 +3,6 @@
 	<div id="beta"></div>
 	<div class="wrapper">
 		<div id="main">
-
 <?php if (!is_user_logged_in()) : ?>	
 			<div class="row-fluid home-promo">
 				<div id="site-promo" class="span7">
@@ -47,7 +46,7 @@ if (is_user_logged_in()) {
 	echo 'Explore Guides for the City of '.$user_city_name;
 }
 else {
-	echo 'Explore Guides for Any City&nbsp;&nbsp;&nbsp;<span class="byline" style="float:right;padding-right:1.75em;font-size:93%;text-transform:none !important;font-weight:normal !important;word-spacing:0 !important;"><a class="nhline" href="'.$app_url.'/signin">sign in</a> to see Guides for your city</span>';
+	echo 'Explore Guides for Any City&nbsp;&nbsp;&nbsp;<span class="byline" style="float:right;padding-right:1.75em;font-size:93%;text-transform:none !important;font-weight:normal !important;word-spacing:0 !important;"><a class="nhline" href="'.$app_url.'/signin" title="Sign in to CityHow">sign in</a> to see Guides for your city</span>';
 }
 ?>
 						</h5>
@@ -100,7 +99,7 @@ elseif (!is_user_logged_in()) {
 			$pad = ' ...';
 			$pic_title = trim_by_chars(get_the_title(),'50',$pad);
 			echo '<p><a class="nhline link-other" rel="bookmark" title="See '.get_the_title().'" href="'.get_permalink().'">'.$pic_title.'</a></p>';
-			if ($term->name) {
+			if ($term->name AND !empty($user_city)) {
 			echo '<p class="city-caption">'.$term->name.'</p>';	
 			}
 			else {
@@ -146,7 +145,7 @@ elseif (!is_user_logged_in()) {
 			$pad = ' ...';
 			$pic_title = trim_by_chars(get_the_title(),'50',$pad);
 			echo '<p><a class="nhline link-other" rel="bookmark" title="See '.get_the_title().'" href="'.get_permalink().'">'.$pic_title.'</a></p>';
-			if ($term->name) {
+			if ($term->name == $user_city) {
 			echo '<p class="city-caption">'.$term->name.'</p>';	
 			}
 			else {
@@ -162,10 +161,10 @@ elseif (!is_user_logged_in()) {
 
 <?php
 if (is_user_logged_in()) {
-	echo '<div class="see_all"><a class="nhline" href="'.$app_url.'/guides" title="">See more Guides &#187;</a></div>';
+	echo '<div class="see_all"><a class="nhline" href="'.$app_url.'/guides" title="See more Guides">See more Guides &#187;</a></div>';
 }
 else {
-	echo '<div class="see_all"><a class="nhline" href="'.$app_url.'/guides" title="">See more Guides &#187;</a></div>';
+	echo '<div class="see_all"><a class="nhline" href="'.$app_url.'/guides" title="See more Guides">See more Guides &#187;</a></div>';
 }
 ?>
 						</ul>
@@ -179,12 +178,12 @@ else {
 <?php if (is_user_logged_in()) : ?>
 
 <h5 class="widget-title">Latest Ideas for CityHow Guides</h5>	
-<p><a id="addfdbk" title="Add Your Idea" rel="tooltip" data-placement="bottom" data-title="" class="nh-btn-blue" href="<?php echo $app_url;?>/add-idea" >Add Your Idea</a></p>
+<p><a id="addfdbk" title="Add Your Idea" class="nh-btn-blue" href="<?php echo $app_url;?>/add-idea" >Add Your Idea</a></p>
 
 <?php else : ?>
 
 <h5 class="widget-title">Latest Ideas for CityHow Guides</h5>
-<p style="float:right;padding-top:0 !important;"><span class="byline" style="font-size:93%;text-transform:none !important;font-weight:normal !important;word-spacing:0 !important;"><a class="nhline" href="'.$app_url.'/signin">sign in</a> to see Ideas for your city</span></p>
+<p style="float:right;padding-top:0 !important;"><span class="byline" style="font-size:93%;text-transform:none !important;font-weight:normal !important;word-spacing:0 !important;"><a class="nhline" href="<?php echo $app_url;?>/signin" title="Sign in to CityHow">sign in</a> to see Ideas for your city</span></p>
 
 <?php endif; ?>
 						<ul class="list-ideas list-ideas-home">							
@@ -238,7 +237,7 @@ endif;
 wp_reset_query();
 ?>								
 
-<li class="ideas-list"><a class="nhline" href="<?php echo $app_url;?>/ideas" title="See all the ideas">See more Ideas &#187;</a></li>
+<li class="ideas-list"><a class="nhline" href="<?php echo $app_url;?>/ideas" title="See more Ideas">See more Ideas &#187;</a></li>
 						</ul>						
 				</div><!--/ span4-->
 

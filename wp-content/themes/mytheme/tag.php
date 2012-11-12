@@ -11,6 +11,7 @@
 			<div id="content">
 				
 				<h3 class="page-title"><?php echo single_tag_title();?></h3>
+				
 				<div class="intro-block noborder">
 <?php
 if (is_user_logged_in()) {
@@ -21,9 +22,14 @@ else {
 }
 ?>				
 				</div>				
+				
 				<div id="list-fdbk">
 					<ul class="list-fdbk">
 <?php
+$user_city_name = substr($user_city,0,-3);
+$user_city_slug = strtolower($user_city);
+$user_city_slug = str_replace(' ','-',$user_city_slug);
+
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $tag_args = array(
 	'post_status' => 'publish',
@@ -41,7 +47,7 @@ $tag_args = array(
 		array(
 			'taxonomy' => 'nh_cities',
 			'field' => 'slug',
-			'terms' => array($user_city,'Any City')
+			'terms' => array($user_city_slug,'any-city')
 		)
 	)	
 );
@@ -69,46 +75,61 @@ if ($categories) {
 		$cat_name = $cat->name;
 		$cat_id = get_cat_ID($cat_name);
 		$cat_link = get_category_link($cat_id);
-		echo '<a href="'.$cat_link.'" title="View '.$cat->name.'">';
+		echo '<a class="nhline" href="'.$cat_link.'" title="See '.$cat->name.'">';
 		echo $cat->name;
 		echo '</a>';
-	}	
+	}
 }
 ?>	
 <?php
+// get all post cities
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
 
 // only keep user city and Any City
 foreach($post_cities as $elementKey => $element) {
     foreach($element as $valueKey => $value) {
+//		echo $valueKey.' '.$value.'<br/>';
 		if ($valueKey == 'name' AND $value != $user_city AND $value != 'Any City') {
+
 			unset($post_cities[$elementKey]);
+			
 		}
     }
 }
 
+$post_terms = term_exists($user_city, 'nh_cities');
+
 if ($post_cities) {
 	$count = count($post_cities);
-	$j = $count - 1;	
+//	$j = $count - 1;	
 
 	echo ' + ';
-	for ($i=0; $i<=$j; $i++) {
-		$city = $post_cities[$i]->name;	
-		if ($city == $user_city) {
-			$city = substr($city,0,-3);
-			$city = 'City of '.$city;
-		}
-		$city_slug = strtolower($city);
-		$city_slug = str_replace(' ','-',$city_slug);
+	for ($i=0; $i<=$count; $i++) {
+		$city = $post_cities[$i]->name;
+//		echo $city;
 		
-		if ($count == 1) {
-			echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See all topics in '.$city.'">'.$city.'</a>';
+		if ($city == 'Any City' OR $post_terms == 0) {
+			$city_string = $city;
 		}
-		elseif ($count > 1 AND $i < $j) {
-			echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See all topics in '.$city.'">'.$city.'</a>, ';
-		}			
-		elseif ($count > 1 AND $i == $j) {
-				echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See all topics in '.$city.'">'.$city.'</a>';
+		else {
+			$tmp_city = substr($city,0,-3);
+			$city_string = 'City of '.$tmp_city;
+		}
+
+		
+		if ($city == $user_city OR $city == 'Any City') {
+			$city_slug = strtolower($city);
+			$city_slug = str_replace(' ','-',$city_slug);
+
+			if ($count == 1 OR $post_terms == 0) {
+				echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>';
+			}
+			elseif ($count > 1 AND $i < $count) {
+				echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>, ';
+			}			
+			elseif ($count > 1 AND $i == $count) {
+					echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>';
+			}
 		}
 	}
 }

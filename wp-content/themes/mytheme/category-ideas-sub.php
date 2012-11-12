@@ -14,6 +14,7 @@ $cat_name = $cat[0]->name;
 			<div id="content">
 <?php
 // limit list to user city + any city
+/*
 $city_terms = get_terms('nh_cities');
 foreach ($city_terms as $city_term) {
 	$city_term = $city_term->name;
@@ -30,17 +31,38 @@ foreach ($cities as $city) {
 	}	
 	$city_list[] = $city_name;
 }
-
+*/
+$user_city_name = substr($user_city,0,-3);
 $user_city_slug = strtolower($user_city);
 $user_city_slug = str_replace(' ','-',$user_city_slug);
 ?>				
-				<h3 class="page-title"><?php echo $cat_name;?> for <?php echo $city_name;?></h3>
-				<div class="intro-block"><p>Help make CityHow better by voting on these ideas so we can understand what&#39;s most important to you. If you don&#39;t see your idea on the list, go ahead and add it!</p></div>
+				<h3 class="page-title"><?php echo $cat_name;?> for 
+<?php 
+if ($user_city) {
+	echo $user_city_name;	
+}
+else {
+	echo 'Any City';
+}
+?>				
+				</h3>
+				<div class="intro-block">
+<?php
+if (is_user_logged_in()) {
+	echo '<p>Help make CityHow better by voting on these ideas so we can understand what&#39;s most important to you. If you don&#39;t see your idea on the list, go ahead and add it!</p>';
+}
+else {
+	echo '<p>Explore these Ideas that CityHow users say are helpful for any city. Then <a href="<?php echo $app_url;?>/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
+}
+?>			
+				</div>
 					
 				<div id="list-fdbk">
-					<div class="intro-block-button"><a id="addfdbk"
 <?php
-if (!is_user_logged_in()) {echo ' rel="tooltip" data-placement="bottom" data-title="To add your idea, sign in to CityHow, or create an account."';}?> class="nh-btn-blue" href="<?php echo $app_url;?>/add-idea">Add Your Idea</a></div>
+if (is_user_logged_in()) {
+	echo '<div class="intro-block-button"><a id="addfdbk" title="Add your Idea" class="nh-btn-blue" href="'.$app_url.'/add-idea">Add Your Idea</a></div>';
+}
+?>						
 					<ul class="list-fdbk">	
 
 <?php 
@@ -48,7 +70,6 @@ $fdbk_sub_cat = get_category_id($cat[0]->name);
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $vote_sub_args = array(
 	'post_status' => 'publish',
-//	'cat' => $fdbk_sub_cat,
 	'orderby' => 'date',		
 	'order' => DESC,
 	'meta_key' => '_nh_vote_count',
@@ -71,19 +92,21 @@ $vote_sub_args = array(
 $fdbk_sub_query = new WP_Query($vote_sub_args);	
 		
 if (!$fdbk_sub_query->have_posts()) : ?>
-	<li>Looks like there are no ideas in this category yet. Add your ideas or questions!</li>
+	<li>Looks like there are no Ideas in this category yet. <?php if (is_user_logged_in()) {echo ' Add your ideas or questions!';}?></li>
 <?php else: ?>
 <?php while($fdbk_sub_query->have_posts()) : $fdbk_sub_query->the_post();?>
 		
 	<li class="fdbk-list" id="post-<?php echo $post->ID; ?>">
 		<div class="vote-btn">
 <?php 
-if (nh_user_has_voted_post($current_user->ID, $post->ID)) {
-	echo '<span class="byline"><a id="votedthis" title="See your other Votes" href="'.$app_url.'/author/'.$current_user->user_login.'" class="votedthis nhline">You voted</a></span>';
-}
-else {
-	nh_vote_it_link();
-}							
+if (is_user_logged_in()) {
+	if (nh_user_has_voted_post($current_user->ID, $post->ID)) {
+		echo '<span class="byline"><a id="votedthis" title="See your other Votes" href="'.$app_url.'/author/'.$current_user->user_login.'" class="votedthis nhline">You voted</a></span>';
+	}
+	else {
+		nh_vote_it_link();
+	}						
+}	
 ?>
 		</div>
 		<div class="vote-question"><strong><a class="nhline" href="<?php the_permalink();?>" title="See <?php echo the_title();?>"><?php the_title();?></a></strong>
