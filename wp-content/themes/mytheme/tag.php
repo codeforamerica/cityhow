@@ -24,33 +24,7 @@ else {
 				<div id="list-fdbk">
 					<ul class="list-fdbk">
 <?php
-// get all city names
-/*
-$city_terms = get_terms('nh_cities');
-// find city names = user city or Any City
-foreach ($city_terms as $city_term) {
-	$city_term = $city_term->name;
-	if ($city_term == $user_city OR $city_term == 'Any City') {
-		$cities[] = $city_term;
-	}
-}
-// remove state from city names
-foreach ($cities as $city) {
-	if ($city != 'Any City') {
-		$city_name = substr($city,0,-3);
-	}
-	else {
-		$city_name = $city;
-	}	
-}
-
-$city_slug = strtolower($city);
-$city_slug = str_replace(' ','-',$city_slug);
-*/
-
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
-// get posts matching tag in user city and any city
 $tag_args = array(
 	'post_status' => 'publish',
 	'orderby' => 'date',	
@@ -72,17 +46,14 @@ $tag_args = array(
 	)	
 );
 $tag_query = new WP_Query($tag_args);
-
-//var_dump($tag_query);
-
 if (!$tag_query->have_posts()) :
 ?>	
-	<li class="fdbk-list">Sorry ... content for this Topic is available only to employees of city name here</li>
+	<li class="fdbk-list">Sorry, there is no public content matching this Topic right now.</li>
 
 <?php else: ?>	
 
 <?php while($tag_query->have_posts()) : $tag_query->the_post();?>	
-	<li class="fdbk-list" id="post-<?php echo $post->ID; ?>"><strong><a href="<?php echo get_permalink();?>" title="See <?php echo the_title();?>"><?php echo the_title();?></a></strong>
+	<li class="fdbk-list" id="post-<?php echo $post->ID; ?>"><strong><a href="<?php echo get_permalink();?>" title="View <?php echo the_title();?>"><?php echo the_title();?></a></strong>
 		<div class="search-results">
 <?php 
 $tmp = get_the_content();
@@ -98,7 +69,7 @@ if ($categories) {
 		$cat_name = $cat->name;
 		$cat_id = get_cat_ID($cat_name);
 		$cat_link = get_category_link($cat_id);
-		echo '<a href="'.$cat_link.'" title="See all '.$cat->name.'">';
+		echo '<a href="'.$cat_link.'" title="View '.$cat->name.'">';
 		echo $cat->name;
 		echo '</a>';
 	}	
@@ -106,29 +77,26 @@ if ($categories) {
 ?>	
 <?php
 $post_cities = wp_get_post_terms($post->ID,'nh_cities');
-
-// if user = logged out = no user city
-$term = term_exists($user_city, 'nh_cities');
-
-if (!empty($post_cities)) {
+if ($post_cities) {
 	$count = count($post_cities);
+	$j = $count - 1;	
+
 	echo ' + ';
-	foreach ($post_cities as $city) {		
-		if ($city->name == $user_city) {
-			$new_city = substr($city->name,0,-3);
-		}
-		elseif ($city->name == 'Any City') {
-			$new_city = $city->name;
-		}
+	for ($i=0; $i<=$j; $i++) {
+		$city = $post_cities[$i]->name;
+		$city_slug = strtolower($city);
+		$city_slug = str_replace(' ','-',$city_slug);
 		
-		if ($count == 1 OR $term == 0) {
-			$city_string = '<a href="'.$app_url.'/cities/'.$city->slug.'" title="See content for '.$new_city.'">'.$new_city.'</a>';
+		if ($count == 1) {
+			echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See all topics in '.$city.'">'.$city.'</a>';
 		}
-		elseif ($count > 1) {
-			$city_string .= '<a href="'.$app_url.'/cities/'.$city->slug.'" title="See content for '.$new_city.'">'.$new_city.'</a>, ';
+		elseif ($count > 1 AND $i < $j) {
+			echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See all topics in '.$city.'">'.$city.'</a>, ';
+		}			
+		elseif ($count > 1 AND $i == $j) {
+				echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See all topics in '.$city.'">'.$city.'</a>';
 		}
 	}
-		echo rtrim($city_string, ', ');
 }
 ?>	
 			</p>
@@ -153,15 +121,7 @@ endif;
 				</div>
 
 			</div><!--/ content-->
-
-<?php
-if (is_user_logged_in()) {
-	get_sidebar('misc_short');
-}
-else {
-	get_sidebar('misc_loggedout');
-}
-?>
+<?php get_sidebar('misc');?>
 		</div><!--/ main-->
 	</div><!--/ content-->
 </div><!--/ row-content-->
