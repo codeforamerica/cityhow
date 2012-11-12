@@ -82,57 +82,53 @@ if ($categories) {
 }
 ?>	
 <?php
-// get all post cities
-$post_cities = wp_get_post_terms($post->ID,'nh_cities');
+// get post cities
+//$post_cities = wp_get_post_terms($post->ID,'nh_cities');
+
+//find user city + get id
+$user_city_terms = term_exists($user_city, 'nh_cities');
+$user_city_id = $user_city_terms['term_id'];
+
+// find Any City + get id
+$any_city_terms = term_exists('Any City', 'nh_cities');
+$any_city_id = $any_city_terms['term_id'];
+
+// find post terms
+$new_cities = get_the_terms($post->ID,'nh_cities');
 
 // only keep user city and Any City
-foreach($post_cities as $elementKey => $element) {
+foreach($new_cities as $elementKey => $element) {
     foreach($element as $valueKey => $value) {
-//		echo $valueKey.' '.$value.'<br/>';
 		if ($valueKey == 'name' AND $value != $user_city AND $value != 'Any City') {
-
-			unset($post_cities[$elementKey]);
-			
+			unset($new_cities[$elementKey]);
 		}
     }
 }
 
-$post_terms = term_exists($user_city, 'nh_cities');
+$new_user_city = $new_cities[$user_city_id]->name;
+$user_city_slug = strtolower($new_user_city);
+$new_user_city_slug = str_replace(' ','-',$user_city_slug);
 
-if ($post_cities) {
-	$count = count($post_cities);
-//	$j = $count - 1;	
+$new_user_city_name = 'City of '.substr($new_user_city,0,-3);
 
-	echo ' + ';
-	for ($i=0; $i<=$count; $i++) {
-		$city = $post_cities[$i]->name;
-//		echo $city;
-		
-		if ($city == 'Any City' OR $post_terms == 0) {
-			$city_string = $city;
-		}
-		else {
-			$tmp_city = substr($city,0,-3);
-			$city_string = 'City of '.$tmp_city;
-		}
+$new_any_city = $new_cities[$any_city_id]->name;
+$any_city_slug = strtolower($new_any_city);
+$new_any_city_slug = str_replace(' ','-',$any_city_slug);
 
-		
-		if ($city == $user_city OR $city == 'Any City') {
-			$city_slug = strtolower($city);
-			$city_slug = str_replace(' ','-',$city_slug);
+echo ' + ';
 
-			if ($count == 1 OR $post_terms == 0) {
-				echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>';
-			}
-			elseif ($count > 1 AND $i < $count) {
-				echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>, ';
-			}			
-			elseif ($count > 1 AND $i == $count) {
-					echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See content for '.$city_string.'">'.$city_string.'</a>';
-			}
-		}
-	}
+if ($new_any_city AND !$new_user_city) {
+	$city_string = '<a href="'.$app_url.'/cities/'.$new_any_city_slug.'" title="See content for '.$new_any_city.'">'.$new_any_city.'</a>';
 }
+
+elseif ($new_any_city AND $new_user_city) {
+	$city_string = '<a href="'.$app_url.'/cities/'.$new_any_city_slug.'" title="See content for '.$new_any_city.'">'.$new_any_city.'</a>, <a href="'.$app_url.'/cities/'.$new_user_city_slug.'" title="See content for '.$new_user_city_name.'">'.$new_user_city_name.'</a>';	
+}
+
+elseif (!$new_any_city AND $new_user_city) {
+	$city_string = '<a href="'.$app_url.'/cities/'.$new_user_city_slug.'" title="See content for '.$new_user_city_name.'">'.$new_user_city_name.'</a>';
+}
+echo $city_string;
 ?>	
 			</p>
 		</div>
