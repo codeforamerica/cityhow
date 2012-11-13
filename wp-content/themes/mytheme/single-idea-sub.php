@@ -81,7 +81,7 @@ if (have_posts()) {
 			</div><!--/ content -->
 <?php 
 		if (!is_preview()) {
-			get_sidebar('idea-single2');	
+			get_sidebar('idea-single');	
 		}
 	} // end while posts
 } // end if posts

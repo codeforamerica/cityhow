@@ -47,7 +47,7 @@ else {
 				<div class="intro-block">
 <?php
 if (is_user_logged_in()) {
-	echo '<p>Help make CityHow better by voting on these ideas so we can understand what&#39;s most important to you. If you don&#39;t see your idea on the list, go ahead and add it!</p>';
+	echo '<p>CityHow Ideas + Suggestions include content specific to your city government, as well as content generally applicable to any city.</p><p>Help make CityHow better by voting on these Ideas so we can understand what&#39;s most important to you. If you don&#39;t see your idea on the list, add it!</p>';
 }
 else {
 	echo '<p>Explore these Ideas that CityHow users say are helpful for any city. Then <a href="<?php echo $app_url;?>/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
