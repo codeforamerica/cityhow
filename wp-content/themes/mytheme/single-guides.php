@@ -145,12 +145,12 @@ endif; // endif preview
 
 // if content is NOT user city or Any City
 else  :
-	echo 'Sorry ... this content is only visible to employees of ';
+	echo '<p style="padding:0 4em 0 0;">Sorry ... this content is only visible to employees of ';
 	foreach ($other_city_name as $c_name) {
 		$city_name = substr($c_name,0,-3);
 		$new_city_name .= ' the City of '.$city_name.' + ';			
 	}		
-		echo rtrim($new_city_name,' + ');					
+		echo rtrim($new_city_name,' + ').'</p>';
 endif; // endif content is/is not user city or Any City
 ?>
 			</div><!--/ content -->

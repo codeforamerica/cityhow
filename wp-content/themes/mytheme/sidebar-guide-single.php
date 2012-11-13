@@ -11,15 +11,34 @@ $user_city = get_user_meta($user_info->ID,'user_city',true);
 
 <div id="sidebar-int" class="sidebar-nh">	
 <?php
-// limit visible content to user city or any city
-// $post_cities = wp_get_post_terms($post->ID,'nh_cities');
-// foreach ($post_cities as $city) :
-//	if ($city->name == $user_city OR $city->name == 'Any City') :
-?>
-	<div class="widget-side">
-		<div class="widget-copy">
-			<div class="guide-details">
-				<p class="gde-avatar">
+$post_cities = wp_get_post_terms($post->ID,'nh_cities');
+
+// find user city in post cities + get id
+$user_city_terms = term_exists($user_city, 'nh_cities');
+$user_city_id = $user_city_terms['term_id'];
+
+// find Any City in post cities + get id
+$any_city_terms = term_exists('Any City', 'nh_cities');
+$any_city_id = $any_city_terms['term_id'];
+
+// find post terms
+$new_cities = get_the_terms($post->ID,'nh_cities');
+foreach ($new_cities as $c) {
+	$tmp_slug = strtolower($c->name);
+	$tmp_slug = str_replace(' ','-',$tmp_slug);
+
+	$other_city = get_term_by('slug',$tmp_slug,'nh_cities');	
+	$other_city_id[] = $other_city->term_id;		
+
+	$other_city_name[] = $other_city->name;
+}
+
+// if content IS user city or Any City
+if (in_array($user_city,$other_city_name) OR in_array('Any City',$other_city_name)) : ?>
+<div class="widget-side">
+	<div class="widget-copy">
+		<div class="guide-details">
+			<p class="gde-avatar">
 <?php
 $authors = get_coauthors($post->ID);
 if ($authors) {
@@ -45,7 +64,6 @@ if ($authors) {
 			   <br/><span class="byline">on</span> <?php the_date();?><br/>
 					<span class="byline">for</span> 
 <?php
-$post_cities = wp_get_post_terms($post->ID,'nh_cities');
 if (!empty($post_cities)) {
 	foreach ($post_cities as $post_city) {
 		if ($post_city->name == 'Any City') {
@@ -117,11 +135,12 @@ foreach($post_tags as $tag){
 	$tag_name = $tag->name;
 	$tag_string .= '<a href="'.$app_url.'/topics/'.$tag->slug.'" title="See content for '.$tag->name.'">'.$tag->name.'</a>, ';
 }	
-	echo '<li>';
+	echo '<li><strong>Topics:</strong> ';
 	echo rtrim($tag_string, ', ');	
 	echo '</li>';	
 ?>
 <?php
+echo '<strong>Cities: </strong>';
 echo rtrim($city_string, ', ');
 ?>						
 				</ul>
@@ -130,8 +149,8 @@ echo rtrim($city_string, ', ');
 	</div><!-- widget-side-->	
 
 <?php
-//endif; // end if user city or any city
-//endforeach; // end post cities
+else : // if content is NOT user city or Any City
+endif; // end if user city or Any City
  
 if (!is_user_logged_in()) : ?>	
 	<div class="widget-side">
