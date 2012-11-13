@@ -69,7 +69,9 @@ $query_b = array(
 );
 $base_tags = query_posts($query_b);
 foreach ($base_tags as $base_tag) {
-	$base_post_tags = wp_get_post_tags($base_tag->ID);
+	$base_args = array('orderby' => 'name','order' => 'DESC');
+	$base_post_tags = wp_get_post_tags($base_tag->ID,$base_args);
+	
 	foreach ($base_post_tags as $base_post_tag) {
 		$b_post_tags[] = $base_post_tag->name;
 	}
@@ -130,6 +132,9 @@ $count_g_post_tags = array_count_values($g_post_tags);
 $g_tags_unique = array_unique($g_post_tags);
 $count_i_post_tags = array_count_values($i_post_tags);
 $i_tags_unique = array_unique($i_post_tags);
+
+// alpha sort tags
+natsort($b_tags_unique);
 
 if ($b_tags_unique) {	
 	foreach ($b_tags_unique as $b_tag) {

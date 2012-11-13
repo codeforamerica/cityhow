@@ -145,7 +145,7 @@ endif; // endif preview
 
 // if content is NOT user city or Any City
 else  :
-	echo 'sorry content only visible to employees of ';
+	echo 'Sorry ... this content is only visible to employees of ';
 	foreach ($other_city_name as $c_name) {
 		$city_name = substr($c_name,0,-3);
 		$new_city_name .= ' the City of '.$city_name.' + ';			
