@@ -59,9 +59,9 @@ function nh_vote_it_link($post_id = null, $link_text = null, $already_voted = nu
 		if (!nh_user_has_voted_post($user_ID, $post_id)) {
 			echo '<a id="votethis"';
 			if (!is_user_logged_in()) {
-				echo 'href="#" data-title="Vote on this Idea"';
+				echo 'href="#"';
 			}
-			echo ' class="vote votethis nh-btn-blue" data-post-id="' . $post_id . '" data-user-id="' .  $user_ID . '">Vote</a>';
+			echo '  title="Vote on this Idea" class="vote votethis nh-btn-blue" data-post-id="' . $post_id . '" data-user-id="' .  $user_ID . '">Vote</a>';
 		} 
 		else {
 // Seems to duplicate php if/else on page ??			
