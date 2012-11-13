@@ -3,9 +3,11 @@ $post = $wp_query->post;
 if (in_category('blog')) {
 	include(TEMPLATEPATH.'/single-blog.php');	
 }
+/*
 elseif (in_category('resources')) {
 	include(TEMPLATEPATH.'/single-resources.php');	
 }
+*/
 elseif (in_category('guides')) {
 	include(TEMPLATEPATH.'/single-guides.php');	
 }

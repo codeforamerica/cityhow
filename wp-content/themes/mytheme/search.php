@@ -10,22 +10,61 @@
 	<div class="wrapper">
 		<div id="main">			
 			<div id="content">
-				<h3 class="page-title">Search Results</h3>
+				<h3 class="page-title">
+<?php
+// limit search results to user city or Any City
+echo 'Search Results for ';
+$allsearch = &new WP_Query("s=$s&nh_cities=$user_city,Any-City&showposts=-1"); 
+$key = wp_specialchars($s, 1); 
+$count = $allsearch->post_count; 
+echo '<span class="meta"><span class="byline">';
+echo $key; 
+echo ' ('.$count.')</span></span>';
+wp_reset_query(); 
+?> 
+				</h3>				
+				
 				<div id="list-fdbk">
 					<ul class="list-fdbk">
+<?php 
+if (have_posts()) : 
+while (have_posts()) : 
+the_post(); 
+?>
 
-<?php if (have_posts()) : ?>
-<?php while (have_posts()) : the_post(); ?>
+<?php
+//find user city + get id
+$user_city_terms = term_exists($user_city, 'nh_cities');
+$user_city_id = $user_city_terms['term_id'];
 
-<li class="fdbk-list" id="post-<?php echo $post->ID; ?>"><strong><a href="<?php echo get_permalink();?>" title="View <?php echo the_title();?>"><?php echo the_title();?></a></strong>
+// find Any City + get id
+$any_city_terms = term_exists('Any City', 'nh_cities');
+$any_city_id = $any_city_terms['term_id'];
+
+// find post terms + get id/name
+$new_cities = get_the_terms($post->ID,'nh_cities');
+foreach ($new_cities as $c) {
+	$tmp_slug = strtolower($c->name);
+	$tmp_slug = str_replace(' ','-',$tmp_slug);
+
+	$other_city = get_term_by('slug',$tmp_slug,'nh_cities');	
+	$other_city_id[] = $other_city->term_id;		
+
+	$other_city_name[] = $other_city->name;
+}
+
+// if content IS user city or Any City
+if (in_array($user_city_id,$other_city_id) OR in_array($any_city_id,$other_city_id)) : 
+?>
+	<li class="fdbk-list" id="post-<?php echo $post->ID; ?>"><strong><a href="<?php echo get_permalink();?>" title="View <?php echo the_title();?>"><?php echo the_title();?></a></strong>
+
 	<div class="search-results">
 <?php 
 $tmp = get_the_content();
 $new_content = strip_tags($tmp,'<p>');
 $content_trimmed = trim_by_chars($new_content,'100',nh_continue_reading_link());
-echo '<p>'.$content_trimmed.'</p>';?>
-	
-<?php
+echo '<p>'.$content_trimmed.'</p>';
+
 // Get post cats
 $categories = get_the_category();
 if ($categories) {
@@ -39,36 +78,46 @@ if ($categories) {
 		echo '</a>';
 	}	
 }
-// Get the post city info
-// Diff than nhow - idea have cities in cityhow 
-// so dont need the idea city loop
-// Get the post city info
-$post_cities = wp_get_post_terms($post->ID,'nh_cities');
-if ($post_cities) {
-	$post_cities_count = count($post_cities);
-//	var_dump($post_cities_count);
-	foreach ($post_cities as $city) {
-		if ($post_cities_count == '1') {
-			echo ' + <a href="'.$app_url.'/cities/'.$city->slug.'" title="See all Neighborhow content for '.$city->name.'">'.$city->name.'</a>';
-		}
-		elseif ($post_cities_count > 1) {
-			$city_names .= ' + <a href="'.$app_url.'/cities/'.$city->slug.'" title="See all Neighborhow content for '.$city->name.'">'.$city->name.'</a>';
-		}
-	}
-		echo rtrim($city_names, ', ');
+
+// get post cities if user city or Any City
+$new_user_city = $new_cities[$user_city_id]->name;
+$user_city_slug = strtolower($new_user_city);
+$new_user_city_slug = str_replace(' ','-',$user_city_slug);
+
+$new_user_city_name = 'City of '.substr($new_user_city,0,-3);
+
+$new_any_city = $new_cities[$any_city_id]->name;
+$any_city_slug = strtolower($new_any_city);
+$new_any_city_slug = str_replace(' ','-',$any_city_slug);
+
+echo ' + ';
+
+if ($new_any_city AND !$new_user_city) {
+	$city_string = '<a href="'.$app_url.'/cities/'.$new_any_city_slug.'" title="See content for '.$new_any_city.'">'.$new_any_city.'</a>';
 }
+
+elseif ($new_any_city AND $new_user_city) {
+	$city_string = '<a href="'.$app_url.'/cities/'.$new_any_city_slug.'" title="See content for '.$new_any_city.'">'.$new_any_city.'</a>, <a href="'.$app_url.'/cities/'.$new_user_city_slug.'" title="See content for '.$new_user_city_name.'">'.$new_user_city_name.'</a>';	
+}
+
+elseif (!$new_any_city AND $new_user_city) {
+	$city_string = '<a href="'.$app_url.'/cities/'.$new_user_city_slug.'" title="See content for '.$new_user_city_name.'">'.$new_user_city_name.'</a>';
+}
+echo $city_string;
 ?>		
 		</p>
 	</div>
 
-<?php endwhile; ?>
-<?php else : ?>
-
-<li class="fdbk-list" style="border-bottom:none;">Sorry, but nothing matched your search criteria. Please try again with some different keywords.</p>
-<?php get_search_form(); ?></li>
-
+<?php 
+endif;
+endwhile;
+else : 
+?>
+	<li class="fdbk-list" style="border-bottom:none;">Sorry ... nothing matched your search criteria.<br/>Please try again with some different keywords.</p><?php get_search_form(); ?></li>
 					</ul>
-<?php endif; ?>					
+<?php 
+endif; 
+?>
 				</div>
 
 			</div><!--/ content-->

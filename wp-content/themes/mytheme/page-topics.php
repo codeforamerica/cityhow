@@ -41,7 +41,7 @@ if (is_user_logged_in()) {
 	echo '<p>CityHow Guides and Ideas cover a range of Topics. Some are specific to your city government, while others are generally applicable to any city.</p>';
 }
 else {
-	echo '<p>Explore these Topics that CityHow users say are helpful for any city. Then <a href="<?php echo $app_url;?>/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
+	echo '<p>Explore these Topics that CityHow users say are helpful for any city. <a href="'.$app_url.'/signin" title="Sign in to CityHow">Sign in</a> to see your city&#39;s content, or <a href="'.$app_url.'/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
 }
 ?>				
 				</div>

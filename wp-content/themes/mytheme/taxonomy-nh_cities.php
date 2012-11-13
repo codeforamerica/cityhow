@@ -38,7 +38,7 @@ else {
 	echo '<p>CityHow users have said these Guides and Ideas are applicable to employees in any city. Try them out in your city!</p>';
 	}
 	else {
-		echo '<p>Explore these Guides and Ideas that CityHow users say are helpful for any city. Then <a href="'.$app_url.'/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
+		echo '<p>Explore these Guides and Ideas that CityHow users say are helpful for any city. <a href="'.$app_url.'/signin" title="Sign in to CityHow">Sign in</a> to see your city&#39;s content, or <a href="'.$app_url.'/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
 	}
 	echo '</div>';	
 }

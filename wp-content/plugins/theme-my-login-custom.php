@@ -266,7 +266,7 @@ $user_current_user_org =  $user_org[0];
 
 	<input type="text" name="user_org" id="user_org" class="input" value="<?php echo esc_attr( $user_current_user_org ) ?>" size="20" tabindex="45" />
 
-	<div class="help-block help-block-city"><span class="txt-help admin-description"><p><span class="field-hint"></span>Enter the name of the City organization or group you're part of.</p></span>
+	<div class="help-block help-block-city"><span class="txt-help admin-description"><p><span class="field-hint"></span>Enter the name of the City organization, agency, or group you&#39;re part of.</p></span>
 	</div>	
 </div>
 <?php }

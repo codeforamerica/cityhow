@@ -13,25 +13,6 @@ $cat_name = $cat[0]->name;
 		<div id="main">			
 			<div id="content">
 <?php
-// limit list to user city + any city
-/*
-$city_terms = get_terms('nh_cities');
-foreach ($city_terms as $city_term) {
-	$city_term = $city_term->name;
-	if ($city_term == $user_city OR $city_term == 'Any City') {
-		$cities[] = $city_term;
-	}
-}
-foreach ($cities as $city) {
-	if ($city != 'Any City') {
-		$city_name = substr($city,0,-3); //remove state
-	}
-	else {
-		$city_name = $city;
-	}	
-	$city_list[] = $city_name;
-}
-*/
 $user_city_name = substr($user_city,0,-3);
 $user_city_slug = strtolower($user_city);
 $user_city_slug = str_replace(' ','-',$user_city_slug);
@@ -49,10 +30,10 @@ else {
 				<div class="intro-block">
 <?php
 if (is_user_logged_in()) {
-	echo '<p>CityHow Ideas + Suggestions include content specific to your city government, as well as content generally applicable to any city.</p><p>Help make CityHow better by voting on these Ideas so we can understand what&#39;s most important to you. If you don&#39;t see your idea on the list, add it!</p>';
+	echo '<p>CityHow Ideas include content specific to your city government, as well as content generally applicable to any city.</p><p>Help make CityHow better by voting on these Ideas so we can understand what&#39;s most important to you. If you don&#39;t see your idea on the list, add it!</p>';
 }
 else {
-	echo '<p>Explore these Ideas that CityHow users say are helpful for any city. Then <a href="<?php echo $app_url;?>/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
+	echo '<p>Explore these Ideas that CityHow users say are helpful for any city. <a href="'.$app_url.'/signin" title="Sign in to CityHow">Sign in</a> to see your city&#39;s content, or <a href="'.$app_url.'/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
 }
 ?>			
 				</div>

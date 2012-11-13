@@ -18,7 +18,7 @@ if (is_user_logged_in()) {
 	echo '<p>This Topic includes Guides and Ideas specific to your city government or generally applicable to any city.</p>';
 }
 else {
-	echo '<p>Browse this Topic that CityHow users say is helpful for any city. Then <a href="<?php echo $app_url;?>/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
+	echo '<p>Browse this Topic that CityHow users say is helpful for any city. <a href="'.$app_url.'/signin" title="Sign in to CityHow">Sign in</a> to see your city&#39;s content, or <a href="'.$app_url.'/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
 }
 ?>				
 				</div>				

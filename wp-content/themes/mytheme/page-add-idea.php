@@ -31,15 +31,16 @@ if (is_user_logged_in()) {
 		$category = get_the_category($item_post_id);
 		echo '<div id="message" class="frm_message">Thanks for sharing your idea with us. Your idea has been posted, and we&#39;ll reply to it shortly.<br/><br/>In the meantime, see what other CityHow users think about your idea by visiting the ';
 		foreach ($category as $cat) {
-			echo '<a class="whitelink" href="'.$app_url.'/ideas/'.$cat->slug.'" title="View ideas in '.$cat->name.'">'.$cat->name.'</a>';
+			echo '<a class="whitelink" href="'.$app_url.'/ideas/'.$cat->slug.'" title="See Ideas in '.$cat->name.'">'.$cat->name.'</a>';
 		}
-		echo ' page. Or <a class="whitelink" href="'.$app_url.'/add-idea" title="Add another idea">add another idea</a>!</div>';
+		echo ' page. Or <a class="whitelink" href="'.$app_url.'/add-idea" title="Add another idea">add another Idea</a>!</div>';
 	}
 	elseif (!$_GET) {
 		echo '<p>Have an idea about a great topic for a new CityHow Guide? Or thoughts about a new (or existing) feature? Got a question?</p><p>Please fill out the form below. <strong>Your idea will be posted as soon as you submit it, so be sure it says what you want.</strong> Thanks in advance for sharing your ideas with us.</p>';
 		echo '<div id="add-fdbk">'.do_shortcode('[formidable id=8]').'</div>';
 	}
 }
+// user wont see this
 elseif (!is_user_logged_in()) {
 	echo 'Please <a class="nhline" href="'.$app_url.'/signin" title="Sign In">sign in</a> to give us your ideas about Neighborhow.';
 	echo '<p style="margin-top:1.5em;"><a title="Sign In to CityHow" href="'.$app_url.'/signin" class="nh-btn-blue">Sign In</a>&nbsp;&nbsp;or&nbsp;&nbsp;<a title="Create an account" href="'.$app_url.'/register" class="nh-btn-blue">Create an Account</a></p>';

@@ -45,7 +45,7 @@ if (is_user_logged_in()) {
 	echo '. Or it could be about something that&#39;s helpful to city employees working in any city.</p><p>If it&#39;s something you know how to do, it&#39;s probably something other people want to know how to do. So suggest a topic for a new CityHow Guide, create your own Guide, or ask another employee to write one.</p>';
 }
 else {
-	echo '<p>Explore these Guides that CityHow users say are helpful for any city. Then <a href="'.$app_url.'/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
+	echo '<p>Explore these Guides that CityHow users say are helpful for any city. <a href="'.$app_url.'/signin" title="Sign in to CityHow">Sign in</a> to see your city&#39;s content, or <a href="'.$app_url.'/contact" title="Get CityHow for your city">contact us</a> if you&#39;d like CityHow for your city.</p>';
 }
 ?>
 					</div>
