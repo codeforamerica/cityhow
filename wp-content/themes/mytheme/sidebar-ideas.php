@@ -14,16 +14,17 @@ $fdbk_cat = get_cat_ID('ideas');
 $args = array('child_of' => $fdbk_cat);
 $categories = get_categories($args);
 foreach ($categories as $cat) {
+	$catcount = $cat->count;
 ?>				
 				<li class="bullets">
 <?php
-if ($cat->slug == 'content-ideas') {
+if ($cat->slug == 'content-ideas' AND $catcount > 0) {
 	echo '<a class="nhline" href="'.$app_url.'/ideas/'.$cat->slug.'" title="View '.$cat->name.'">Content ideas for CityHow Guides</a>';
 }
-elseif ($cat->slug == 'feature-ideas') {
+elseif ($cat->slug == 'feature-ideas' AND $catcount > 0) {
 	echo '<a class="nhline" href="'.$app_url.'/ideas/'.$cat->slug.'" title="View '.$cat->name.'">Ideas for Features</a>';
 }
-elseif ($cat->slug == 'questions') {
+elseif ($cat->slug == 'questions' AND $catcount > 0) {
 	echo '<a class="nhline" href="'.$app_url.'/ideas/'.$cat->slug.'" title="View '.$cat->name.'">Your Questions</a>';
 }
 ?>					

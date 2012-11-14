@@ -181,7 +181,7 @@ if ($term !== 0 && $term !== null OR $bodyid == 'topics') {
 }
 ?>"><a title="View all CityHow Topics" href="<?php echo $app_url;?>/topics">Topics</a></li>
 		<li class="nhnav-item <?php if ($bodyid == "ideas") echo $links; ?>"><a title="View CityHow Ideas" href="<?php echo $app_url;?>/ideas">Ideas</a></li>
-		<li class="nhnav-item <?php if ($bodyid == "blog") echo $links; ?>"><a title="View CityHow Blog" href="<?php echo $app_url;?>/blog">Blog</a></li>
+		<!--li class="nhnav-item <?php if ($bodyid == "blog") echo $links; ?>"><a title="View CityHow Blog" href="<?php echo $app_url;?>/blog">Blog</a></li-->
 <?php
 if (is_user_logged_in()) {
 ?>
