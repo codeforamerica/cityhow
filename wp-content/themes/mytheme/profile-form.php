@@ -95,7 +95,7 @@ if (!empty($nh_error_keys)) {
 		<div class="form-item">
 			<label class="nh-form-label" for="email"><?php _e( 'Email Address', 'theme-my-login' ); ?></label>
 			<input type="email" name="email" id="email" value="<?php echo esc_attr( $profileuser->user_email ) ?>" class="regular-text" tabindex="20" />				
-			<div class="help-block <?php foreach ($nh_error_keys as $key) { if ($key == "empty_email" OR $key == "invalid_email" OR $key == "email_exists") { echo 'nh-error'; }} ?>"><span class="txt-help">This site is limited to city employees, so you should keep using your official city employee email address. Your email is not visible to other users.</span>
+			<div class="help-block <?php foreach ($nh_error_keys as $key) { if ($key == "empty_email" OR $key == "invalid_email" OR $key == "email_exists") { echo 'nh-error'; }} ?>"><span class="txt-help">If your official city email address has changed, change it here. Otherwise you should keep using the official city email address you signed up with.</span>
 			</div>
 		</div>			
 

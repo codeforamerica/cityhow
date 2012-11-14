@@ -50,36 +50,17 @@ echo $nh_avatar;
 		<?php if ($descriptiontxt) { ?><p><span class="byline">bio:</span> <?php echo $descriptiontxt;?></p><?php } ?>
 		<p><span class="byline">city:</span> 
 <?php 
-// only make links for user city + any city
-$city_terms = get_terms('nh_cities');
-foreach ($city_terms as $city_term) {
-	$city_term = $city_term->name;
-	if ($city_term == $user_city OR $city_term == 'Any City') {
-		$cities[] = $city_term;
-	}
-}
-foreach ($cities as $city) {
-	if ($city != 'Any City') {
-		$city_name = substr($city,0,-3); //remove state
-	}
-	else {
-		$city_name = $city;
-	}	
-}
-
-$nh_cities = get_terms('nh_cities');
 $user_city = $nh_author->user_city;
- 
-$term = term_exists($user_city, 'nh_cities');
-// If user city is an official city
-if ($term !== 0 && $term !== null) {
-	$term_id = $term['term_id'];
-	$term_data = get_term_by('id',$term_id,'nh_cities');
-	echo '<a href="'.$app_url.'/cities/'.$term_data->slug.'" title="View '.$user_city.'">'.$user_city.'</a>';
+if ($user_city != 'Any City') {
+	$city_name = 'City of '.substr($user_city,0,-3); //remove state
 }
-elseif ($term == 0 && $term == null) {
-	echo $user_city;
+else {
+	$city_name = $user_city;
 }
+$city_slug = strtolower($user_city);
+$city_slug = str_replace(' ','-',$city_slug);
+
+echo '<a href="'.$app_url.'/cities/'.$city_slug.'" title="See '.$city_name.'">'.$city_name.'</a>';
 ?></p>
 		<?php if ($nh_author->user_org) { ?><p><span class="byline">organization:</span> <?php echo $nh_author->user_org;?></p><?php } ?>
 <?php 

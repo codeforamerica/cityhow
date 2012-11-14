@@ -248,7 +248,7 @@ $user_current_city =  $cities[0];
 	<label for="user_city"><?php _e( 'City', 'theme-my-login' ) ?></label>
 
 	<input type="text" name="user_city" id="user_city" class="input" value="<?php echo esc_attr( $user_current_city ) ?>" size="20" tabindex="45" required />
-	<div class="help-block help-block-city"><span class="txt-help admin-description"><p>Enter your city's name. Be sure to enter the city name in the format of "Philadelphia PA" or "San Francisco CA.</p></span>
+	<div class="help-block help-block-city"><span class="txt-help admin-description"><p>CityHow is restricted to employees who work in cities that are part of the CityHow network. Please keep your city name the same as the one you signed up with.</p></span>
 	</div>	
 </div>
 
