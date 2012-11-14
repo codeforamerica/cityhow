@@ -61,8 +61,9 @@ if ($authors) {
 }
 ?>
 			   <br/><span class="byline">on</span> <?php the_date();?><br/>
-					<span class="byline">for</span> 
 <?php
+/*
+echo '<span class="byline">for</span>';
 if (!empty($post_cities)) {
 	foreach ($post_cities as $post_city) {
 		if ($post_city->name == 'Any City') {
@@ -78,6 +79,7 @@ if (!empty($post_cities)) {
 	}
 	echo rtrim($city_string, ', ');
 }
+*/
 ?>					
 				</p>	
 				<ul class="gde-meta">
@@ -139,8 +141,8 @@ foreach($post_tags as $tag){
 	echo '</li>';	
 ?>
 <?php
-echo '<span class="exploremore">Cities: </span>';
-echo rtrim($city_string, ', ');
+//echo '<span class="exploremore">Cities: </span>';
+//echo rtrim($city_string, ', ');
 ?>						
 				</ul>
 			</div><!--/guide details-->
@@ -162,7 +164,24 @@ if (!is_user_logged_in()) : ?>
 				<a href="<?php echo $app_url;?>/register" title="Create an account"><button class="nh-btn-blue-med btn-fixed">Create an Account</button></a>
 			</div>
 		</div><!--/ widget copy-->
-	</div><!--/ widget-->	
+	</div><!--/ widget-->
+<?php else : ?>
+	<div class="widget-side">
+		<h5 class="widget-title">Help Make CityHow Better</h5>
+		<div class="widget-copy">
+			
+			<div class="sidebar-buttons">			
+				<a href="<?php echo $app_url;?>/add-idea" title="Add your idea"><button class="nh-btn-blue-med btn-fixed">Add an Idea for a Guide</button></a>
+				<p>Help decide what content should be part of CityHow for your city.</p>
+			</div>
+
+			<div class="sidebar-buttons">
+				<a href="<?php echo $app_url;?>/create-guide" title="Create a CityHow Guide"><button class="nh-btn-blue-med btn-fixed">Create a CityHow Guide</button></a>
+				<p>Share what you know about working in city government with others.</p>
+			</div>
+
+		</div><!--/ widget copy-->
+	</div><!--/ widget-->
 <?php endif; ?>	
 	
 </div><!--/ sidebar-->

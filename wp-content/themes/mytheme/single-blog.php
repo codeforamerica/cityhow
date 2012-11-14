@@ -41,11 +41,7 @@ if (in_array($user_city_id,$other_city_id) OR in_array($any_city_id,$other_city_
 	the_post(); 
 	$nh_author = get_userdata($curauth->ID);
 	$nhow_post_id = $post->ID;	
-?>
-
-
-	
-			
+?>			
 			<div class-"guide-overview"><p>
 <?php 
 $tmpcontent = get_the_content();
@@ -60,8 +56,6 @@ $img_feature_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),
 				<div class="carousel-inner"><!--img src="<?php echo $style_url;?>/lib/timthumb.php?src=<?php echo $img_feature_src[0];?>&h=400&q=95&zc=2&a=t" alt="Photo of <?php the_title();?>" /-->
 				</div>
 			</div>
-
-		
 			
 <?php	
 	endwhile; // end while posts
