@@ -122,7 +122,29 @@ echo '</div>';
 			<div class="guide-details">				
 				<ul class="gde-actions">
 <?php 
-echo '<li><span class="exploremore">Ideas: </span> <a href="'.$app_url.'/ideas/content-ideas" title="See Content Ideas">Content</a>, <a href="'.$app_url.'/ideas/feature-ideas" title="See Feature Ideas">Features</a>, <a href="'.$app_url.'/ideas/questions" title="See Questions">Questions</a></li>';
+$fdbk_cat = get_cat_ID('ideas');
+$args = array('child_of' => $fdbk_cat);
+$categories = get_categories($args);
+
+echo '<li>';
+echo '<span class="exploremore">Ideas: </span>';
+foreach ($categories as $cat) {
+	$catcount = $cat->count;
+?>				
+
+<?php
+	if ($cat->slug == 'content-ideas' AND $catcount > 0) {
+		echo '<a class="nhline" href="'.$app_url.'/ideas/'.$cat->slug.'" title="View '.$cat->name.'">Content</a>, ';
+	}
+	elseif ($cat->slug == 'feature-ideas' AND $catcount > 0) {
+		echo '<a class="nhline" href="'.$app_url.'/ideas/'.$cat->slug.'" title="View '.$cat->name.'">Features</a>, ';
+	}
+	elseif ($cat->slug == 'questions' AND $catcount > 0) {
+		echo '<a class="nhline" href="'.$app_url.'/ideas/'.$cat->slug.'" title="View '.$cat->name.'">Questions</a>';
+	}
+} // end foreach
+echo '</li>';
+
 $post_tags = wp_get_post_tags($post->ID);
 foreach($post_tags as $tag){
 	$tag_name = $tag->name;
