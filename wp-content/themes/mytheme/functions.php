@@ -69,6 +69,7 @@ function get_ID_by_slug($page_slug) {
 }
 
 /*------------ Get List of Coauthors --------------*/
+/* NOT USING - REQUIRES COAUTHORS PLUGIN
 function get_coauthor_list() {
   global $wpdb;
   $authors = implode("','",get_terms('author',array('fields'=>'names')));
@@ -78,6 +79,7 @@ function get_coauthor_list() {
          "ORDER BY display_name";
   return $wpdb->get_col($sql);
 }
+*/
 
 /*------- Get Author Post Count-----------*/
 /* use for when status is important */

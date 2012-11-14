@@ -38,28 +38,21 @@ if (in_array($user_city,$other_city_name) OR in_array('Any City',$other_city_nam
 	<div class="widget-copy">
 		<div class="guide-details">
 			<p class="gde-avatar">
+				
 <?php
-$authors = get_coauthors($post->ID);
-if ($authors) {
-	foreach ($authors as $author) {
-		$user_info = get_userdata($author->ID);
-		$displayname = $user_info->first_name.' '.$user_info->last_name;
-		$user_info_alt = 'Photo of '.$displayname;
-		$user_info_avatar = get_avatar($author->ID, '48','',$user_info_alt);
-		echo $user_info_avatar.'<br/>';
-	}	
-	
-		echo '</p><p class="gde-byline"><span class="byline">by </span>';	
-	foreach ($authors as $author) {
-		$user_info = get_userdata($author->ID);
-		$user_info_slug = $user_info->user_login;
-		$displayname = $user_info->first_name.' '.$user_info->last_name;		
-		
-		$authors_list .= '<a class="nhline" href="'.$app_url.'/author/'.$user_info_slug.'" title="See '.$displayname.'&#39;s profile">'.$displayname.'</a> + ';
-	}
-	echo rtrim($authors_list, ' + ');
-}
-?>
+$author_id = $post->post_author;
+$author_info = get_userdata($author_id);
+$displayname = $user_info->first_name.' '.$user_info->last_name;
+$author_info_alt = 'Photo of '.$displayname;
+$author_info_avatar = get_avatar($author->ID, '48','',$author_info_alt);
+
+echo $author_info_avatar.'<br/>';
+echo '</p><p class="gde-byline"><span class="byline">by </span>';
+
+$author_info_slug = $author_info->user_login;
+
+echo '<a class="nhline" href="'.$app_url.'/author/'.$author_info_slug.'" title="See '.$displayname.'&#39;s profile">'.$displayname.'</a>';
+?>				
 			   <br/><span class="byline">on</span> <?php the_date();?><br/>
 <?php
 /*
