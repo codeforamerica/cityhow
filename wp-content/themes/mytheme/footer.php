@@ -132,6 +132,10 @@ $(function() {
 		source: cities,
 		minLength: 2
 	});
+	$( ".guide-user-city INPUT" ).autocomplete({
+		source: cities,
+		minLength: 2
+	});
 });
 // Get tags for JS Autocompplete
 var tags = <?php echo json_encode($tags); ?>;

@@ -327,8 +327,17 @@ function nh_the_author_posts_link()
   --------------------------------------------------------------------------*/
 // 3.  FORMIDABLE PRO FUNCTIONS
 
-/* -------- User city is placeholder on create guide ------------*/
-// sdfsdf ????
+/* -------- Default User City into Create Gde City ------------*/
+add_filter('frm_get_default_value', 'nh_city_default', 10, 2);
+function nh_city_default($new_value, $field){
+	global $current_user;
+	get_currentuserinfo();
+	if($field->id == 445){ 
+		$user_city = get_user_meta($current_user->ID,'user_city',true);
+		$new_value = $user_city;
+	}
+	return $new_value;
+}
 
 
 /* -------- Get Key from Post ID ------------*/
