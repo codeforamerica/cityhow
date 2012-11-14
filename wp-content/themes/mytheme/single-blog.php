@@ -1,131 +1,96 @@
 <?php get_header(); ?>
-
-<div id="container-int" class="container-int">
-	<div class="row-fluid">
-		<div class="span12">
-<?php //nhow_breadcrumb(); ?>
-		</div>
+<div class="row-fluid row-breadcrumbs">
+	<div id="nhbreadcrumb">
+<?php nhow_breadcrumb(); ?>
 	</div>
-	<div class="row-fluid">
-<?php 
-if ( have_posts() ) :
-while ( have_posts() ) : the_post(); 
-$nhow_authorID = $posts[0]->post_author;
-$nhow_postID = $post->ID;
-?>			
-		<div class="span8">
-			<h1 class="page-title" style="margin-bottom:2em;">HERE IS ITS <?php the_title();?></h1>
-			<div class="content content-page">
-<?php echo 'content: '.get_the_content().'<br/>';?>	
+</div>
 
-<?php wdpv_vote(); ?>
-
-<?php //echo do_shortcode('[display-frm-data id=1]'); ?>
+<div class="row-fluid row-content">	
+	<div class="wrapper">
+		<div id="main">			
+			<div id="content">
+<h3 class="page-title"><?php the_title();?></h3>
 
 <?php
-$thumbnail_id = get_post_thumbnail_id($post->ID);
+$post_cities = wp_get_post_terms($post->ID,'nh_cities');
 
-$img_feature_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
+// find user city in post cities + get id
+$user_city_terms = term_exists($user_city, 'nh_cities');
+$user_city_id = $user_city_terms['term_id'];
 
-$img_feature_caption = get_post($thumbnail_id)->post_title;
+// find Any City in post cities + get id
+$any_city_terms = term_exists('Any City', 'nh_cities');
+$any_city_id = $any_city_terms['term_id'];
 
-echo '<br/>guide image: <img src="'. get_bloginfo('stylesheet_directory').'/lib/timthumb.php?src='. $img_feature_src[0].'&h=300&q=100&zc=1" alt="Photo of '.$img_feature_caption.'">';
+// find post terms + get id/name
+$new_cities = get_the_terms($post->ID,'nh_cities');
+foreach ($new_cities as $c) {
+	$tmp_slug = strtolower($c->name);
+	$tmp_slug = str_replace(' ','-',$tmp_slug);
 
-echo '<br/>'.$img_feature_caption.'<br/>';
+	$other_city = get_term_by('slug',$tmp_slug,'nh_cities');	
+	$other_city_id[] = $other_city->term_id;		
 
-$user_city = get_post_meta($post->ID,'gde-user-city',true);
-echo $user_city;
-$step_total = get_post_meta($post->ID,'gde-steps');
-$test1 = count($step_total).' ttotal<br/>';
-echo $test1;
-$guide_steps = get_post_meta($post->ID,'gde-steps',true);
-
-
-$guide_step_images = get_post_meta();
-
-$guide_steps = unserialize($guide_steps);
-
-$i = 0;
-$j = 1;
-foreach ($guide_steps as $key => $value) {
-	
-		echo 'Step '.$j;
-		$step_title = $value[0];
-		$step_description = $value[1];	
-		$step_image = $value[2];
-		
-		echo '<p>title: '.$step_title.'</p>';
-		echo '<p>description: '.$step_description.'</p>';	
-		echo '<p>image: '.$step_image.'</p>';	
-	
-		
-		$test2 = get_post_meta($post->ID,'step-image-0',true);
-		echo 'image id: '.$test2;
-		
-		$attachments = get_posts( array(
-					'post_type' => 'attachment',
-					'posts_per_page' => -1,
-					'post_parent' => $post->ID
-				) );
-			echo '<pre>';
-			var_dump($attachments);
-			echo '</pre>';
-		
-		
-				echo '<hr>';
-$i++;
-$j++;	
-	
-	
+	$other_city_name[] = $other_city->name;
 }
 
-
-
-
-
- 
-
-
-
+// if content IS user city or Any City
+if (in_array($user_city_id,$other_city_id) OR in_array($any_city_id,$other_city_id)) :
+	if ( have_posts() ) :
+	while ( have_posts() ) : 
+	the_post(); 
+	$nh_author = get_userdata($curauth->ID);
+	$nhow_post_id = $post->ID;	
 ?>
 
-<?php 
-// get users city and make it the placeholder for the input form
-?>
 
 	
-				<div class="tabbable">
-
-					<div class="tab-content">
-						<div class="tab-pane active" id="tab1">							
-							<div class="guide-tab-inner">
-
-
-								<div class="single-guide-img overview">
-									<div class="carousel-inner"><!--img src="<?php bloginfo('stylesheet_directory');?>/lib/timthumb.php?src=<?php //echo $img_feature_src[0];?>&h=300&q=100&zc=1" alt="Photo of <?php //echo $step['title'];?>" /-->
-										<div class="carousel-caption single-caption">
-											<h4><?php //echo $img_feature_caption;?></h4>
-										</div>
-									</div>
-								</div>							
-							</div><!-- /guide-tab-inner-->
-						</div><!-- /tab pane-->
-
-
-					</div><!--/tab-content-->
-				</div><!--/tabbable-->
-				<div class="nhow-comments">
-<?php comments_template( '', true ); ?>
-<?php
-endwhile;
-endif;
-?>				</div><!--/content-->
-			</div>
-		</div>				
 			
-		<div class="span4" style="margin-top:0em;">
-<?php get_sidebar('guides'); ?>
-		</div><!--/span-->
-	</div><!--/row-->
-</div><!--/container-->
+			<div class-"guide-overview"><p>
+<?php 
+$tmpcontent = get_the_content();
+$guide_summary = preg_replace('#\R+#', '</p><p>', $tmpcontent);
+echo make_clickable($guide_summary);
+?></p>
+			</div>
+<?php
+$img_feature_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
+?>
+			<div class="single-guide-img overview">
+				<div class="carousel-inner"><!--img src="<?php echo $style_url;?>/lib/timthumb.php?src=<?php echo $img_feature_src[0];?>&h=400&q=95&zc=2&a=t" alt="Photo of <?php the_title();?>" /-->
+				</div>
+			</div>
+
+		
+			
+<?php	
+	endwhile; // end while posts
+	endif; // end if posts
+
+if (!is_preview()) : ?>
+<div id="leavecomment" class="nhow-comments">
+<?php echo comments_template( '', true );?>
+</div>
+<?php
+endif; // endif preview
+
+// if content is NOT user city or Any City
+else  :
+	echo '<p style="padding:0 4em 0 0;">Sorry ... this content is only visible to employees of ';
+	foreach ($other_city_name as $c_name) {
+		$city_name = substr($c_name,0,-3);
+		$new_city_name .= ' the City of '.$city_name.' + ';			
+	}		
+		echo rtrim($new_city_name,' + ').'</p>';
+endif; // endif content is/is not user city or Any City
+?>
+			</div><!--/ content -->
+<?php 
+if (!is_preview()) :
+	get_sidebar('blog-single');	
+endif;
+?>			
+		</div><!--/ main-->
+	</div><!--/ wrapper-->
+</div><!--/ row-fluid-->
 <?php get_footer(); ?>

@@ -1993,6 +1993,30 @@ span.meta-nav{
 h2.widgettitle {
 	display:none !important;
 }
+span.exploremore {
+	color:#4996a4;
+	font-weight:600;
+}
+
+p.blog-image {
+	border:6px solid #ebebeb;
+	text-align:center !important;
+	margin-bottom:0 !important;
+	margin-top:1em !important;
+}
+p.blog-image img {
+	text-align:center;
+	margin-bottom:0 !important;
+}
+.alignnone { }
+p.blog-caption {
+	text-align:left;
+	background:#ebebeb;
+	padding:.5em 1em .5em 1em;
+	margin-top:0 !important;
+	font-size:90%;
+}
+
 
 /*-------------- FOOTER -----------*/
 .row-footer div {

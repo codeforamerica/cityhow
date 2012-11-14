@@ -130,17 +130,17 @@ echo '</div>';
 			<div class="guide-details">				
 				<ul class="gde-actions">
 <?php 
-echo '<li><strong>Ideas:</strong> <a href="'.$app_url.'/ideas/content-ideas" title="See Content Ideas">Content</a>, <a href="'.$app_url.'/ideas/feature-ideas" title="See Feature Ideas">Features</a>, <a href="'.$app_url.'/ideas/questions" title="See Questions">Questions</a></li>';
+echo '<li><span class="exploremore">Ideas: </span> <a href="'.$app_url.'/ideas/content-ideas" title="See Content Ideas">Content</a>, <a href="'.$app_url.'/ideas/feature-ideas" title="See Feature Ideas">Features</a>, <a href="'.$app_url.'/ideas/questions" title="See Questions">Questions</a></li>';
 $post_tags = wp_get_post_tags($post->ID);
 foreach($post_tags as $tag){
 	$tag_name = $tag->name;
 	$tag_string .= '<a href="'.$app_url.'/topics/'.$tag->slug.'" title="See content for '.$tag->name.'">'.$tag->name.'</a>, ';
 }	
-	echo '<li><strong>Topics:</strong> ';
+	echo '<li><span class="exploremore">Topics: </span> ';
 	echo rtrim($tag_string, ', ');	
 	echo '</li>';	
 
-	echo '<li><strong>Cities: </strong>';
+	echo '<li><span class="exploremore">Cities: </span>';
 	echo rtrim($city_string, ', ');
 	echo '</li>';
 ?>						

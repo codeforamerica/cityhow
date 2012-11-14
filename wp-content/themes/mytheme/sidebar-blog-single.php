@@ -6,7 +6,6 @@ get_currentuserinfo();
 $user_info = get_userdata($current_user->ID);
 global $user_city;
 $user_city = get_user_meta($user_info->ID,'user_city',true);
-//var_dump($user_city);
 ?>
 
 <div id="sidebar-int" class="sidebar-nh">	
@@ -135,7 +134,7 @@ foreach($post_tags as $tag){
 	$tag_name = $tag->name;
 	$tag_string .= '<a href="'.$app_url.'/topics/'.$tag->slug.'" title="See content for '.$tag->name.'">'.$tag->name.'</a>, ';
 }	
-	echo '<li><span class="exploremore">Topics: </span> ';
+	echo '<li><span class="exploremore">Topics:</span> ';
 	echo rtrim($tag_string, ', ');	
 	echo '</li>';	
 ?>
