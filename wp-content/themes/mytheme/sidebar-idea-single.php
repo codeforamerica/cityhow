@@ -146,14 +146,15 @@ foreach ($categories as $cat) {
 echo '</li>';
 
 $post_tags = wp_get_post_tags($post->ID);
-foreach($post_tags as $tag){
-	$tag_name = $tag->name;
-	$tag_string .= '<a href="'.$app_url.'/topics/'.$tag->slug.'" title="See content for '.$tag->name.'">'.$tag->name.'</a>, ';
-}	
+if ($post_tags) {
+	foreach($post_tags as $tag){
+		$tag_name = $tag->name;
+		$tag_string .= '<a href="'.$app_url.'/topics/'.$tag->slug.'" title="See content for '.$tag->name.'">'.$tag->name.'</a>, ';
+	}	
 	echo '<li><span class="exploremore">Topics: </span> ';
 	echo rtrim($tag_string, ', ');	
 	echo '</li>';	
-
+}
 	echo '<li><span class="exploremore">Cities: </span>';
 	echo rtrim($city_string, ', ');
 	echo '</li>';
