@@ -65,7 +65,7 @@ function tml_registration_errors( $errors ) {
 		}
 
 		elseif ($term == 0 OR $term == null) {
-			$errors->add( 'wrong_user_city', '<strong>ERROR</strong>: Looks like the city name you entered is not yet part of the CityHow network. You can only sign up for CityHow if your city is already part of the CityHow network. Ask your city to sign up for CityHow!' );
+			$errors->add( 'wrong_user_city', '<strong>ERROR</strong>: Looks like the city name you entered is not yet part of the CityHow network. Ask your city to sign up for CityHow!' );
 		}
 	}
 
@@ -202,7 +202,7 @@ function nh_save_extra_profile_fields( &$errors, $update, &$user ) {
 		}
 
 		elseif ($term == 0 OR $term == null) {
-			$errors->add( 'wrong_user_city', '<strong>ERROR</strong>: Looks like the city name you entered is not yet part of the CityHow network. You can only sign up for CityHow if your city is already part of the CityHow network. Ask your city to sign up for CityHow!' );
+			$errors->add( 'wrong_user_city', '<strong>ERROR</strong>: Looks like the city name you entered is not yet part of the CityHow network. Ask your city to sign up for CityHow!' );
 		}
 		else {
 			update_user_meta($user->ID, 'user_city', $value_user_city);
