@@ -332,11 +332,11 @@ add_filter('frm_get_default_value', 'nh_city_default', 10, 2);
 function nh_city_default($new_value, $field){
 	global $current_user;
 	get_currentuserinfo();
-	if($field->id == 445){ 
+	if($field->id == 445){ // create idea
 		$user_city = get_user_meta($current_user->ID,'user_city',true);
 		$new_value = $user_city;
 	}
-	if($field->id == 446){ 
+	if($field->id == 446){ // create guide
 		$user_city = get_user_meta($current_user->ID,'user_city',true);
 		$new_value = $user_city;
 	}
@@ -377,9 +377,14 @@ function nh_get_post_id_item_key ($item_key) {
 /* -------- Update Idea City ------------*/
 add_action('frm_after_create_entry', 'update_post_city',80, 2);
 function update_post_city($entry_id, $form_id){
-  if($form_id == 8){ 
+  if($form_id == 8){ // create idea
 	$post_id = nh_get_post_id_item_key($_POST['item_key']);
 	$user_city = $_POST['item_meta'][446];
+	wp_set_post_terms($post_id,$user_city,'nh_cities');
+  }
+  if($form_id == 12){ // create guide
+	$post_id = nh_get_post_id_item_key($_POST['item_key']);
+	$user_city = $_POST['item_meta'][445];
 	wp_set_post_terms($post_id,$user_city,'nh_cities');
   }
 }
