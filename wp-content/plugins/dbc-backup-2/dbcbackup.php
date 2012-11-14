@@ -3,12 +3,13 @@
 Plugin Name: DBC Backup 2
 Plugin URI: http://wordpress.damien.co/plugins?utm_source=WordPress&utm_medium=dbc-backup&utm_campaign=WordPress-Plugin
 Description: Safe & easy backup for your WordPress database. Just schedule and forget.
-Version: 2.1
+Version: 2.1.1
 Author: Damien Saunders
 Author URI: http://damien.co/?utm_source=WordPress&utm_medium=dbc-backup&utm_campaign=WordPress-Plugin
 License: GPLv2 or later
 */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
 /*
  * Save User Options to WPDB
  */	
