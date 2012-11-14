@@ -327,7 +327,7 @@ function nh_the_author_posts_link()
   --------------------------------------------------------------------------*/
 // 3.  FORMIDABLE PRO FUNCTIONS
 
-/* -------- Default User City into Create Gde City ------------*/
+/* -------- Default User City into Create Gde/Idea ------------*/
 add_filter('frm_get_default_value', 'nh_city_default', 10, 2);
 function nh_city_default($new_value, $field){
 	global $current_user;
@@ -336,9 +336,12 @@ function nh_city_default($new_value, $field){
 		$user_city = get_user_meta($current_user->ID,'user_city',true);
 		$new_value = $user_city;
 	}
+	if($field->id == 446){ 
+		$user_city = get_user_meta($current_user->ID,'user_city',true);
+		$new_value = $user_city;
+	}
 	return $new_value;
 }
-
 
 /* -------- Get Key from Post ID ------------*/
 function nh_get_frm_entry_key ($post_id) {
@@ -347,7 +350,7 @@ function nh_get_frm_entry_key ($post_id) {
 	return $item_key;
 }
 
-/* -------- Get Post ID from Key ------------*/
+/* -------- Get item ID from Key ------------*/
 function nh_get_frm_key_id ($item_key) {
 	$result = mysql_query("SELECT id FROM nh_frm_items WHERE item_key = '".$item_key."'");
 	$row = mysql_fetch_row($result);
@@ -355,12 +358,30 @@ function nh_get_frm_key_id ($item_key) {
 	return $entry_id;
 }
 
-/* -------- Get Post ID from form ID ------------*/
+/* -------- Get item ID from form ID ------------*/
 function nh_get_frm_id_post_id ($item_id) {
 	$result = mysql_query("SELECT post_id FROM nh_frm_items WHERE id = '".$item_id."'");
 	$row = mysql_fetch_row($result);
 	$entry_post_id = $row[0];	
 	return $entry_post_id;
+}
+
+/* -------- Get Post ID from item key ------------*/
+function nh_get_post_id_item_key ($item_key) {
+	$result = mysql_query("SELECT post_id FROM nh_frm_items WHERE item_key = '".$item_key."'");
+	$row = mysql_fetch_row($result);
+	$entry_post_id = $row[0];	
+	return $entry_post_id;
+}
+
+/* -------- Update Idea City ------------*/
+add_action('frm_after_create_entry', 'update_post_city',80, 2);
+function update_post_city($entry_id, $form_id){
+  if($form_id == 8){ 
+	$post_id = nh_get_post_id_item_key($_POST['item_key']);
+	$user_city = $_POST['item_meta'][446];
+	wp_set_post_terms($post_id,$user_city,'nh_cities');
+  }
 }
 
 
@@ -475,7 +496,7 @@ if (isset($_POST['fe_review']) && $_POST['fe_review'] == 'fe_review'){
 	}
 }
 
-/* -------- Save Post as Draft Every Time User Clicks It ------------*/
+/* -------- Save Guide as Draft Every Time User Clicks It ------------*/
 // TODO - only save NEW draft when it's new
 add_action('frm_submit_button_action', 'nh_save_as_draft');
 function nh_save_as_draft($form){
@@ -515,7 +536,7 @@ function nh_frontend_delete_link($postid) {
 if ( isset($_REQUEST['action']) && $_REQUEST['action']=='nh_frontend_delete' ) {
 	add_action('init','nh_frontend_delete_post');
 }
-// Trash the post
+// Trash the Guide
 function nh_frontend_delete_post() {
 	$post_id = (isset($_REQUEST['post']) ?  (int) $_REQUEST['post'] : 0);
 	// No post? Oh well..
