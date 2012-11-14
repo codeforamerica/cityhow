@@ -482,13 +482,7 @@ function nh_save_as_draft($form){
 
 		$new_post['post_status'] = $current_status;
 		$new_post['post_author'] = $tmp_author;		
-		wp_update_post($new_post);
-		
-/*				
-		$current_post = get_post( $tmp_post_id, 'ARRAY_A' );
-		$current_post['post_status'] = $status;
-		wp_update_post($current_post);
-*/		
+		wp_update_post($new_post);	
   	}
 }
 

@@ -1,67 +1,100 @@
+<?php //The template for displaying Search Results pages */ ?>
 <?php get_header(); ?>
 <div class="row-fluid row-breadcrumbs">
 	<div id="nhbreadcrumb">
 <?php nhow_breadcrumb(); ?>
 	</div>
 </div>
+
 <div class="row-fluid row-content">	
 	<div class="wrapper">
 		<div id="main">			
 			<div id="content">
-				<h1 class="page-title">Neighborhow Blog Posts</h1>
-				<p>Blog category</p>	
-				</h1>
-	
-				<div id="post-<?php echo $TmpID;?>">			
+				<h3 class="page-title">CityHow Blog</h3>				
+				
+				<div id="list-fdbk">
+					<ul class="list-fdbk">
 <?php 
-if (have_posts()) : ?>
-					<!--div style="float:right;margin-left:1em;width:220px;min-height:195px;margin-bottom:2em;border:1px solid red;">
-					sdfsdf
-					</div-->
-			
-					<ul class="thumbs">
-						<!--li class="thumb-archive">
-							<div class="thumbnail thumbnail-wrapper" style="float:left;margin-right:1em;">
-								<div style="background-color:#45A648;height:100px;"><div style="color:#fff;font-size:1em;font-weight:700;letter-spacing:.1em;line-height:140%;padding:1em;">Tell us what the next <span>Neighborhow Guide</span> should be about.</div><div><?php //echo do_shortcode("[formidable id=9 description=false]"); ?></div>
-							</div>
-						</li-->
-<?php while(have_posts()) : the_post();?>
-<?php 
-//exclude the post that activates the CITIES
-if ( $post->ID == '1508' ) continue;
+if (have_posts()) : 
+while (have_posts()) : 
+the_post(); 
 ?>
+					<li class="fdbk-list" id="post-<?php echo $post->ID; ?>"><strong><a href="<?php echo get_permalink();?>" title="View <?php echo the_title();?>"><?php echo the_title();?></a></strong>
+
+					<div class="search-results">
+<?php 
+$tmp = get_the_content();
+$new_content = strip_tags($tmp,'<p>');
+$content_trimmed = trim_by_chars($new_content,'100',nh_continue_reading_link());
+echo '<p>'.$content_trimmed.'</p>';
+
+// Get post cats
+echo '<p><span class="byline">in</span> ';
+$categories = get_the_category();
+if ($categories) {
+	foreach ($categories as $cat) {
+		$cat_name = $cat->name;
+		$cat_id = get_cat_ID($cat_name);
+		$cat_link = get_category_link($cat_id);
+		echo '<a href="'.$cat_link.'" title="View '.$cat->name.'">';
+		echo $cat->name;
+		echo '</a> + ';
+	}	
+}
+
+// Get post cities
+// find user city id
+$user_city_terms = term_exists($user_city, 'nh_cities');
+$user_city_id = $user_city_terms['term_id'];
+
+// find Any City id
+$any_city_terms = term_exists('Any City', 'nh_cities');
+$any_city_id = $any_city_terms['term_id'];
+
+// find post cities + get id/name
+$post_cities = get_the_terms($post->ID,'nh_cities');
+foreach ($post_cities as $c) {
+	$tmp_slug = strtolower($c->name);
+	$tmp_slug = str_replace(' ','-',$tmp_slug);
+
+	$post_city = get_term_by('slug',$tmp_slug,'nh_cities');	
+	$post_city_id[] = $post_city->term_id;		
+
+	$post_city_name[] = $post_city->name;
+}
+
+// if user city or Any City
+if (in_array($any_city_id,$post_city_id)) {
+	$new_any_city = $post_cities[$any_city_id]->name;
+	$any_city_slug = strtolower($new_any_city);
+	$new_any_city_slug = str_replace(' ','-',$any_city_slug);
+	echo '<a href="'.$app_url.'/cities/'.$new_any_city_slug.'" title="">'.$new_any_city.'</a>';
+}
+if (in_array($user_city_id,$post_city_id)) {
+	$new_user_city = $post_cities[$user_city_id]->name;
+	$user_city_slug = strtolower($new_user_city);
+	$new_user_city_slug = str_replace(' ','-',$user_city_slug);
+	$new_user_city_name = 'City of '.substr($new_user_city,0,-3);
+	echo ' + <a href="'.$app_url.'/cities/'.$new_user_city_slug.'" title="">'.$new_user_city_name.'</a>';	
+}
+?>		
+		</p>
+	</div>
 
 <?php 
-$tmpID = $post->ID;
-$imgSrc = wp_get_attachment_image_src(get_post_thumbnail_id($tmpID), 'full');
+//endif;
+endwhile;
+else : 
 ?>
-						<li class="thumb-archive" id="post-<?php echo $tmpID; ?>">
-							<div class="thumbnail thumbnail-wrapper" style="float:left;margin-right:1em;"><a rel="bookmark" title="View <?php echo the_title();?>" href="<?php the_permalink();?>"><img src="<?php bloginfo('stylesheet_directory');?>/lib/timthumb.php?src=<?php echo $imgSrc[0];?>&w=180&h=140&zc=1&at=t" alt="Photo from <?php echo the_title();?>" /></a>
-								<div class="caption">
-<?php
-$pad = ' ...';
-$pic_title = trim_by_chars(get_the_title(),'60',$pad);
-?>
-									<h5><a class="noline" rel="bookmark" href="<?php the_permalink();?>" title="View <?php the_title();?>"><?php echo $pic_title;?></a></h5>
-								</div>
-							</div>
-						</li>
-<?php endwhile; ?>
-					</ul>	
-<?php else : ?>	
-					<ul class="thumbs">	
-						<li class="thumb-archive" id="post">
-							<div class="thumb-wrapper">
-								<div class="caption">
-									<h5>Apologies. There are no How-to Guides to see right now.</h5>							
-								</div><!--/caption-->
-							</div><!--/thumbnail-wrapper-->
-						</li>
+	<li class="fdbk-list" style="border-bottom:none;">Sorry ... there are no CityHow blog posts right now.</li>
 					</ul>
-<?php endif; ?>								
-				</div>				
+<?php 
+endif; 
+?>
+				</div>
+
 			</div><!--/ content-->
-<?php get_sidebar('home');?>
+<?php get_sidebar('misc');?>
 		</div><!--/ main-->
 	</div><!--/ content-->
 </div><!--/ row-content-->

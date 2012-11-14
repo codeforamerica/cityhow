@@ -14,7 +14,17 @@
 <?php
 // limit search results to user city or Any City
 echo 'Search Results for ';
-$allsearch = &new WP_Query("s=$s&nh_cities=$user_city,Any-City&showposts=-1"); 
+$new_args = array(
+	's' => $s,
+	'showposts' => '-1',
+	'nh_cities' => array($user_city,'Any City'),
+	'orderby' => 'title',
+	'order' => 'ASC'
+);
+
+//$allsearch = &new WP_Query("s=$s&nh_cities=$user_city,Any-City&showposts=-1"); 
+$allsearch = &new WP_Query($new_args); 
+
 $key = wp_specialchars($s, 1); 
 $count = $allsearch->post_count; 
 echo '<span class="meta"><span class="byline">';
@@ -66,16 +76,16 @@ $content_trimmed = trim_by_chars($new_content,'100',nh_continue_reading_link());
 echo '<p>'.$content_trimmed.'</p>';
 
 // Get post cats
+echo '<p><span class="byline">in</span> ';
 $categories = get_the_category();
 if ($categories) {
-	echo '<p><span class="byline">in</span> ';
 	foreach ($categories as $cat) {
 		$cat_name = $cat->name;
 		$cat_id = get_cat_ID($cat_name);
 		$cat_link = get_category_link($cat_id);
 		echo '<a href="'.$cat_link.'" title="View '.$cat->name.'">';
 		echo $cat->name;
-		echo '</a>';
+		echo '</a> + ';
 	}	
 }
 
@@ -89,8 +99,6 @@ $new_user_city_name = 'City of '.substr($new_user_city,0,-3);
 $new_any_city = $new_cities[$any_city_id]->name;
 $any_city_slug = strtolower($new_any_city);
 $new_any_city_slug = str_replace(' ','-',$any_city_slug);
-
-echo ' + ';
 
 if ($new_any_city AND !$new_user_city) {
 	$city_string = '<a href="'.$app_url.'/cities/'.$new_any_city_slug.'" title="See content for '.$new_any_city.'">'.$new_any_city.'</a>';

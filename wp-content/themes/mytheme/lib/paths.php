@@ -1,7 +1,5 @@
 <?php
-
 function get_bodyid() {
-
 
 	if (is_home()) { 
 		$bodyid = 'home'; 
@@ -18,8 +16,7 @@ function get_bodyid() {
 		}
 		else {
 			$cat_name = strtolower(get_the_category_by_id($cat_id));
-		}
-		
+		}		
 		$bodyid = $cat_name;
 	}
 	
