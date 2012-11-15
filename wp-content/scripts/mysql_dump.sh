@@ -59,7 +59,7 @@ else
 	MAILCONTENT="quiet"
 	
 	# Set the maximum allowed email size in k. (4000 = approx 5MB email [see docs])
-	MAXATTSIZE="4050"
+	MAXATTSIZE="4000"
 	
 	# Email Address to send mail to? (user@domain.com)
 	MAILADDR="information@cityhow.org"
