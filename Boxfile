@@ -5,6 +5,7 @@ web1:
     - wp-content/writable/
     - wp-content/themes/mytheme/lib/cache
     - wp-content/backups
+    - wp-content/mtebackup
   after_build:
     - "mv pagoda/wp-config.php wp-config.php"
   php_error_reporting: 1
