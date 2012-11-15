@@ -1,0 +1,487 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Peter’s Collaboration E-mails\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-08 15:57-0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Peter <peter@keung.biz>\n"
+"Language-Team: Doktor Bro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: peters_collaboration_emails.php:218
+#, php-format
+msgid "There is a new post to review, written by %s."
+msgstr "Новая запись ожидает утверждения. Написал её %s."
+
+#: peters_collaboration_emails.php:221
+#, php-format
+msgid "Accompanying note from %s:"
+msgstr "Сопроводительная записка автора %s:"
+
+#: peters_collaboration_emails.php:224
+msgid "Review and publish it here: "
+msgstr "Проверь и опубликуй её тут:"
+
+#: peters_collaboration_emails.php:227
+msgid "pending"
+msgstr "ожидает утверждения"
+
+#: peters_collaboration_emails.php:248
+#: peters_collaboration_emails.php:289
+#: peters_collaboration_emails.php:325
+#: peters_collaboration_emails.php:365
+#: peters_collaboration_emails.php:384
+#, php-format
+msgid "Hi %s!"
+msgstr "Привет, %s!"
+
+#: peters_collaboration_emails.php:251
+#, fuzzy, php-format
+msgid "Your post has been approved by %s and is now published"
+msgstr "Твоя запись одобрена"
+
+#: peters_collaboration_emails.php:255
+#: peters_collaboration_emails.php:296
+msgid "Your post has been approved"
+msgstr "Твоя запись одобрена"
+
+#: peters_collaboration_emails.php:262
+#: peters_collaboration_emails.php:302
+#: peters_collaboration_emails.php:338
+msgid "Accompanying note:"
+msgstr "Сопроводительная записка:"
+
+#: peters_collaboration_emails.php:265
+#: peters_collaboration_emails.php:367
+msgid "See it here:"
+msgstr "Посмотри это тут:"
+
+#: peters_collaboration_emails.php:268
+msgid "published"
+msgstr "опубликовано"
+
+#: peters_collaboration_emails.php:292
+#, fuzzy, php-format
+msgid "Your post has been approved by %s and is scheduled to be published on %s UTC %s"
+msgstr "и будет опубликовано по плану %s UTC %s."
+
+#: peters_collaboration_emails.php:307
+msgid "approved and scheduled"
+msgstr "одобрено и запланировано"
+
+#: peters_collaboration_emails.php:328
+#, fuzzy, php-format
+msgid "Your post has been reverted back to draft status by %s."
+msgstr "Твоя запись вернулась назад в статус черновика"
+
+#: peters_collaboration_emails.php:332
+#, fuzzy
+msgid "Your post has been reverted back to draft status."
+msgstr "Твоя запись вернулась назад в статус черновика"
+
+#: peters_collaboration_emails.php:342
+#: peters_collaboration_emails.php:388
+msgid "Edit it again here:"
+msgstr "Измени это ещё раз тут:"
+
+#: peters_collaboration_emails.php:345
+msgid "back to draft"
+msgstr "назад к черновику"
+
+#: peters_collaboration_emails.php:366
+msgid "Your post is now live."
+msgstr "Твоя запись на сайте."
+
+#: peters_collaboration_emails.php:370
+msgid "is now live"
+msgstr "на сайте"
+
+#: peters_collaboration_emails.php:385
+#, php-format
+msgid "An editorial note has been added to your post by %s:"
+msgstr ""
+
+#: peters_collaboration_emails.php:391
+msgid "has been modified with an editorial note"
+msgstr ""
+
+#: peters_collaboration_emails.php:484
+msgid "Admin address"
+msgstr "Адрес администратора"
+
+#: peters_collaboration_emails.php:486
+msgid "Other"
+msgstr "Другие"
+
+#: peters_collaboration_emails.php:503
+#: peters_collaboration_emails.php:519
+msgid "**** ERROR: Invalid moderator user ID ****"
+msgstr "Ошибка: неверный учётный номер заведующего"
+
+#: peters_collaboration_emails.php:529
+msgid "**** ERROR: Invalid moderator e-mail address submitted ****"
+msgstr "Ошибка: заполнен неверный почтовый адрес заведующего"
+
+#: peters_collaboration_emails.php:539
+msgid "**** ERROR: Invalid e-mail address submitted ****"
+msgstr "Ошибка: заполнен неверный почтовый адрес"
+
+#: peters_collaboration_emails.php:572
+msgid "Default moderators updated."
+msgstr "Общие заведующие обновлены."
+
+#: peters_collaboration_emails.php:576
+msgid "You must have at least one default mod."
+msgstr "Нужен как минимум один общий заведующий."
+
+#: peters_collaboration_emails.php:606
+#, php-format
+msgid "**** ERROR: Group with ID of %d does not exist ****"
+msgstr "Ошибка: группы с  учётным номером %d нет"
+
+#: peters_collaboration_emails.php:629
+#, php-format
+msgid "You must have at least one default mod for the group \"%s\"."
+msgstr "В группе «%s» должен быть как минимум один общий заведующий."
+
+#: peters_collaboration_emails.php:637
+msgid "Group moderators updated."
+msgstr "Заведующие групп обновлены."
+
+#: peters_collaboration_emails.php:660
+msgid "**** ERROR: Invalid new group contributor user ID ****"
+msgstr "Ошибка: неверный учётный номер участника новой группы"
+
+#: peters_collaboration_emails.php:669
+msgid "**** ERROR: Invalid new group moderator user ID ****"
+msgstr "Ошибка: неверный учётный номер заведующего новой группы"
+
+#: peters_collaboration_emails.php:679
+msgid "**** ERROR: Invalid new group moderator submitted ****"
+msgstr "Ошибка: заполнен неверный заведующий новой группы"
+
+#: peters_collaboration_emails.php:687
+msgid "New group created."
+msgstr "Новая группа создана."
+
+#: peters_collaboration_emails.php:690
+msgid "**** ERROR: Unknown query error when adding a collaborator to the new group ****"
+msgstr "Ошибка: неизвестная ошибка при запросе во время добавления сотрудника новой группы"
+
+#: peters_collaboration_emails.php:694
+msgid "**** ERROR: Unknown query error when creating new group ****"
+msgstr "Ошибка: неизвестная ошибка при запросе во время создания новой группы"
+
+#: peters_collaboration_emails.php:699
+msgid "**** ERROR: Not all necessary group information was submitted to add a group ****"
+msgstr "Ошибка: заполнены не все поля, чтобы добавить группу"
+
+#: peters_collaboration_emails.php:715
+#: peters_collaboration_emails.php:863
+msgid "That group does not exist."
+msgstr "Такой группы нет."
+
+#: peters_collaboration_emails.php:729
+msgid "**** ERROR: Insufficient group name or contributor information ****"
+msgstr "Ошибка: неверный учётный номер участника новой группы"
+
+#: peters_collaboration_emails.php:730
+msgid "**** Make sure that there is at least one contributor. ****"
+msgstr "Проверь, или есть хотя бы один участник."
+
+#: peters_collaboration_emails.php:759
+msgid "**** ERROR: Invalid contributor user ID ****"
+msgstr "Ошибка: у участника неверный учётный номер"
+
+#: peters_collaboration_emails.php:782
+msgid "Collaborators updated."
+msgstr "Сотрудники обновлены."
+
+#: peters_collaboration_emails.php:787
+msgid "Group name updated."
+msgstr "Название группы изменено."
+
+#: peters_collaboration_emails.php:806
+msgid "**** ERROR: That group does not exist ****"
+msgstr "Ошибка: такой группы нет"
+
+#: peters_collaboration_emails.php:820
+#, php-format
+msgid "Group %s successfully deleted."
+msgstr "Группа «%s» успешно удалена."
+
+#: peters_collaboration_emails.php:823
+msgid "**** ERROR: Database problem in removing the group. ****"
+msgstr "Ошибка: во время удаления группы возникла проблема в базе данных"
+
+#: peters_collaboration_emails.php:892
+msgid "Manage group:"
+msgstr "Настроить группу:"
+
+#: peters_collaboration_emails.php:894
+msgid "Back to the main collaboration config menu"
+msgstr "Назад к меню настроек сотрудничества"
+
+#: peters_collaboration_emails.php:896
+#: peters_collaboration_emails.php:1086
+msgid "Group name:"
+msgstr "Название группы:"
+
+#: peters_collaboration_emails.php:897
+msgid "Contributors in this group:"
+msgstr "Участники этой группы:"
+
+#: peters_collaboration_emails.php:901
+#: peters_collaboration_emails.php:1222
+#: peters_collaboration_emails.php:1236
+#: peters_collaboration_emails.php:1242
+#: peters_collaboration_emails.php:1258
+#: peters_collaboration_emails.php:1286
+msgid "Update"
+msgstr "Обновить"
+
+#: peters_collaboration_emails.php:905
+msgid "Delete this group"
+msgstr "Удалить группу"
+
+#: peters_collaboration_emails.php:978
+#: peters_collaboration_emails.php:1059
+#, fuzzy, php-format
+msgid "General admin (%s)"
+msgstr "Главный администратор"
+
+#: peters_collaboration_emails.php:990
+#: peters_collaboration_emails.php:1071
+#: peters_collaboration_emails.php:1195
+msgid "Add:"
+msgstr "Добавить:"
+
+#: peters_collaboration_emails.php:1014
+msgid "Edit"
+msgstr ""
+
+#: peters_collaboration_emails.php:1087
+msgid "Add contributor:"
+msgstr "Добавить участника:"
+
+#: peters_collaboration_emails.php:1094
+#: peters_collaboration_emails.php:1281
+msgid "Add moderator:"
+msgstr "Добавить заведующего:"
+
+#: peters_collaboration_emails.php:1120
+msgid "Delete"
+msgstr ""
+
+#: peters_collaboration_emails.php:1126
+#: peters_collaboration_emails.php:1365
+msgid "All"
+msgstr "Все"
+
+#: peters_collaboration_emails.php:1133
+msgid "*** undefined ***"
+msgstr "непонятно"
+
+#: peters_collaboration_emails.php:1146
+msgid "*** n/a ***"
+msgstr "нет такого"
+
+#: peters_collaboration_emails.php:1182
+msgid "General admin"
+msgstr "Главный администратор"
+
+#: peters_collaboration_emails.php:1206
+msgid "Manage collaboration e-mails"
+msgstr "Настройки почты для сотрудничества"
+
+#: peters_collaboration_emails.php:1207
+msgid "Set the moderators who should be e-mailed whenever Contributor users submit pending posts."
+msgstr "Выбери заведующего, который должен получать письмо, когда участники отправляют записи на утверждение."
+
+#: peters_collaboration_emails.php:1217
+msgid "Default moderators"
+msgstr "Общие заведующие"
+
+#: peters_collaboration_emails.php:1219
+msgid "These users will be e-mailed if none of the rules below match. Note that they must be either editors or administrators."
+msgstr "Эти пользователи будут получать письма, если не действуют нижеприведённые правила. Обрати внимание, что они должны быть редакторами или администраторами."
+
+#: peters_collaboration_emails.php:1225
+msgid "Moderators by group"
+msgstr "Заведующие по группам"
+
+#: peters_collaboration_emails.php:1227
+#: peters_collaboration_emails.php:1247
+msgid "Existing rules"
+msgstr "Установленные правила"
+
+#: peters_collaboration_emails.php:1230
+msgid "Group"
+msgstr "Группа"
+
+#: peters_collaboration_emails.php:1231
+#: peters_collaboration_emails.php:1253
+msgid "Moderators"
+msgstr "Заведующие"
+
+#: peters_collaboration_emails.php:1239
+msgid "Add a group"
+msgstr "Добавить группу"
+
+#: peters_collaboration_emails.php:1245
+msgid "Moderators by post type and taxonomy"
+msgstr "Заведующие по типам записи и таксономии"
+
+#: peters_collaboration_emails.php:1250
+msgid "Post Type"
+msgstr "Тип записи"
+
+#: peters_collaboration_emails.php:1251
+msgid "Taxonomy"
+msgstr "Таксономия"
+
+#: peters_collaboration_emails.php:1252
+msgid "Term"
+msgstr "Элемент"
+
+#: peters_collaboration_emails.php:1261
+msgid "Add post-type-specific moderators"
+msgstr "Добавить заведующих по типу записи"
+
+#: peters_collaboration_emails.php:1264
+#, fuzzy
+msgid "Post type:"
+msgstr "Тип записи"
+
+#: peters_collaboration_emails.php:1275
+#, fuzzy
+msgid "Taxonomy:"
+msgstr "Таксономия"
+
+#: peters_collaboration_emails.php:1278
+#, fuzzy
+msgid "Term:"
+msgstr "Элемент"
+
+#: peters_collaboration_emails.php:1397
+msgid "Manual"
+msgstr ""
+
+#: peters_collaboration_emails.php:1531
+msgid "**** ERROR: That taxonomy type does not exist for that post type ****"
+msgstr "Ошибка: таксономии для такого типа записи нет"
+
+#: peters_collaboration_emails.php:1548
+msgid "**** ERROR: That post type rule already exists. Please add or remove moderators to the existing rule. ****"
+msgstr "Ошибка: такое правило для типа записи уже есть. Пожалуйста, добавьте или удалите заведующего для существующего правила."
+
+#: peters_collaboration_emails.php:1558
+msgid "**** ERROR: Invalid new moderator user ID ****"
+msgstr "Ошибка: неверный учётный номер нового заведующего"
+
+#: peters_collaboration_emails.php:1570
+msgid "**** ERROR: Invalid new moderator submitted ****"
+msgstr "Ошибка: заполнен неверный новый заведующий"
+
+#: peters_collaboration_emails.php:1585
+msgid "New moderator added for the post type rule."
+msgstr "К правилу типа записи добавлен новый заведующий."
+
+#: peters_collaboration_emails.php:1589
+msgid "**** ERROR: Unknown query error when adding a new moderator for the post type rule ****"
+msgstr "Ошибка: неизвестная ошибка при запросе во время добавления нового заведующего для типа записи"
+
+#: peters_collaboration_emails.php:1595
+msgid "**** ERROR: No moderator was submitted for the post type rule ****"
+msgstr "Ошибка: не заполнен заведующий правила"
+
+#: peters_collaboration_emails.php:1629
+#, php-format
+msgid "**** ERROR: Post type rule with ID of %d does not exist ****"
+msgstr "Ошибка: нет правила с  учётным номером %d"
+
+#: peters_collaboration_emails.php:1658
+msgid "You must have at least one default moderator for each rule. Otherwise, delete the rule."
+msgstr "Для каждого правила нужен как минимум один заведующий. В противном случае правило нужно удалить."
+
+#: peters_collaboration_emails.php:1666
+msgid "Moderators for the post type rules updated."
+msgstr "Заведующие для типа записи обновлены."
+
+#: peters_collaboration_emails.php:1679
+msgid "Delete post type rule"
+msgstr "Удалить правило для типа записи"
+
+#: peters_collaboration_emails.php:1687
+msgid "Post type rule successfully deleted."
+msgstr "Правило для типа записи успешно удалено."
+
+#: peters_collaboration_emails.php:1692
+msgid "Are you sure you want to remove this post type rule?"
+msgstr "Ты уверен, что хочешь удалить правило для этого типа записи?"
+
+#: peters_collaboration_emails.php:1694
+msgid "Yes"
+msgstr "Да"
+
+#: peters_collaboration_emails.php:1697
+msgid "No, go back"
+msgstr "Нет, иди назад"
+
+#: peters_collaboration_emails.php:1703
+msgid "That post type rule does not exist."
+msgstr "Нет такого правила для типа записи."
+
+#: peters_collaboration_emails.php:1743
+msgid "Collaboration e-mails"
+msgstr "Почта для сотрудничества"
+
+#~ msgid "by"
+#~ msgstr "от"
+
+#~ msgid "and is now published."
+#~ msgstr "и опубликована."
+
+#~ msgid "**** ERROR: Category with ID of %d does not exist ****"
+#~ msgstr "Ошибка: рубрики с учётным номером %d нет"
+
+#~ msgid "Moderators for the category \"%s\" updated."
+#~ msgstr "Заведующие рубрики «%s» обновлены."
+
+#~ msgid "You must have at least one default mod for the category \"%s\"."
+#~ msgstr "В рубрике «%s» должен быть как минимум один общий заведующий."
+
+#~ msgid "**** ERROR: Invalid category ID ****"
+#~ msgstr "Ошибка: неверный учётный номер рубрики"
+
+#~ msgid "**** ERROR: Invalid new category moderator user ID ****"
+#~ msgstr "Ошибка: неверный учётный номер заведующего новой рубрики"
+
+#~ msgid "**** ERROR: Invalid new category moderator submitted ****"
+#~ msgstr "Ошибка: заполнен неверный заведующий новой рубрики"
+
+#~ msgid ""
+#~ "**** ERROR: Unknown query error when adding a new category moderator ****"
+#~ msgstr ""
+#~ "Ошибка: неизвестная ошибка при запросе во время добавления нового "
+#~ "заведующего рубрики"
+
+#~ msgid "E-mail:"
+#~ msgstr "Почта:"
+
+#~ msgid "Category:"
+#~ msgstr "Рубрика:"
+
+#~ msgid "Rules"
+#~ msgstr "Правила"
+
+#~ msgid "Category"
+#~ msgstr "Рубрика"

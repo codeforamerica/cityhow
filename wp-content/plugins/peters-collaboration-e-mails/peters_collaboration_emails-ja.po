@@ -1,0 +1,442 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Peter's collaboration emails\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-08 15:57-0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Peter <peter@keung.biz>\n"
+"Language-Team: @mekemoke <mekemoke@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"Language: ja_JP\n"
+"X-Generator: Poedit 1.5.3\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: peters_collaboration_emails.php:218
+#, php-format
+msgid "There is a new post to review, written by %s."
+msgstr "%s 様からの投稿がありました。承認が必要です。"
+
+#: peters_collaboration_emails.php:221
+#, php-format
+msgid "Accompanying note from %s:"
+msgstr "%s 様からのメッセージ: "
+
+#: peters_collaboration_emails.php:224
+msgid "Review and publish it here: "
+msgstr "承認と公開はこちらよりお願い致します: "
+
+#: peters_collaboration_emails.php:227
+msgid "pending"
+msgstr "承認依頼"
+
+#: peters_collaboration_emails.php:248
+#: peters_collaboration_emails.php:289
+#: peters_collaboration_emails.php:325
+#: peters_collaboration_emails.php:365
+#: peters_collaboration_emails.php:384
+#, php-format
+msgid "Hi %s!"
+msgstr "%s 様"
+
+#: peters_collaboration_emails.php:251
+#, php-format
+msgid "Your post has been approved by %s and is now published"
+msgstr "投稿は %s 様より承認され、公開されました。"
+
+#: peters_collaboration_emails.php:255
+#: peters_collaboration_emails.php:296
+msgid "Your post has been approved"
+msgstr "投稿は承認されました。"
+
+#: peters_collaboration_emails.php:262
+#: peters_collaboration_emails.php:302
+#: peters_collaboration_emails.php:338
+msgid "Accompanying note:"
+msgstr "メッセージ: "
+
+#: peters_collaboration_emails.php:265
+#: peters_collaboration_emails.php:367
+msgid "See it here:"
+msgstr "こちらよりご確認ください: "
+
+#: peters_collaboration_emails.php:268
+msgid "published"
+msgstr "公開済"
+
+#: peters_collaboration_emails.php:292
+#, php-format
+msgid "Your post has been approved by %s and is scheduled to be published on %s UTC %s"
+msgstr "投稿は %s 様によって承認され、 %s %s (UTC) に公開予定です。"
+
+#: peters_collaboration_emails.php:307
+msgid "approved and scheduled"
+msgstr "承認および公開予約済み"
+
+#: peters_collaboration_emails.php:328
+#, php-format
+msgid "Your post has been reverted back to draft status by %s."
+msgstr "投稿は %s 様によって却下され、下書きに戻されました。"
+
+#: peters_collaboration_emails.php:332
+msgid "Your post has been reverted back to draft status."
+msgstr "投稿は却下され、下書きに戻されました。"
+
+#: peters_collaboration_emails.php:342
+#: peters_collaboration_emails.php:388
+msgid "Edit it again here:"
+msgstr "再編集はこちらからお願いします: "
+
+#: peters_collaboration_emails.php:345
+msgid "back to draft"
+msgstr "下書きに戻す"
+
+#: peters_collaboration_emails.php:366
+msgid "Your post is now live."
+msgstr "投稿は公開中です。"
+
+#: peters_collaboration_emails.php:370
+msgid "is now live"
+msgstr "公開中"
+
+#: peters_collaboration_emails.php:385
+#, php-format
+msgid "An editorial note has been added to your post by %s:"
+msgstr "%s 様が投稿内容にメッセージを追加しました: "
+
+#: peters_collaboration_emails.php:391
+msgid "has been modified with an editorial note"
+msgstr "メッセージが編集されました"
+
+#: peters_collaboration_emails.php:484
+msgid "Admin address"
+msgstr "管理者アドレス"
+
+#: peters_collaboration_emails.php:486
+msgid "Other"
+msgstr "その他"
+
+#: peters_collaboration_emails.php:503
+#: peters_collaboration_emails.php:519
+msgid "**** ERROR: Invalid moderator user ID ****"
+msgstr "****　エラー: 無効な承認者 ID　****"
+
+#: peters_collaboration_emails.php:529
+msgid "**** ERROR: Invalid moderator e-mail address submitted ****"
+msgstr "****　エラー: 無効な承認者メールアドレスが入力されました　****"
+
+#: peters_collaboration_emails.php:539
+msgid "**** ERROR: Invalid e-mail address submitted ****"
+msgstr "****　エラー: 無効なメールアドレスが入力されました　****"
+
+#: peters_collaboration_emails.php:572
+msgid "Default moderators updated."
+msgstr "デフォルト承認者を更新しました。"
+
+#: peters_collaboration_emails.php:576
+msgid "You must have at least one default mod."
+msgstr "少なくとも一人のデフォルト承認者が必要です。"
+
+#: peters_collaboration_emails.php:606
+#, php-format
+msgid "**** ERROR: Group with ID of %d does not exist ****"
+msgstr "****　エラー: %d のグループ ID が存在しません　****"
+
+#: peters_collaboration_emails.php:629
+#, php-format
+msgid "You must have at least one default mod for the group \"%s\"."
+msgstr "グループ %s には少なくとも一人のデフォルト承認者が必要です。"
+
+#: peters_collaboration_emails.php:637
+msgid "Group moderators updated."
+msgstr "グループの承認者を更新しました。"
+
+#: peters_collaboration_emails.php:660
+msgid "**** ERROR: Invalid new group contributor user ID ****"
+msgstr "****　エラー: 無効な新規グループの寄稿者 ID　****"
+
+#: peters_collaboration_emails.php:669
+msgid "**** ERROR: Invalid new group moderator user ID ****"
+msgstr "****　エラー: 無効な新規グループの承認者 ID　****"
+
+#: peters_collaboration_emails.php:679
+msgid "**** ERROR: Invalid new group moderator submitted ****"
+msgstr "****　エラー: 無効な新規グループの承認者が入力されました　****"
+
+#: peters_collaboration_emails.php:687
+msgid "New group created."
+msgstr "新しいグループが作成されました。"
+
+#: peters_collaboration_emails.php:690
+msgid "**** ERROR: Unknown query error when adding a collaborator to the new group ****"
+msgstr "****　エラー: 新しいグループに協力者を追加した際、不明なクエリエラーが発生しました　****"
+
+#: peters_collaboration_emails.php:694
+msgid "**** ERROR: Unknown query error when creating new group ****"
+msgstr "****　エラー: 新しいグループを作成した際、不明なクエリエラーが発生しました　****"
+
+#: peters_collaboration_emails.php:699
+msgid "**** ERROR: Not all necessary group information was submitted to add a group ****"
+msgstr "****　エラー: 追加しようとしているグループには、すべてのグループ情報が必要です　****"
+
+#: peters_collaboration_emails.php:715
+#: peters_collaboration_emails.php:863
+msgid "That group does not exist."
+msgstr "指定したグループは存在しません。"
+
+#: peters_collaboration_emails.php:729
+#, fuzzy
+msgid "**** ERROR: Insufficient group name or contributor information ****"
+msgstr "****　エラー: 無効な新規グループの寄稿者 ID　****"
+
+#: peters_collaboration_emails.php:730
+msgid "**** Make sure that there is at least one contributor. ****"
+msgstr "****　少なくとも一人の寄稿者が設定されているか確認してください　****"
+
+#: peters_collaboration_emails.php:759
+msgid "**** ERROR: Invalid contributor user ID ****"
+msgstr "****　エラー: 無効な寄稿者 ID　****"
+
+#: peters_collaboration_emails.php:782
+msgid "Collaborators updated."
+msgstr "協力者を更新しました。"
+
+#: peters_collaboration_emails.php:787
+msgid "Group name updated."
+msgstr "グループ名を更新しました。"
+
+#: peters_collaboration_emails.php:806
+msgid "**** ERROR: That group does not exist ****"
+msgstr "****　エラー: 指定したグループが存在しません　****"
+
+#: peters_collaboration_emails.php:820
+#, php-format
+msgid "Group %s successfully deleted."
+msgstr "グループ %s を完全に削除しました。"
+
+#: peters_collaboration_emails.php:823
+msgid "**** ERROR: Database problem in removing the group. ****"
+msgstr "****　エラー: グループを削除する際、データベースに問題が発生しました　****"
+
+#: peters_collaboration_emails.php:892
+msgid "Manage group:"
+msgstr "グループの管理: "
+
+#: peters_collaboration_emails.php:894
+msgid "Back to the main collaboration config menu"
+msgstr "承認管理画面に戻る"
+
+#: peters_collaboration_emails.php:896
+#: peters_collaboration_emails.php:1086
+msgid "Group name:"
+msgstr "グループ名: "
+
+#: peters_collaboration_emails.php:897
+msgid "Contributors in this group:"
+msgstr "このグループの寄稿者："
+
+#: peters_collaboration_emails.php:901
+#: peters_collaboration_emails.php:1222
+#: peters_collaboration_emails.php:1236
+#: peters_collaboration_emails.php:1242
+#: peters_collaboration_emails.php:1258
+#: peters_collaboration_emails.php:1286
+msgid "Update"
+msgstr "更新"
+
+#: peters_collaboration_emails.php:905
+msgid "Delete this group"
+msgstr "このグループを削除"
+
+#: peters_collaboration_emails.php:978
+#: peters_collaboration_emails.php:1059
+#, php-format
+msgid "General admin (%s)"
+msgstr "特権管理者（%s）"
+
+#: peters_collaboration_emails.php:990
+#: peters_collaboration_emails.php:1071
+#: peters_collaboration_emails.php:1195
+msgid "Add:"
+msgstr "追加: "
+
+#: peters_collaboration_emails.php:1014
+msgid "Edit"
+msgstr ""
+
+#: peters_collaboration_emails.php:1087
+msgid "Add contributor:"
+msgstr "寄稿者を追加: "
+
+#: peters_collaboration_emails.php:1094
+#: peters_collaboration_emails.php:1281
+msgid "Add moderator:"
+msgstr "承認者を追加: "
+
+#: peters_collaboration_emails.php:1120
+msgid "Delete"
+msgstr ""
+
+#: peters_collaboration_emails.php:1126
+#: peters_collaboration_emails.php:1365
+msgid "All"
+msgstr "すべて"
+
+#: peters_collaboration_emails.php:1133
+msgid "*** undefined ***"
+msgstr "*** 見つかりません ***"
+
+#: peters_collaboration_emails.php:1146
+msgid "*** n/a ***"
+msgstr "*** 無効な値 ***"
+
+#: peters_collaboration_emails.php:1182
+msgid "General admin"
+msgstr "特権管理者"
+
+#: peters_collaboration_emails.php:1206
+msgid "Manage collaboration e-mails"
+msgstr "公開承認ワークフロー管理"
+
+#: peters_collaboration_emails.php:1207
+msgid "Set the moderators who should be e-mailed whenever Contributor users submit pending posts."
+msgstr "寄稿者が承認待ちの投稿を行った際に、メールで通知される承認者を設定します。"
+
+#: peters_collaboration_emails.php:1217
+msgid "Default moderators"
+msgstr "デフォルト承認者"
+
+#: peters_collaboration_emails.php:1219
+msgid "These users will be e-mailed if none of the rules below match. Note that they must be either editors or administrators."
+msgstr "以下のルールに合致しない場合、これらのユーザーにメールが送信されます。対象となるユーザーは編集者または管理者のみです。"
+
+#: peters_collaboration_emails.php:1225
+msgid "Moderators by group"
+msgstr "グループ別承認者"
+
+#: peters_collaboration_emails.php:1227
+#: peters_collaboration_emails.php:1247
+msgid "Existing rules"
+msgstr "既存ルール"
+
+#: peters_collaboration_emails.php:1230
+msgid "Group"
+msgstr "グループ"
+
+#: peters_collaboration_emails.php:1231
+#: peters_collaboration_emails.php:1253
+msgid "Moderators"
+msgstr "承認者"
+
+#: peters_collaboration_emails.php:1239
+msgid "Add a group"
+msgstr "グループ追加"
+
+#: peters_collaboration_emails.php:1245
+msgid "Moderators by post type and taxonomy"
+msgstr "投稿タイプと分類別承認者"
+
+#: peters_collaboration_emails.php:1250
+msgid "Post Type"
+msgstr "投稿タイプ"
+
+#: peters_collaboration_emails.php:1251
+msgid "Taxonomy"
+msgstr "分類"
+
+#: peters_collaboration_emails.php:1252
+msgid "Term"
+msgstr "条件"
+
+#: peters_collaboration_emails.php:1261
+msgid "Add post-type-specific moderators"
+msgstr "投稿タイプ固有の承認者を追加"
+
+#: peters_collaboration_emails.php:1264
+msgid "Post type:"
+msgstr "投稿タイプ: "
+
+#: peters_collaboration_emails.php:1275
+msgid "Taxonomy:"
+msgstr "分類: "
+
+#: peters_collaboration_emails.php:1278
+msgid "Term:"
+msgstr "条件: "
+
+#: peters_collaboration_emails.php:1397
+msgid "Manual"
+msgstr ""
+
+#: peters_collaboration_emails.php:1531
+msgid "**** ERROR: That taxonomy type does not exist for that post type ****"
+msgstr "****　エラー: この投稿タイプには指定した分類が存在しません　****"
+
+#: peters_collaboration_emails.php:1548
+msgid "**** ERROR: That post type rule already exists. Please add or remove moderators to the existing rule. ****"
+msgstr "****　このルールはすでに存在しています。既存のルールに承認者を追加もしくは削除してください。　****"
+
+#: peters_collaboration_emails.php:1558
+msgid "**** ERROR: Invalid new moderator user ID ****"
+msgstr "****　エラー: 無効な新規承認者 ID　****"
+
+#: peters_collaboration_emails.php:1570
+msgid "**** ERROR: Invalid new moderator submitted ****"
+msgstr "****　エラー: 無効な新規承認者が入力されました　****"
+
+#: peters_collaboration_emails.php:1585
+msgid "New moderator added for the post type rule."
+msgstr "投稿タイプ固有のルールに新しい承認者を追加しました。"
+
+#: peters_collaboration_emails.php:1589
+msgid "**** ERROR: Unknown query error when adding a new moderator for the post type rule ****"
+msgstr "****　エラー: 投稿タイプ固有のルールに新規承認者を追加する際、不明なクエリエラーが発生しました　****"
+
+#: peters_collaboration_emails.php:1595
+msgid "**** ERROR: No moderator was submitted for the post type rule ****"
+msgstr "****　エラー: 投稿タイプ固有のルールに承認者が入力されていません　****"
+
+#: peters_collaboration_emails.php:1629
+#, php-format
+msgid "**** ERROR: Post type rule with ID of %d does not exist ****"
+msgstr "****　エラー: %d の ID を持つ投稿タイプ固有のルールは存在しません　****"
+
+#: peters_collaboration_emails.php:1658
+msgid "You must have at least one default moderator for each rule. Otherwise, delete the rule."
+msgstr "ルールごとに少なくとも一人のデフォルト承認者が必要です。もしくは、ルールを削除してください。"
+
+#: peters_collaboration_emails.php:1666
+msgid "Moderators for the post type rules updated."
+msgstr "投稿タイプ固有のルールの承認者を更新しました。"
+
+#: peters_collaboration_emails.php:1679
+msgid "Delete post type rule"
+msgstr "投稿タイプ固有のルールの削除"
+
+#: peters_collaboration_emails.php:1687
+msgid "Post type rule successfully deleted."
+msgstr "投稿タイプ固有のルールを完全に削除しました。"
+
+#: peters_collaboration_emails.php:1692
+msgid "Are you sure you want to remove this post type rule?"
+msgstr "本当に、この投稿タイプ固有のルールを削除してもよろしいですか？"
+
+#: peters_collaboration_emails.php:1694
+msgid "Yes"
+msgstr "はい"
+
+#: peters_collaboration_emails.php:1697
+msgid "No, go back"
+msgstr "いいえ、戻ります"
+
+#: peters_collaboration_emails.php:1703
+msgid "That post type rule does not exist."
+msgstr "その投稿タイプ固有のルールは存在しません。"
+
+#: peters_collaboration_emails.php:1743
+msgid "Collaboration e-mails"
+msgstr "公開承認ワークフロー"
+
