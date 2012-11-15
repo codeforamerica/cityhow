@@ -48,7 +48,7 @@ else
 	DBNAMES="cityhow-pagodap"
 	
 	# Backup directory location e.g /backups
-	BACKUPDIR="wp-content/mtebackup/backups"
+	BACKUPDIR="wp-content/backups"
 	
 	# Mail setup
 	# What would you like to be mailed to you?
