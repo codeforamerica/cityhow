@@ -18,7 +18,7 @@ $app_url = get_bloginfo('url');
 global $current_user;
 get_currentuserinfo();
 $user_info = get_userdata($current_user->ID);
-echo $user_info->user_id;
+//echo $user_info->user_id;
 $user_name = $current_user->first_name.' '.$current_user->last_name;
 $user_display_name = $current_user->display_name;
 if ($user_name === ' ') {

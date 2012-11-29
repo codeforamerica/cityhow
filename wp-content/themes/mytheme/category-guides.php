@@ -9,6 +9,7 @@
 		<div id="main">
 <?php
 // limit list to user city
+/*
 $city_terms = get_terms('nh_cities');
 foreach ($city_terms as $city_term) {
 	$city_term = $city_term->name;
@@ -16,6 +17,7 @@ foreach ($city_terms as $city_term) {
 		$cities[] = $city_term;
 	}
 }
+var_dump($cities);
 foreach ($cities as $city) {
 	if ($city != 'Any City') {
 		$city_name = substr($city,0,-3); //remove state
@@ -23,6 +25,13 @@ foreach ($cities as $city) {
 	else {
 		$city_name = $city;
 	}	
+}
+*/
+if ($user_city != 'Any City') {
+	$user_city_short = substr($user_city,0,-3);
+}
+else {
+	$user_city_short = $user_city;
 }
 $user_city_slug = strtolower($user_city);
 $user_city_slug = str_replace(' ','-',$user_city_slug);
@@ -46,10 +55,10 @@ else {
 <?php
 if (is_user_logged_in()) {
 	echo '<p>A CityHow Guide can be about anything that&#39;s useful to employees working for '; 
-	if ($city_name != 'Any City') {
-		echo 'the City of '.$city_name;
+	if ($user_city_short != 'Any City') {
+		echo 'the City of '.$user_city_short;
 	}
-	elseif ($city_name == 'Any City') {
+	elseif ($user_city_short == 'Any City') {
 		echo 'your city';
 	}
 	echo '. Or it could be about something that&#39;s helpful to city employees working in any city.</p><p>If it&#39;s something you know how to do, it&#39;s probably something other people want to know how to do. So suggest a topic for a new CityHow Guide, create your own Guide, or ask another employee to write one.</p>';
@@ -146,14 +155,14 @@ else :
 if (!is_user_logged_in()) {
 	echo 'Guides that are applicable to all cities.';
 }
-elseif ($user_city != 'Any City') {
+elseif (is_user_logged_in() AND $user_city != 'Any City') {
 	echo 'Guides for ';
-	if ($user_city == $city_name) {
+//	if ($user_city == $city_name) {
 		echo ' the City of '.substr($user_city,0,-3).'. <a href="'.$app_url.'/create-guide">Create one</a>!';
-	}
-	else {
-		echo ' the City of '.substr($user_city,0,-3);
-	}
+//	}
+//	else {
+//		echo ' the City of '.substr($user_city,0,-3);
+//	}
 }
 ?>
 </li>
