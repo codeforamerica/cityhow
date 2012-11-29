@@ -15,6 +15,7 @@ $guide_cat = get_category_id('guides');
 $idea_cat = get_category_id('ideas');
 
 // limit list to user city + any city
+/*
 $city_terms = get_terms('nh_cities');
 foreach ($city_terms as $city_term) {
 	$city_term = $city_term->name;
@@ -30,9 +31,17 @@ foreach ($cities as $city) {
 		$city_name = $city;
 	}	
 }
-$city_slug = strtolower($city);
-$city_slug = str_replace(' ','-',$city_slug);
-$city_url = get_term_link($city,'nh_cities');
+*/
+if ($user_city != 'Any City') {
+	$user_city_short = substr($user_city,0,-3);
+}
+else {
+	$user_city_short = $user_city;
+}
+
+$user_city_slug = strtolower($user_city);
+$user_city_slug = str_replace(' ','-',$user_city_slug);
+//$city_url = get_term_link($city,'nh_cities');
 ?>
 				<h3 class="page-title">Topics for 
 <?php 
@@ -74,7 +83,7 @@ $query_b = array(
 		array(
 			'taxonomy' => 'nh_cities',
 			'field' => 'slug',
-			'terms' => array($city_slug,'Any City')
+			'terms' => array($user_city_slug,'Any City')
 		)		
 	)
 );
@@ -101,7 +110,7 @@ $query_g = array(
 		array(
 			'taxonomy' => 'nh_cities',
 			'field' => 'slug',
-			'terms' => array($city_slug,'Any City')
+			'terms' => array($user_city_slug,'Any City')
 		)		
 	)
 );
@@ -126,7 +135,7 @@ $query_i = array(
 		array(
 			'taxonomy' => 'nh_cities',
 			'field' => 'slug',
-			'terms' => array($city_slug,'Any City')
+			'terms' => array($user_city_slug,'Any City')
 		)		
 	)
 );
