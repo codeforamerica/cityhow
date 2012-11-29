@@ -264,7 +264,7 @@ while($fdbk_sub_query->have_posts()) :
 $fdbk_sub_query->the_post();	
 ?>					
 
-<li class="ideas-list"><a class="nhline" href="<?php echo get_permalink();?>" title="See <?php echo the_title();?>"><?php echo the_title();?></a>&nbsp;&nbsp;
+<li class="ideas-list"><?php echo the_title();?>&nbsp;&nbsp;
 	
 <span class="meta meta-small">
 
