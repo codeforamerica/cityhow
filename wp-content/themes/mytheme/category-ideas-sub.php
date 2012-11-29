@@ -74,7 +74,7 @@ $vote_sub_args = array(
 $fdbk_sub_query = new WP_Query($vote_sub_args);	
 		
 if (!$fdbk_sub_query->have_posts()) : ?>
-	<li>Sorry ... there aren't any Ideas in this category yet. 
+	<li>Sorry ... there aren't any Ideas in this Topic yet. 
 <?php 
 if ($user_city != 'Any City' AND is_user_logged_in()) {
 	echo ' Add your ideas or questions!';
