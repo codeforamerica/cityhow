@@ -16,11 +16,13 @@ $user_city_slug = str_replace(' ','-',$user_city_slug);
 ?>				
 				<h3 class="page-title">Ideas + Suggestions for 
 <?php 
-if ($user_city) {
-	echo $user_city_name;	
-}
-else {
+// logged out user sees Any City
+if (!is_user_logged_in()) { 
 	echo 'Any City';
+}
+// everyone else sees user city name
+else {
+	echo 'City of '.substr($user_city,0,-3);
 }
 ?>
 				</h3>
@@ -67,7 +69,17 @@ $vote_args = array(
 $fdbk_query = new WP_Query($vote_args);	
 
 if (!$fdbk_query->have_posts()) : ?>
-		<li class="fdbk-list">Looks like there are no Ideas for this city yet.<?php if (is_user_logged_in()) {echo ' Add your ideas or questions!';}?></li>
+		<li class="fdbk-list">Sorry ... there aren't any Ideas yet 
+<?php 
+if ($user_city != 'Any City' AND is_user_logged_in()) {
+	echo ' for the City of '.substr($user_city,0,-3);
+	echo '. Add your ideas or questions!';
+}	
+elseif (!is_user_logged_in()) {
+	echo 'that are applicable to all cities.';
+}	
+?>
+</li>
 <?php else: ?>
 <?php while($fdbk_query->have_posts()) : $fdbk_query->the_post();?>
 
@@ -121,7 +133,13 @@ $new_user_city = $new_cities[$user_city_id]->name;
 $user_city_slug = strtolower($new_user_city);
 $new_user_city_slug = str_replace(' ','-',$user_city_slug);
 
-$new_user_city_name = 'City of '.substr($new_user_city,0,-3);
+// assign correct city name
+if ($new_user_city != 'Any City') {
+	$new_user_city_name = 'City of '.substr($new_user_city,0,-3);
+}
+else {
+	$new_user_city_name = $new_user_city;
+}
 
 $new_any_city = $new_cities[$any_city_id]->name;
 $any_city_slug = strtolower($new_any_city);
@@ -134,7 +152,12 @@ if ($new_any_city AND !$new_user_city) {
 }
 
 elseif ($new_any_city AND $new_user_city) {
-	$city_string = '<a href="'.$app_url.'/cities/'.$new_any_city_slug.'" title="See content for '.$new_any_city.'">'.$new_any_city.'</a>, <a href="'.$app_url.'/cities/'.$new_user_city_slug.'" title="See content for '.$new_user_city_name.'">'.$new_user_city_name.'</a>';	
+	if ($new_any_city == $new_user_city) {
+		$city_string = '<a href="'.$app_url.'/cities/'.$new_user_city_slug.'" title="See content for '.$new_user_city_name.'">'.$new_user_city_name.'</a>';	
+	}
+	else {
+		echo '<a href="'.$app_url.'/cities/'.$new_any_city_slug.'" title="See content for '.$new_any_city.'">'.$new_any_city.'</a>, <a href="'.$app_url.'/cities/'.$new_user_city_slug.'" title="See content for '.$new_user_city_name.'">'.$new_user_city_name.'</a>';
+	}
 }
 
 elseif (!$new_any_city AND $new_user_city) {

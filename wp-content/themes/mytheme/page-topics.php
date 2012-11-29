@@ -34,7 +34,18 @@ $city_slug = strtolower($city);
 $city_slug = str_replace(' ','-',$city_slug);
 $city_url = get_term_link($city,'nh_cities');
 ?>
-				<h3 class="page-title">Topics for <?php echo $city_name;?></h3>
+				<h3 class="page-title">Topics for 
+<?php 
+// logged out user sees Any City
+if (!is_user_logged_in()) { 
+	echo 'Any City';
+}
+// everyone else sees user city name
+else {
+	echo 'City of '.substr($user_city,0,-3);
+}
+?>
+					</h3>
 				<div class="intro-block noborder">
 <?php
 if (is_user_logged_in()) {
@@ -167,6 +178,17 @@ if ($b_tags_unique) {
 		}		
 	echo '</li>';				
 	}
+}
+else {
+	echo '<li class="" style="padding-top:1em;border-top:1px solid #ddd;" id="post-no-guides">';
+	echo 'Sorry ... there aren\'t any Topics ';
+	if ($user_city != 'Any City') {
+		echo 'for the City of '.substr($user_city,0,-3).'.';
+	}
+	else {
+		echo 'that are applicable to all cities.';
+	}
+	echo '</li>';
 }
 ?>
 					</ul>			

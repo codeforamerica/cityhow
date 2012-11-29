@@ -28,7 +28,18 @@ else {
 	$user_name = $user_name;
 }
 global $user_city;
-$user_city = get_user_meta($user_info->ID,'user_city',true);
+
+// LOGGED OUT USERS CITY = ANY CITY
+if (!is_user_logged_in()) {
+	$user_city = 'Any City';
+}
+// LOGGED IN USERS CITY = USER_CITY
+else {
+	$user_city = get_user_meta($user_info->ID,'user_city',true);
+}
+
+// CHECK IF "ANY CITY" IS AN EXISTING TERM
+$any_city_exists = term_exists('Any City', 'nh_cities');
 
 // CLASSES
 $bodyid = get_bodyid();
@@ -144,7 +155,7 @@ endif;
 	<div class="wrapper">
 		<div id="nhnavigation" class="nav-container">			
 			<div class="nhnav">
-				<ul id="nhnav-items">					
+				<ul id="nhnav-items">
 					<li class="nhnav-item dropdown <?php 
 $findit = 'cities';
 $pos = strpos($bodyid,$findit);
@@ -153,22 +164,29 @@ echo $links;
 ?>" id="menu1"><a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">Cities <b class="caret"></b></a>
 						<ul class="dropdown-menu">				
 <?php
-// limit list to User City + Any City
 $city_terms = get_terms('nh_cities');
-foreach ($city_terms as $city_term) {
-	$city_term = $city_term->name;
-	if ($city_term == $user_city OR $city_term == 'Any City') {
-		$cities[] = $city_term;
-	}
+
+// if user logged out
+if (!is_user_logged_in()) {
+	echo '<p style="margin:0;padding:.5em;color:#fff;">Sign in to see your city\'s content</p>';
 }
-foreach ($cities as $city) {
-	echo '<li class="nhnav-item sub-menu ';
-	if ($bodyid == 'cities-'.$city) {
-		echo $links;
+// else limit list to User City + Any City
+else {
+	foreach ($city_terms as $city_term) {
+		$city_term = $city_term->name;
+		if ($city_term == $user_city OR $city_term == 'Any City') {
+			$cities[] = $city_term;
+		}
 	}
-	echo '">';
-	echo '<a title="View all content for '.$city.'" href="'.get_term_link($city,'nh_cities').'">'.$city.'</a>';
-	echo '</li>';
+	foreach ($cities as $city) {
+		echo '<li class="nhnav-item sub-menu ';
+		if ($bodyid == 'cities-'.$city) {
+			echo $links;
+		}
+		echo '">';
+		echo '<a title="View all content for '.$city.'" href="'.get_term_link($city,'nh_cities').'">'.$city.'</a>';
+		echo '</li>';
+	}
 }
 ?>
 						</ul>

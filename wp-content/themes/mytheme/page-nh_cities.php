@@ -94,7 +94,8 @@ $count_city_ideas = count($city_ideas);
 	echo '<li class="nhline city-all">';
 
 // show results for any city
-	if ($city != $user_city AND $city == 'Any City') {
+//	if ($city != $user_city AND $city == 'Any City') {
+	if ($city == 'Any City') {		
 		echo '<a class="nhline" href="'.$city_url.'" title="View content for '.$city_name.'">'.$city.'</a>';
 	}
 // show results for user city

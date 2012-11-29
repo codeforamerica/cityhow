@@ -37,30 +37,21 @@ echo $user_city_name;
 			</div><!--/ row-fluid inner-->		
 <?php endif; ?>	
 
+<?php 
+// IF USER LOGGED IN
+if (is_user_logged_in()) :
+?>
 			<div class="row-fluid">
 				<div class="span12">
 					<div class="home-featured">
-						<h5 class="widget-title">
-<?php
-if (is_user_logged_in()) {
-	echo 'Explore Guides for the City of '.$user_city_name;
-}
-else {
-	echo 'Explore Guides for Any City&nbsp;&nbsp;&nbsp;<span class="byline" style="float:right;padding-right:1.75em;font-size:93%;text-transform:none !important;font-weight:normal !important;word-spacing:0 !important;"><a class="nhline" href="'.$app_url.'/signin" title="Sign in to CityHow">sign in</a> to see Guides for your city</span>';
-}
-?>
+						<h5 class="widget-title">Explore Guides for the City of <?php echo $user_city_name;?>
 						</h5>
 						<ul class="list-guides list-guides-home">
 <?php
 $user_city_slug = strtolower($user_city);
 $user_city_slug = str_replace(' ','-',$user_city_slug);
+$user_city_slug = $user_city_slug;
 
-if (is_user_logged_in()) {
-	$user_city_slug = $user_city_slug;
-}
-elseif (!is_user_logged_in()) {
-		$user_city_slug = '';
-}
 	// show sticky posts in groups of 4
 	// that match the users city or any city
 	$sticky_ids = get_option('sticky_posts');
@@ -158,34 +149,17 @@ elseif (!is_user_logged_in()) {
 	wp_reset_query();
 	}
 ?>
-
-<?php
-if (is_user_logged_in()) {
-	echo '<div class="see_all"><a class="nhline" href="'.$app_url.'/guides" title="See more Guides">See more Guides &#187;</a></div>';
-}
-else {
-	echo '<div class="see_all"><a class="nhline" href="'.$app_url.'/guides" title="See more Guides">See more Guides &#187;</a></div>';
-}
-?>
+	<div class="see_all"><a class="nhline" href="<?php echo $app_url?>/guides" title="See more Guides">See more Guides &#187;</a></div>
 						</ul>
 					</div>
 				</div><!--/ span12-->
-			</div><!--/ row-fluid inner-->
-		
-			<div class="row-fluid home-combo">
-				<div class="span6 home-ideas">
-						
-<?php if (is_user_logged_in()) : ?>
+			</div><!--/ row-fluid inner-->		
 
-<h5 class="widget-title">Latest Ideas for CityHow Guides</h5>	
+			<div class="row-fluid home-combo">
+				<div class="span6 home-ideas">			
+					<h5 class="widget-title">Latest Ideas for CityHow Guides</h5>	
 <p><a id="addfdbk" title="Add Your Idea" class="nh-btn-blue" href="<?php echo $app_url;?>/add-idea" >Add Your Idea</a></p>
 
-<?php else : ?>
-
-<h5 class="widget-title">Latest Ideas for CityHow Guides</h5>
-<p style="float:right;padding-top:0 !important;"><span class="byline" style="font-size:93%;text-transform:none !important;font-weight:normal !important;word-spacing:0 !important;"><a class="nhline" href="<?php echo $app_url;?>/signin" title="Sign in to CityHow">sign in</a> to see Ideas for your city</span></p>
-
-<?php endif; ?>
 						<ul class="list-ideas list-ideas-home">							
 <?php
 $fdbk_sub_cat = get_cat_ID('ideas');
@@ -227,7 +201,6 @@ else {
 	echo '<span class="byline">added</span> '.get_the_date().'</span>';
 }
 ?>		
-
 	</span>
 </li>	
 
@@ -254,7 +227,79 @@ echo $content;
 				</div>
 			</div><!--/ row-fluid inner-->
 
-<?php //endif; // end if user logged in ?>			
+<?php 
+// IF USER LOGGED OUT
+else :
+?>
+			<div class="row-fluid home-combo" style="margin-top:2em !important;">
+				<div class="span6 home-ideas">
+					<h5 class="widget-title">Sample Ideas from the City of Philadelphia</h5>
+					<p style="float:right;padding-top:0 !important;"><span class="byline" style="font-size:93%;text-transform:none !important;font-weight:normal !important;word-spacing:0 !important;"><a class="nhline" href="<?php echo $app_url;?>/signin" title="Sign in to CityHow">sign in</a> to see Ideas for your city</span></p>
+					
+					<ul class="list-ideas list-ideas-home" style="clear:both;">							
+<?php
+$fdbk_sub_cat = get_cat_ID('ideas');
+$fdbk_sub_args = array(
+'post_status' => 'publish',
+'orderby' => 'date',
+'order' => DESC,
+'posts_per_page' => '5',
+'tax_query' => array(
+	'relation' => 'AND',
+	array(
+		'taxonomy' => 'category',
+		'field' => 'slug',
+		'terms' => array( 'ideas' )
+	),
+	array(
+		'taxonomy' => 'nh_cities',
+		'field' => 'slug',
+		'terms' => array( 'philadelphia-pa' )
+	)	
+)
+);
+$fdbk_sub_query = new WP_Query($fdbk_sub_args);
+if ($fdbk_sub_query->have_posts()) :
+while($fdbk_sub_query->have_posts()) :
+$fdbk_sub_query->the_post();	
+?>					
+
+<li class="ideas-list"><a class="nhline" href="<?php echo get_permalink();?>" title="See <?php echo the_title();?>"><?php echo the_title();?></a>&nbsp;&nbsp;
+	
+<span class="meta meta-small">
+
+<?php
+$guide_answer = get_post_meta($post->ID,'gde-answer',true);
+echo '<span class="byline">added</span> '.get_the_date().'</span>';
+?>		
+	</span>
+</li>	
+
+<?php 
+endwhile;
+endif;
+wp_reset_query();
+?>
+<li class="ideas-list"></li>
+					</ul>
+				</div>
+				
+				<div class="span6 home-about">
+					<h5 class="widget-title">About CityHow</h5>
+<?php
+$page_id = get_ID_by_slug('about');
+$post = get_post($page_id); 
+$content = $post->post_content;
+$content = strip_tags($content,'<p>,<a>');
+$content = trim_by_words($content,'98',nh_continue_reading_link());
+echo $content;
+?>					
+				</div>
+			</div>
+
+<?php
+// END IF USER LOGGED IN
+endif; ?>			
 
 		</div><!--/ main-->		
 	</div><!--/ wrapper-->	

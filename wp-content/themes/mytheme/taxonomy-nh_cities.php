@@ -132,12 +132,21 @@ else {
 <?php 	
 	else : 
 ?>
-<li style="margin-left:1.5em !important;border:none;width:100%;" class="city-list" id="nopost">There are no public CityHow Guides for <?php 
-if ($city_name != 'Any City') {
-	echo 'the City of ';
+<li style="margin-left:1.5em !important;border:none;width:100%;" class="city-list" id="nopost">
+<?php
+if (!is_user_logged_in()) {
+	echo 'Sorry ... there aren\'t any Guides that are applicable to all cities.';
 }
-echo $city_name;
-?>. <a href="'.$app_url.'/create-guide" title="Create a CityHow Guide">Create one!</a></li>
+else {
+	if ($city_name != 'Any City') {
+		echo 'Sorry ... there aren\'t any Guides for the City of '.$city_name.'. <a href="'.$app_url.'/create-guide">Create one!</a>';
+	}
+	else {
+		echo 'Sorry ... there aren\'t any Guides that are applicable to all cities.';	
+	}	
+}
+?>	
+</li>
 					</ul>
 <?php
 	endif; // if posts
@@ -146,7 +155,8 @@ wp_reset_query();
 				</div><!--/ list city-->
 				
 				<div id="list-ideas-city">
-					<h5 class="widget-title">Ideas for <?php
+					<h5 class="widget-title">Ideas for 
+<?php
 if ($city_name != 'Any City') {
 	echo 'the City of ';
 }
@@ -192,13 +202,21 @@ $idea_query = new WP_Query($idea_args);
 <?php 
 	else : 
 ?>
-<li style="margin-left:1.5em !important;border:none;width:100%;" class="idea-list" id="nopost">There are no Ideas yet for
+<li style="margin-left:1.5em !important;border:none;width:100%;" class="idea-list" id="nopost">
 <?php 
-if ($city_name != 'Any City') {
-	echo 'the City of ';
+// logged in user looking at any city
+if (is_user_logged_in() AND $city_name == 'Any City') {
+	echo 'Sorry ... no Ideas have been submitted yet that are applicable to all cities.';
 }
-echo $city_name;
-?>. <a href="'.$app_url.'/add-idea" title="Add Your Idea">Add your own idea!</a></li>
+// logged in user looking at his city
+elseif (is_user_logged_in() AND $city_name != 'Any City') {
+	echo 'Sorry ... no Ideas have been submitted yet for the City of '.$city_name.'. <a href="'.$app_url.'/add-idea" title="Add Your Idea">Add your idea!</a>';
+}
+// logged out user looking at any city
+else {
+	echo 'Sorry ... no Ideas have been submitted yet that are applicable to all cities.';
+}
+?></li>
 					</ul>
 <?php
 endif;
@@ -216,9 +234,8 @@ if ($users AND $user_city == $term->name) :
 					<h5 class="widget-title">People in 
 <?php 
 if ($city_name != 'Any City') {
-	echo 'the City of ';
+	echo 'the City of '.$city_name;
 }
-echo $city_name;
 ?></h5>
 					<ul class="list-people">
 <?php
@@ -288,6 +305,8 @@ foreach ($users as $user) {
 				</div><!--/ list people-->
 														
 <?php elseif (!$users AND $user_city) :
+// if this page is not any city
+if ($user_city != 'Any City') {
 ?>	
 					<div id="list-people">					
 						<h5 class="widget-title">People in 
@@ -305,12 +324,13 @@ if ($city_name != 'Any City') {
 echo $city_name.' ';
 ?>
 yet. <a href="<?php echo $app_url;?>/register" title="Create an account">Create an Account!</a></li>
-<?php
-endif;
-wp_reset_query();					 
-?>				
 					</ul>		
 				</div><!--/ list people-->
+<?php 
+// end if page is not any city
+} 
+endif;
+wp_reset_query();?>				
 			</div><!--/ content-full -->		
 <?php else : // if not user city or any city ?>
 				<div class="span7">						

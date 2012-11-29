@@ -24,13 +24,23 @@ foreach ($cities as $city) {
 		$city_name = $city;
 	}	
 }
-
 $user_city_slug = strtolower($user_city);
 $user_city_slug = str_replace(' ','-',$user_city_slug);
 ?>			
 			<div class="row-fluid">
 				<div class="span8 content-faux">	
-					<h3 class="page-title">Guides for <?php echo $city_name;?></h3>
+					<h3 class="page-title">Guides for 
+<?php 
+// logged out user sees Any City
+if (!is_user_logged_in()) { 
+	echo 'Any City';
+}
+// everyone else sees user city name
+else {
+	echo 'City of '.substr($user_city,0,-3);
+}
+?>
+</h3>
 					<div class="intro-block noborder">
 					
 <?php
@@ -131,7 +141,22 @@ else {
 	endwhile; 
 else :
 ?>	
-<li class="guides-list" id="post-no-guides">Sorry, there are no public CityHow Guides to see at this time.</li>
+<li class="" id="post-no-guides">Sorry ... there aren't any
+<?php
+if (!is_user_logged_in()) {
+	echo 'Guides that are applicable to all cities.';
+}
+elseif ($user_city != 'Any City') {
+	echo 'Guides for ';
+	if ($user_city == $city_name) {
+		echo ' the City of '.substr($user_city,0,-3).'. <a href="'.$app_url.'/create-guide">Create one</a>!';
+	}
+	else {
+		echo ' the City of '.substr($user_city,0,-3);
+	}
+}
+?>
+</li>
 <?php 
 endif; 
 

@@ -54,7 +54,7 @@ $tag_args = array(
 $tag_query = new WP_Query($tag_args);
 if (!$tag_query->have_posts()) :
 ?>	
-	<li class="fdbk-list">Sorry, there is no public content matching this Topic right now.</li>
+	<li class="fdbk-list">Sorry ... there is no content matching this Topic right now.</li>
 
 <?php else: ?>	
 
@@ -109,7 +109,13 @@ $new_user_city = $new_cities[$user_city_id]->name;
 $user_city_slug = strtolower($new_user_city);
 $new_user_city_slug = str_replace(' ','-',$user_city_slug);
 
-$new_user_city_name = 'City of '.substr($new_user_city,0,-3);
+// assign correct city name
+if ($new_user_city != 'Any City') {
+	$new_user_city_name = 'City of '.substr($new_user_city,0,-3);
+}
+else {
+	$new_user_city_name = $new_user_city;
+}
 
 $new_any_city = $new_cities[$any_city_id]->name;
 $any_city_slug = strtolower($new_any_city);
@@ -122,7 +128,12 @@ if ($new_any_city AND !$new_user_city) {
 }
 
 elseif ($new_any_city AND $new_user_city) {
-	$city_string = '<a href="'.$app_url.'/cities/'.$new_any_city_slug.'" title="See content for '.$new_any_city.'">'.$new_any_city.'</a>, <a href="'.$app_url.'/cities/'.$new_user_city_slug.'" title="See content for '.$new_user_city_name.'">'.$new_user_city_name.'</a>';	
+	if ($new_any_city == $new_user_city) {
+		$city_string = '<a href="'.$app_url.'/cities/'.$new_user_city_slug.'" title="See content for '.$new_user_city_name.'">'.$new_user_city_name.'</a>';
+	}
+	else {
+		$city_string = '<a href="'.$app_url.'/cities/'.$new_any_city_slug.'" title="See content for '.$new_any_city.'">'.$new_any_city.'</a>, <a href="'.$app_url.'/cities/'.$new_user_city_slug.'" title="See content for '.$new_user_city_name.'">'.$new_user_city_name.'</a>';	
+	}
 }
 
 elseif (!$new_any_city AND $new_user_city) {
