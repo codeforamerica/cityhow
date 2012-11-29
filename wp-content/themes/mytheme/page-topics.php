@@ -115,12 +115,15 @@ $query_g = array(
 	)
 );
 $guide_tags = query_posts($query_g);
-foreach ($guide_tags as $guide_tag) {
-	$guide_post_tags = wp_get_post_tags($guide_tag->ID);
-	foreach ($guide_post_tags as $guide_post_tag) {
-		$g_post_tags[] = $guide_post_tag->name;
-	}
+if ($guide_tags) {
+	foreach ($guide_tags as $guide_tag) {
+		$guide_post_tags = wp_get_post_tags($guide_tag->ID);
+		foreach ($guide_post_tags as $guide_post_tag) {
+			$g_post_tags[] = $guide_post_tag->name;
+		}
+	}	
 }
+
 // get tags for ideas in user city and any city
 $query_i = array(
 	'posts_per_page' => -1,
@@ -147,14 +150,22 @@ foreach ($idea_tags as $idea_tag) {
 	}
 }
 
-$b_tags_unique = array_unique($b_post_tags);
-$count_g_post_tags = array_count_values($g_post_tags);
-$g_tags_unique = array_unique($g_post_tags);
-$count_i_post_tags = array_count_values($i_post_tags);
-$i_tags_unique = array_unique($i_post_tags);
+if ($b_post_tags) {
+	$b_tags_unique = array_unique($b_post_tags);
+	// alpha sort tags
+	natsort($b_tags_unique);	
+}
 
-// alpha sort tags
-natsort($b_tags_unique);
+if ($g_post_tags) {
+	$count_g_post_tags = array_count_values($g_post_tags);
+	$g_tags_unique = array_unique($g_post_tags);	
+}
+
+if ($i_post_tags) {
+	$count_i_post_tags = array_count_values($i_post_tags);
+	$i_tags_unique = array_unique($i_post_tags);	
+}
+
 
 if ($b_tags_unique) {	
 	foreach ($b_tags_unique as $b_tag) {
