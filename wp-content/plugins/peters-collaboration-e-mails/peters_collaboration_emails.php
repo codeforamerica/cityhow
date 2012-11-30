@@ -72,7 +72,8 @@ $pce_emails_to_send['approved'] = true;
 // Goes from pending to approved at a set time in the future
 $pce_emails_to_send['future'] = true;
 // Goes back to draft status
-$pce_emails_to_send['backtodraft'] = true;
+// CITYHOW = DONT ALERT USER WHEN CHANGE BACK TO DRAFT
+$pce_emails_to_send['backtodraft'] = false;
 // Goes from scheduled to be published to actually published
 $pce_emails_to_send['wentlive'] = true;
 // Goes from private to published

@@ -173,9 +173,10 @@ $(".guide_tag")
 </script>
 
 <script type="text/javascript">
-// Google analytics
+
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-32197535-1']);
+  _gaq.push(['_setAccount', 'UA-36715149-1']);
+  _gaq.push(['_setDomainName', 'cityhow.org']);
   _gaq.push(['_trackPageview']);
 
   (function() {
@@ -183,6 +184,7 @@ $(".guide_tag")
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+
 </script>
 
 </body>
